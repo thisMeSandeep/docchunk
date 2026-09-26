@@ -31,6 +31,7 @@
     "lint": "biome check .",
     "build": "tsup",
     "bench": "bun run bench/run.ts",
+    "bench:node": "bun build bench/run.ts --target=node --packages=external --outfile=node_modules/.cache/docchunk-bench.mjs && node node_modules/.cache/docchunk-bench.mjs",
     "check:network": "bun run scripts/check-no-network.ts"
   },
   "devDependencies": {
@@ -38,6 +39,7 @@
     "@types/mdast": "4.0.4",
     "@types/node": "22",
     "fast-check": "4.10.2",
+    "tinybench": "6.2.0",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
     "vitest": "5.0.2"

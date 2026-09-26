@@ -31,6 +31,10 @@ export const paragraphStrategy: StrategyDefinition<"paragraph"> = {
         ? oneChunkPerBlock(ir.blocks)
         : packBlocks(ir.markdown, ir.blocks, options.size);
     const merged = mergeSmallChunks(chunks, options.minSize, options.size);
+    // Sentence units are only needed for overlap, so they are not computed without it.
+    if (options.overlapChars === 0) {
+      return merged;
+    }
     return addOverlap(merged, getSentenceUnits(ir), options.overlapChars, options.size);
   },
 };
