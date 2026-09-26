@@ -1,0 +1,47 @@
+== structure
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== sentence
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== paragraph
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== heading
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== sentence-window
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== parent-child
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== hierarchical
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== hierarchical by heading
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== fixed
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== fixed-overlap
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== recursive
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.
+
+== sliding-window
+document 357d0fdcdd6e4a194045 markdown 10 chars
+warning EMPTY_DOCUMENT chunk=- The document has no text to chunk.

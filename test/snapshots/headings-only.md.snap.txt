@@ -1,0 +1,66 @@
+== structure
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-5 5 id=120c194ef6 text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+1 7-13 6 id=e132320b17 text=030bc91163 path=096a7dfa blocks=heading
+2 15-24 9 id=4b8fafa3ab text=77c1561f41 path=82256253 blocks=heading
+
+== sentence
+document 6ef9f0ef31879af68dcf markdown 25 chars
+
+== paragraph
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-5 5 id=422f1cb090 text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+1 7-13 6 id=8108c2cd64 text=030bc91163 path=096a7dfa blocks=heading
+2 15-24 9 id=ff7d9a43c5 text=77c1561f41 path=82256253 blocks=heading
+
+== heading
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-5 5 id=cd8cd3ff8f text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+1 7-13 6 id=907ad66a81 text=030bc91163 path=096a7dfa blocks=heading
+2 15-24 9 id=522d1b9c57 text=77c1561f41 path=82256253 blocks=heading
+
+== sentence-window
+document 6ef9f0ef31879af68dcf markdown 25 chars
+
+== parent-child
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-5 5 level=0 id=aa0e93eed1 text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+1 0-5 5 level=1 parent=0 id=6852a7c41a text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+2 7-13 6 level=0 id=e0bb25c56b text=030bc91163 path=096a7dfa blocks=heading
+3 7-13 6 level=1 parent=2 id=8f65fcdf70 text=030bc91163 path=096a7dfa blocks=heading
+4 15-24 9 level=0 id=f5f9ac507a text=77c1561f41 path=82256253 blocks=heading
+5 15-24 9 level=1 parent=4 id=9ac5282b8a text=77c1561f41 path=82256253 blocks=heading
+
+== hierarchical
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-5 5 level=0 id=49b370f5ba text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+1 0-5 5 level=1 parent=0 id=9990dcf1c3 text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+2 0-5 5 level=2 parent=1 id=620ac56d9f text=9ec1d2e3a1 path=de0f4a88 blocks=heading
+3 7-13 6 level=0 id=73e348f315 text=030bc91163 path=096a7dfa blocks=heading
+4 7-13 6 level=1 parent=3 id=dc95645f76 text=030bc91163 path=096a7dfa blocks=heading
+5 7-13 6 level=2 parent=4 id=26e6e9d40d text=030bc91163 path=096a7dfa blocks=heading
+6 15-24 9 level=0 id=cdcf36987f text=77c1561f41 path=82256253 blocks=heading
+7 15-24 9 level=1 parent=6 id=a3260f2fa3 text=77c1561f41 path=82256253 blocks=heading
+8 15-24 9 level=2 parent=7 id=4b2273f303 text=77c1561f41 path=82256253 blocks=heading
+
+== hierarchical by heading
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-24 24 level=0 id=2012cd16a0 text=a6096a31bc path=de0f4a88 blocks=heading
+1 7-24 17 level=1 parent=0 id=5f7bb18cf0 text=c419b2318a path=096a7dfa blocks=heading
+2 15-24 9 level=2 parent=1 id=ddb9c78a02 text=77c1561f41 path=82256253 blocks=heading
+
+== fixed
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-24 24 id=14346153d5 text=a6096a31bc path=de0f4a88 blocks=heading
+
+== fixed-overlap
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-24 24 id=44012c108a text=a6096a31bc path=de0f4a88 blocks=heading
+
+== recursive
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-24 24 id=6631528fba text=a6096a31bc path=de0f4a88 blocks=heading
+
+== sliding-window
+document 6ef9f0ef31879af68dcf markdown 25 chars
+0 0-24 24 id=12f80f4ee1 text=a6096a31bc path=de0f4a88 blocks=heading

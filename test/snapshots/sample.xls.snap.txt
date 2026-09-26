@@ -1,0 +1,134 @@
+== structure
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-1434 1434 id=2463944295 text=0f79d62f60 path=4f53cda1 blocks=table
+1 1435-2799 1482 id=a721f7569f text=b2c91ffcb9 path=4f53cda1 blocks=table
+2 2800-4126 1444 id=5960b9aca0 text=025a718ffa path=4f53cda1 blocks=table
+3 4127-5443 1434 id=c3fc14bc32 text=069c8f1773 path=4f53cda1 blocks=table
+4 5444-6822 1496 id=c4c728488e text=2b9181d7a4 path=4f53cda1 blocks=table
+5 6823-7411 706 id=ef7d262f9e text=294a9cb8fe path=4f53cda1 blocks=table
+
+== sentence
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-7411 7411 id=c18d8c5f3f text=58a41f3671 path=4f53cda1 blocks=table
+
+== paragraph
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-7411 7411 id=788ec84589 text=58a41f3671 path=4f53cda1 blocks=table
+
+== heading
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-7411 7411 id=8941d99e2a text=58a41f3671 path=4f53cda1 blocks=table
+
+== sentence-window
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-7411 7411 context=7411 id=68cc894ecf text=58a41f3671 path=4f53cda1 blocks=table
+
+== parent-child
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-3972 3972 level=0 id=ea8c38528e text=ca9942c69d path=4f53cda1 blocks=table
+1 0-772 772 level=1 parent=0 id=2bc7b109d7 text=ce1dfa5a30 path=4f53cda1 blocks=table
+2 773-1434 779 level=1 parent=0 id=7c9eaac8b0 text=6bb8208789 path=4f53cda1 blocks=table
+3 1435-2073 756 level=1 parent=0 id=d62e5e5ecc text=3e1e34a92a path=4f53cda1 blocks=table
+4 2074-2730 774 level=1 parent=0 id=8acf085c5b text=3bb3a06bb5 path=4f53cda1 blocks=table
+5 2731-3385 772 level=1 parent=0 id=73db1a3c9b text=6ac72b94d4 path=4f53cda1 blocks=table
+6 3386-3972 704 level=1 parent=0 id=43cc71f9c6 text=0b8f6b49a4 path=4f53cda1 blocks=table
+7 3973-7411 3556 level=0 id=1a2519f5c7 text=774395a5f9 path=4f53cda1 blocks=table
+8 3973-4643 788 level=1 parent=7 id=2d95a40fdd text=64221143ba path=4f53cda1 blocks=table
+9 4644-5298 772 level=1 parent=7 id=de371c8d1d text=37c76eec47 path=4f53cda1 blocks=table
+10 5299-5945 764 level=1 parent=7 id=eef909b7cb text=d668845466 path=4f53cda1 blocks=table
+11 5946-6599 771 level=1 parent=7 id=5b27e58e90 text=6d74edb07c path=4f53cda1 blocks=table
+12 6600-7262 780 level=1 parent=7 id=09a1434c2f text=931d871d7c path=4f53cda1 blocks=table
+13 7263-7411 266 level=1 parent=7 id=4f774cdcfb text=05f9e7a983 path=4f53cda1 blocks=table
+
+== hierarchical
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-5945 5945 level=0 id=a75e9a0595 text=59ca80d6dd path=4f53cda1 blocks=table
+1 0-1434 1434 level=1 parent=0 id=028139a2fd text=0f79d62f60 path=4f53cda1 blocks=table
+2 0-327 327 level=2 parent=1 id=a66a891844 text=2055994c2f path=4f53cda1 blocks=table
+3 328-550 340 level=2 parent=1 id=820d6287a9 text=5b07c69328 path=4f53cda1 blocks=table
+4 551-772 339 level=2 parent=1 id=38851697c8 text=903be8f2e4 path=4f53cda1 blocks=table
+5 773-992 337 level=2 parent=1 id=2e8f5e4b8f text=d3f02c0eec path=4f53cda1 blocks=table
+6 993-1221 346 level=2 parent=1 id=4f2b23bc44 text=b29d3b7f78 path=4f53cda1 blocks=table
+7 1222-1434 330 level=2 parent=1 id=9353ff2eef text=617e4d3c2c path=4f53cda1 blocks=table
+8 1435-2799 1482 level=1 parent=0 id=4690a5a528 text=b2c91ffcb9 path=4f53cda1 blocks=table
+9 1435-1647 330 level=2 parent=8 id=155a680550 text=b8a2f51b44 path=4f53cda1 blocks=table
+10 1648-1926 396 level=2 parent=8 id=22d5b5bb7e text=19df2561cf path=4f53cda1 blocks=table
+11 1927-2147 338 level=2 parent=8 id=90af02de73 text=bd02e89781 path=4f53cda1 blocks=table
+12 2148-2366 336 level=2 parent=8 id=f14ca8d2b5 text=627afdc037 path=4f53cda1 blocks=table
+13 2367-2584 335 level=2 parent=8 id=457b9ec048 text=78dd0e7855 path=4f53cda1 blocks=table
+14 2585-2799 332 level=2 parent=8 id=ad91a4125a text=9db0d3d778 path=4f53cda1 blocks=table
+15 2800-4126 1444 level=1 parent=0 id=d8992639c9 text=025a718ffa path=4f53cda1 blocks=table
+16 2800-3020 338 level=2 parent=15 id=5d46844b69 text=79215cea0e path=4f53cda1 blocks=table
+17 3021-3235 332 level=2 parent=15 id=bafe58c3be text=d43ec5a437 path=4f53cda1 blocks=table
+18 3236-3462 344 level=2 parent=15 id=a29cfb4e1f text=b8668f5571 path=4f53cda1 blocks=table
+19 3463-3682 337 level=2 parent=15 id=08c92b8c04 text=94e7b1eaa9 path=4f53cda1 blocks=table
+20 3683-3908 343 level=2 parent=15 id=66126d1aef text=bd62be167e path=4f53cda1 blocks=table
+21 3909-4126 335 level=2 parent=15 id=0a637dfada text=8ef2127eba path=4f53cda1 blocks=table
+22 4127-5443 1434 level=1 parent=0 id=43eef56150 text=069c8f1773 path=4f53cda1 blocks=table
+23 4127-4345 336 level=2 parent=22 id=bd57ac3dae text=ee4f652650 path=4f53cda1 blocks=table
+24 4346-4575 347 level=2 parent=22 id=b4f5eebdd1 text=8a3cc6da26 path=4f53cda1 blocks=table
+25 4576-4797 339 level=2 parent=22 id=8b94831f3d text=65ac657b99 path=4f53cda1 blocks=table
+26 4798-5007 327 level=2 parent=22 id=8937864354 text=1aeb79ced4 path=4f53cda1 blocks=table
+27 5008-5221 331 level=2 parent=22 id=b2d9f72016 text=eaae93cfac path=4f53cda1 blocks=table
+28 5222-5443 339 level=2 parent=22 id=f91ac37f13 text=2be66a8ba9 path=4f53cda1 blocks=table
+29 5444-5945 619 level=1 parent=0 id=bfe6cd863f text=7dc7466cc4 path=4f53cda1 blocks=table
+30 5444-5724 398 level=2 parent=29 id=345c67868f text=13876089e8 path=4f53cda1 blocks=table
+31 5725-5945 338 level=2 parent=29 id=bcd11a2924 text=198b729a48 path=4f53cda1 blocks=table
+32 5946-7411 1583 level=0 id=37ccc78ba5 text=2eac91f07a path=4f53cda1 blocks=table
+33 5946-7262 1434 level=1 parent=32 id=ddeb9192b0 text=38796d0095 path=4f53cda1 blocks=table
+34 5946-6166 338 level=2 parent=33 id=90b5865c42 text=951cff9659 path=4f53cda1 blocks=table
+35 6167-6381 332 level=2 parent=33 id=9dc9a6dfb9 text=3fb041aa85 path=4f53cda1 blocks=table
+36 6382-6599 335 level=2 parent=33 id=04c1c611ab text=9aa30ebcda path=4f53cda1 blocks=table
+37 6600-6822 340 level=2 parent=33 id=f785706bf1 text=7c9ad88e66 path=4f53cda1 blocks=table
+38 6823-7036 331 level=2 parent=33 id=2bae2e3f39 text=863536bdf6 path=4f53cda1 blocks=table
+39 7037-7262 343 level=2 parent=33 id=cc04541242 text=9e2c52121b path=4f53cda1 blocks=table
+40 7263-7411 266 level=1 parent=32 id=027b240311 text=05f9e7a983 path=4f53cda1 blocks=table
+41 7263-7411 266 level=2 parent=40 id=1b25c2e160 text=05f9e7a983 path=4f53cda1 blocks=table
+
+== hierarchical by heading
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-7411 7411 level=0 id=71f2197e2a text=58a41f3671 path=4f53cda1 blocks=table
+1 0-1434 1434 level=1 parent=0 id=09864fdb0e text=0f79d62f60 path=4f53cda1 blocks=table
+2 1435-2799 1482 level=1 parent=0 id=0ef18f2f73 text=b2c91ffcb9 path=4f53cda1 blocks=table
+3 2800-4126 1444 level=1 parent=0 id=5938ebfb25 text=025a718ffa path=4f53cda1 blocks=table
+4 4127-5443 1434 level=1 parent=0 id=4ef63ef0d6 text=069c8f1773 path=4f53cda1 blocks=table
+5 5444-6822 1496 level=1 parent=0 id=caf85de5c1 text=2b9181d7a4 path=4f53cda1 blocks=table
+6 6823-7411 706 level=1 parent=0 id=c1bdb5d768 text=294a9cb8fe path=4f53cda1 blocks=table
+
+== fixed
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-1500 1500 id=857648413b text=ea8aecc372 path=4f53cda1 blocks=table
+1 1501-3000 1499 id=6ce2006f68 text=9afbf320cd path=4f53cda1 blocks=table
+2 3001-4499 1498 id=2c69fd920d text=49971e0f70 path=4f53cda1 blocks=table
+3 4500-5997 1497 id=975d8ec95d text=d5bf715bc2 path=4f53cda1 blocks=table
+4 5998-7411 1413 id=db88267ffc text=0b5b6e243b path=4f53cda1 blocks=table
+
+== fixed-overlap
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-1500 1500 id=bbf43b64ae text=ea8aecc372 path=4f53cda1 blocks=table
+1 1300-2799 1499 id=12b1aecbd5 text=e8c48427ff path=4f53cda1 blocks=table
+2 2601-4099 1498 id=bf9342d39b text=e20067ea1d path=4f53cda1 blocks=table
+3 3900-5400 1500 id=4131f87d00 text=33330267bc path=4f53cda1 blocks=table
+4 5200-6699 1499 id=adf3128b32 text=de2ed335a4 path=4f53cda1 blocks=table
+5 6501-7411 910 id=51f6148bac text=358503824a path=4f53cda1 blocks=table
+
+== recursive
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-1434 1434 id=1938b7580e text=0f79d62f60 path=4f53cda1 blocks=table
+1 1435-2869 1434 id=91c4c8b9a5 text=18f8fe5805 path=4f53cda1 blocks=table
+2 2870-4345 1475 id=848572993f text=825f67ab71 path=4f53cda1 blocks=table
+3 4346-5798 1452 id=9261842380 text=bce1d9a607 path=4f53cda1 blocks=table
+4 5799-7262 1463 id=9a1b49c3fe text=ba583401ab path=4f53cda1 blocks=table
+5 7263-7411 148 id=65a0abf858 text=5d264964ee path=4f53cda1 blocks=table
+
+== sliding-window
+document 7fc7e07333c7b3412f13 xls 7412 chars
+0 0-1500 1500 id=461c37b102 text=ea8aecc372 path=4f53cda1 blocks=table
+1 751-2244 1493 id=a4cb6ed3a0 text=fb49e39615 path=4f53cda1 blocks=table
+2 1496-2995 1499 id=733f760baa text=5ec9b4be10 path=4f53cda1 blocks=table
+3 2245-3739 1494 id=395348b511 text=3989b1bdad path=4f53cda1 blocks=table
+4 2990-4490 1500 id=c1cd51a630 text=4e834057d1 path=4f53cda1 blocks=table
+5 3740-5238 1498 id=08084a4eea text=5c4cf6f7cc path=4f53cda1 blocks=table
+6 4489-5982 1493 id=cee75af1c0 text=b9a8cfa76f path=4f53cda1 blocks=table
+7 5233-6727 1494 id=473fa42826 text=56a763ba47 path=4f53cda1 blocks=table
+8 5978-7411 1433 id=14a2da58da text=183d12d703 path=4f53cda1 blocks=table

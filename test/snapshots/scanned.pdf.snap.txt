@@ -1,0 +1,47 @@
+== structure
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== sentence
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== paragraph
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== heading
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== sentence-window
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== parent-child
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== hierarchical
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== hierarchical by heading
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== fixed
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== fixed-overlap
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== recursive
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.
+
+== sliding-window
+document e3b0c44298fc1c149afb pdf 0 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 1 of 1.

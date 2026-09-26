@@ -1,0 +1,93 @@
+== structure
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-1497 1497 id=6303396238 text=9ace796baa path=4f53cda1 blocks=paragraph
+1 1498-2996 1498 id=e65eedb302 text=5eb2736a5b path=4f53cda1 blocks=paragraph
+2 2997-4494 1497 id=c803bf3121 text=9ace796baa path=4f53cda1 blocks=paragraph
+3 4495-4723 228 id=4a0ac252b9 text=e75fefd821 path=4f53cda1 blocks=paragraph
+
+== sentence
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-4723 4723 id=8fac401428 text=f281390a44 path=4f53cda1 blocks=paragraph
+
+== paragraph
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-4723 4723 id=797b574823 text=f281390a44 path=4f53cda1 blocks=paragraph
+
+== heading
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-4723 4723 id=041f46254f text=f281390a44 path=4f53cda1 blocks=paragraph
+
+== sentence-window
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-4723 4723 context=4723 id=ba7f37cbf9 text=f281390a44 path=4f53cda1 blocks=paragraph
+
+== parent-child
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-3994 3994 level=0 id=ff288b12e4 text=403372b311 path=4f53cda1 blocks=paragraph
+1 0-795 795 level=1 parent=0 id=4ab60f9923 text=9fc0671690 path=4f53cda1 blocks=paragraph
+2 796-1591 795 level=1 parent=0 id=a9c259058c text=fb3d6eab94 path=4f53cda1 blocks=paragraph
+3 1592-2388 796 level=1 parent=0 id=0bd57550db text=7b75d40f32 path=4f53cda1 blocks=paragraph
+4 2389-3184 795 level=1 parent=0 id=b2756fa72d text=0a02491af9 path=4f53cda1 blocks=paragraph
+5 3185-3981 796 level=1 parent=0 id=7fbb8ff0a8 text=bbeefa8377 path=4f53cda1 blocks=paragraph
+6 3982-3994 12 level=1 parent=0 id=16e7128301 text=61cd050751 path=4f53cda1 blocks=paragraph
+7 3995-4723 728 level=0 id=877d0f929b text=88a080e616 path=4f53cda1 blocks=paragraph
+8 3995-4723 728 level=1 parent=7 id=c01a9e596d text=88a080e616 path=4f53cda1 blocks=paragraph
+
+== hierarchical
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-4723 4723 level=0 id=972bd7b46f text=f281390a44 path=4f53cda1 blocks=paragraph
+1 0-1497 1497 level=1 parent=0 id=f99e1531d2 text=9ace796baa path=4f53cda1 blocks=paragraph
+2 0-397 397 level=2 parent=1 id=23bd4c0f44 text=7121854988 path=4f53cda1 blocks=paragraph
+3 398-795 397 level=2 parent=1 id=6df0e412e6 text=95add40532 path=4f53cda1 blocks=paragraph
+4 796-1193 397 level=2 parent=1 id=dd50ec0496 text=7f08557116 path=4f53cda1 blocks=paragraph
+5 1194-1497 303 level=2 parent=1 id=f051540581 text=7c83e9e44c path=4f53cda1 blocks=paragraph
+6 1498-2996 1498 level=1 parent=0 id=818720ed50 text=5eb2736a5b path=4f53cda1 blocks=paragraph
+7 1498-1896 398 level=2 parent=6 id=b611c3053b text=f1ee1efe16 path=4f53cda1 blocks=paragraph
+8 1897-2293 396 level=2 parent=6 id=81d338d879 text=a9f854158c path=4f53cda1 blocks=paragraph
+9 2294-2692 398 level=2 parent=6 id=aa348d052e text=df3ce3f421 path=4f53cda1 blocks=paragraph
+10 2693-2996 303 level=2 parent=6 id=dba41c1458 text=9d207f61c1 path=4f53cda1 blocks=paragraph
+11 2997-4494 1497 level=1 parent=0 id=b05b309a24 text=9ace796baa path=4f53cda1 blocks=paragraph
+12 2997-3394 397 level=2 parent=11 id=116c2c79e0 text=7121854988 path=4f53cda1 blocks=paragraph
+13 3395-3792 397 level=2 parent=11 id=77f48121ed text=95add40532 path=4f53cda1 blocks=paragraph
+14 3793-4190 397 level=2 parent=11 id=118f1a40a2 text=7f08557116 path=4f53cda1 blocks=paragraph
+15 4191-4494 303 level=2 parent=11 id=ad20c09ceb text=7c83e9e44c path=4f53cda1 blocks=paragraph
+16 4495-4723 228 level=1 parent=0 id=3410a09146 text=e75fefd821 path=4f53cda1 blocks=paragraph
+17 4495-4723 228 level=2 parent=16 id=f60309c0de text=e75fefd821 path=4f53cda1 blocks=paragraph
+
+== hierarchical by heading
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-4723 4723 level=0 id=99efb1a5e6 text=f281390a44 path=4f53cda1 blocks=paragraph
+1 0-1497 1497 level=1 parent=0 id=01c8e98f5a text=9ace796baa path=4f53cda1 blocks=paragraph
+2 1498-2996 1498 level=1 parent=0 id=613052cdca text=5eb2736a5b path=4f53cda1 blocks=paragraph
+3 2997-4494 1497 level=1 parent=0 id=9e6e67029e text=9ace796baa path=4f53cda1 blocks=paragraph
+4 4495-4723 228 level=1 parent=0 id=0d6fd387de text=e75fefd821 path=4f53cda1 blocks=paragraph
+
+== fixed
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-1497 1497 id=c2b06a2e6c text=9ace796baa path=4f53cda1 blocks=paragraph
+1 1498-2996 1498 id=6cf15a0df1 text=5eb2736a5b path=4f53cda1 blocks=paragraph
+2 2997-4494 1497 id=4e4e9fff34 text=9ace796baa path=4f53cda1 blocks=paragraph
+3 4495-4723 228 id=2a82e99612 text=e75fefd821 path=4f53cda1 blocks=paragraph
+
+== fixed-overlap
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-1497 1497 id=fa6cd72cac text=9ace796baa path=4f53cda1 blocks=paragraph
+1 1298-2793 1495 id=07ac43028c text=eff092ab85 path=4f53cda1 blocks=paragraph
+2 2594-4089 1495 id=610c3b0eaf text=eff092ab85 path=4f53cda1 blocks=paragraph
+3 3890-4723 833 id=0df256c8e9 text=5d52cdd55a path=4f53cda1 blocks=paragraph
+
+== recursive
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-1497 1497 id=bccbeb9078 text=9ace796baa path=4f53cda1 blocks=paragraph
+1 1498-2996 1498 id=c401110998 text=5eb2736a5b path=4f53cda1 blocks=paragraph
+2 2997-4494 1497 id=cff0b33038 text=9ace796baa path=4f53cda1 blocks=paragraph
+3 4495-4723 228 id=05b93e10b8 text=e75fefd821 path=4f53cda1 blocks=paragraph
+
+== sliding-window
+document bdb966c0491945aa2dc7 markdown 4724 chars
+0 0-1497 1497 id=d3c49cc9f3 text=9ace796baa path=4f53cda1 blocks=paragraph
+1 749-2246 1497 id=e1943c3be8 text=563f813314 path=4f53cda1 blocks=paragraph
+2 1498-2996 1498 id=fa97665521 text=5eb2736a5b path=4f53cda1 blocks=paragraph
+3 2247-3745 1498 id=1844a6cfc4 text=7e7a11704e path=4f53cda1 blocks=paragraph
+4 2997-4494 1497 id=2515692e25 text=9ace796baa path=4f53cda1 blocks=paragraph
+5 3746-4723 977 id=2d27f1e51f text=ffac031b69 path=4f53cda1 blocks=paragraph

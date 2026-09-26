@@ -1,0 +1,90 @@
+== structure
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-119 119 id=bcf7304ba8 text=af25d16396 path=7e99da8b blocks=heading,paragraph
+1 121-174 53 id=17e927b101 text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+2 176-360 184 id=ade06017d8 text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+
+== sentence
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 9-30 21 id=7e06504ec9 text=0731d5266d path=7e99da8b blocks=paragraph
+1 31-60 29 id=ec3ecac244 text=282e471cbd path=7e99da8b blocks=paragraph
+2 61-90 29 id=a87ff0ab3f text=a854f7a3c3 path=7e99da8b blocks=paragraph
+3 91-119 28 id=0db8805407 text=5ac5125dec path=7e99da8b blocks=paragraph
+4 128-139 11 id=c5722f6b11 text=7ab0972982 path=60891743 blocks=paragraph
+5 139-150 11 id=35d59de9f8 text=4b36f8f32a path=60891743 blocks=paragraph
+6 150-164 14 id=caeeedfa4e text=b034dfd4dc path=60891743 blocks=paragraph
+7 164-174 10 id=f7a8569bbc text=c41f0dc177 path=60891743 blocks=paragraph
+8 188-225 37 id=1304c2af47 text=d63c44c44e path=97eb17f0 blocks=paragraph
+9 226-259 33 id=155f33e9c1 text=0a064c41a4 path=97eb17f0 blocks=paragraph
+10 260-309 49 id=1a3afbfb5d text=491e19601b path=97eb17f0 blocks=paragraph
+11 310-360 50 id=5721b3cec5 text=ba62eeaaa3 path=97eb17f0 blocks=paragraph
+
+== paragraph
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-119 119 id=47aab93333 text=af25d16396 path=7e99da8b blocks=heading,paragraph
+1 121-174 53 id=d899de51ee text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+2 176-360 184 id=d58b5d2ef0 text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+
+== heading
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-119 119 id=fc7c42334b text=af25d16396 path=7e99da8b blocks=heading,paragraph
+1 121-174 53 id=58aa05ba86 text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+2 176-360 184 id=b945ec03f3 text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+
+== sentence-window
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 9-30 21 context=110 id=f2310e0116 text=0731d5266d path=7e99da8b blocks=paragraph
+1 31-60 29 context=110 id=eb972fd313 text=282e471cbd path=7e99da8b blocks=paragraph
+2 61-90 29 context=110 id=abfb44dbd4 text=a854f7a3c3 path=7e99da8b blocks=paragraph
+3 91-119 28 context=110 id=aae2277efd text=5ac5125dec path=7e99da8b blocks=paragraph
+4 128-139 11 context=46 id=b6e4604b1a text=7ab0972982 path=60891743 blocks=paragraph
+5 139-150 11 context=46 id=8a67c803eb text=4b36f8f32a path=60891743 blocks=paragraph
+6 150-164 14 context=46 id=45e6fd5693 text=b034dfd4dc path=60891743 blocks=paragraph
+7 164-174 10 context=46 id=235f74c128 text=c41f0dc177 path=60891743 blocks=paragraph
+8 188-225 37 context=172 id=3cfb0972c6 text=d63c44c44e path=97eb17f0 blocks=paragraph
+9 226-259 33 context=172 id=5b42559a92 text=0a064c41a4 path=97eb17f0 blocks=paragraph
+10 260-309 49 context=172 id=dec7b340da text=491e19601b path=97eb17f0 blocks=paragraph
+11 310-360 50 context=172 id=6883f9e7b2 text=ba62eeaaa3 path=97eb17f0 blocks=paragraph
+
+== parent-child
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-119 119 level=0 id=608962e7ab text=af25d16396 path=7e99da8b blocks=heading,paragraph
+1 0-119 119 level=1 parent=0 id=f4caea6a4f text=af25d16396 path=7e99da8b blocks=heading,paragraph
+2 121-174 53 level=0 id=031d0f4288 text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+3 121-174 53 level=1 parent=2 id=a732da5316 text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+4 176-360 184 level=0 id=4a05bffcf6 text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+5 176-360 184 level=1 parent=4 id=7695046b4e text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+
+== hierarchical
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-119 119 level=0 id=59f5996ed8 text=af25d16396 path=7e99da8b blocks=heading,paragraph
+1 0-119 119 level=1 parent=0 id=1538a6a115 text=af25d16396 path=7e99da8b blocks=heading,paragraph
+2 0-119 119 level=2 parent=1 id=65fce50769 text=af25d16396 path=7e99da8b blocks=heading,paragraph
+3 121-174 53 level=0 id=e514d448a7 text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+4 121-174 53 level=1 parent=3 id=f52fce4748 text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+5 121-174 53 level=2 parent=4 id=1b2cb95926 text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+6 176-360 184 level=0 id=5132517c46 text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+7 176-360 184 level=1 parent=6 id=239739a0fb text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+8 176-360 184 level=2 parent=7 id=21737ed890 text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+
+== hierarchical by heading
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-119 119 level=0 id=922c56db38 text=af25d16396 path=7e99da8b blocks=heading,paragraph
+1 121-174 53 level=0 id=54afd2aaae text=cc060cf5c4 path=60891743 blocks=heading,paragraph
+2 176-360 184 level=0 id=c06d836446 text=3e69483b38 path=97eb17f0 blocks=heading,paragraph
+
+== fixed
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-360 360 id=5931c07faf text=3fb1468097 path=7e99da8b blocks=heading,paragraph
+
+== fixed-overlap
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-360 360 id=44dc66e962 text=3fb1468097 path=7e99da8b blocks=heading,paragraph
+
+== recursive
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-360 360 id=4a99df981c text=3fb1468097 path=7e99da8b blocks=heading,paragraph
+
+== sliding-window
+document 26bbc411d4c2c7acbc5a markdown 361 chars
+0 0-360 360 id=9f581c53be text=3fb1468097 path=7e99da8b blocks=heading,paragraph

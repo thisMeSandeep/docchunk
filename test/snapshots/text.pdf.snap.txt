@@ -1,0 +1,55 @@
+== structure
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 id=65e4010d2e text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== sentence
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 21-56 35 id=3c2e6f48ea text=54be891d65 path=674b4dc9 blocks=paragraph
+1 57-106 49 id=e6ddaf2800 text=98478f5630 path=674b4dc9 blocks=paragraph
+2 108-199 91 id=3d6017bf43 text=fadd107aed path=674b4dc9 blocks=paragraph
+
+== paragraph
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-106 106 id=0b2be6516d text=54e7ed4ed0 path=674b4dc9 blocks=heading,paragraph
+1 108-199 91 id=0614de3e86 text=fadd107aed path=674b4dc9 blocks=paragraph
+
+== heading
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 id=68d1b007d0 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== sentence-window
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 21-56 35 context=178 id=14e9dba338 text=54be891d65 path=674b4dc9 blocks=paragraph
+1 57-106 49 context=178 id=e6b114061e text=98478f5630 path=674b4dc9 blocks=paragraph
+2 108-199 91 context=178 id=b27bce6170 text=fadd107aed path=674b4dc9 blocks=paragraph
+
+== parent-child
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 level=0 id=c8d3045611 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+1 0-199 199 level=1 parent=0 id=b932d15551 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== hierarchical
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 level=0 id=f465290460 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+1 0-199 199 level=1 parent=0 id=c2c5e0ca13 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+2 0-199 199 level=2 parent=1 id=980e3205c3 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== hierarchical by heading
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 level=0 id=dd32623ba1 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== fixed
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 id=6144633623 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== fixed-overlap
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 id=598e688f6f text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== recursive
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 id=ca8baab153 text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph
+
+== sliding-window
+document 7969a6273a3e4cfbcf30 pdf 200 chars
+0 0-199 199 id=af02bb08ae text=93ea35ab83 path=674b4dc9 blocks=heading,paragraph

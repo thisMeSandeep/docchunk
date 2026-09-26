@@ -1,0 +1,47 @@
+== structure
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== sentence
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== paragraph
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== heading
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== sentence-window
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== parent-child
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== hierarchical
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== hierarchical by heading
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== fixed
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== fixed-overlap
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== recursive
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.
+
+== sliding-window
+document 217ff28c1bdba7eebcd3 pdf 10 chars
+warning NO_TEXT_LAYER chunk=- This PDF appears to be scanned; OCR is not supported.

@@ -1,0 +1,66 @@
+== structure
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 id=d91dfc1570 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== sentence
+document acfb370975d0f527e423 rtf 193 chars
+0 0-20 20 id=2368d7c101 text=041bf3511f path=4f53cda1 blocks=paragraph
+1 22-53 31 id=043a577e8a text=557ed3385d path=4f53cda1 blocks=paragraph
+2 54-99 45 id=8fc39a729e text=6e3ea8d07a path=4f53cda1 blocks=paragraph
+3 101-112 11 id=5a71fdfb1a text=664de31df2 path=4f53cda1 blocks=paragraph
+4 114-164 50 id=92a8f945de text=ee8adcf944 path=4f53cda1 blocks=paragraph
+5 166-178 12 id=155f62a5af text=4e348117b7 path=4f53cda1 blocks=list
+6 179-192 13 id=138a032069 text=e382878ce3 path=4f53cda1 blocks=list
+
+== paragraph
+document acfb370975d0f527e423 rtf 193 chars
+0 0-20 20 id=f2d1f9a4a5 text=041bf3511f path=4f53cda1 blocks=paragraph
+1 22-99 77 id=29e1c2aba6 text=038962c2c0 path=4f53cda1 blocks=paragraph
+2 101-112 11 id=647a4deb54 text=664de31df2 path=4f53cda1 blocks=paragraph
+3 114-164 50 id=d11239699b text=ee8adcf944 path=4f53cda1 blocks=paragraph
+4 166-192 26 id=eb9fdc576f text=287e50cc24 path=4f53cda1 blocks=list
+
+== heading
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 id=af9ffb3936 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== sentence-window
+document acfb370975d0f527e423 rtf 193 chars
+0 0-20 20 context=112 id=e486b638d4 text=041bf3511f path=4f53cda1 blocks=paragraph
+1 22-53 31 context=164 id=47e49291c0 text=557ed3385d path=4f53cda1 blocks=paragraph
+2 54-99 45 context=178 id=738c7fff2d text=6e3ea8d07a path=4f53cda1 blocks=paragraph
+3 101-112 11 context=192 id=bec9409554 text=664de31df2 path=4f53cda1 blocks=paragraph
+4 114-164 50 context=170 id=a676306e54 text=ee8adcf944 path=4f53cda1 blocks=paragraph
+5 166-178 12 context=138 id=9d7ad8d954 text=4e348117b7 path=4f53cda1 blocks=list
+6 179-192 13 context=91 id=f17a831073 text=e382878ce3 path=4f53cda1 blocks=list
+
+== parent-child
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 level=0 id=dfde60e564 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+1 0-192 192 level=1 parent=0 id=484df966f6 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== hierarchical
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 level=0 id=a0779480fa text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+1 0-192 192 level=1 parent=0 id=e079f2d1a2 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+2 0-192 192 level=2 parent=1 id=722a9a19a2 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== hierarchical by heading
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 level=0 id=8c35255cf9 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== fixed
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 id=fc7960e78d text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== fixed-overlap
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 id=6416e23447 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== recursive
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 id=27ee282a24 text=75978b8a82 path=4f53cda1 blocks=paragraph,list
+
+== sliding-window
+document acfb370975d0f527e423 rtf 193 chars
+0 0-192 192 id=bc0857b475 text=75978b8a82 path=4f53cda1 blocks=paragraph,list

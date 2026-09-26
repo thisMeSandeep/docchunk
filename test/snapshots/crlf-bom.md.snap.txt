@@ -1,0 +1,57 @@
+== structure
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 id=9f3be479db text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== sentence
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 9-25 16 id=2e3eaa89d7 text=98ea01bc10 path=565b6715 blocks=paragraph
+1 26-61 35 id=b3df2f5eb2 text=a70fb56c5d path=565b6715 blocks=paragraph
+2 63-73 10 id=879df0e665 text=a30cb97780 path=565b6715 blocks=list
+3 74-84 10 id=2b158c0ced text=b0224e9f89 path=565b6715 blocks=list
+
+== paragraph
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-61 61 id=eed7847d06 text=a5ac55c8cb path=565b6715 blocks=heading,paragraph
+1 63-84 21 id=b5fd5ade4a text=cb52a55bee path=565b6715 blocks=list
+
+== heading
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 id=dcfb6d44f9 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== sentence-window
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 9-25 16 context=75 id=7675397f19 text=98ea01bc10 path=565b6715 blocks=paragraph
+1 26-61 35 context=75 id=d7dc784401 text=a70fb56c5d path=565b6715 blocks=paragraph
+2 63-73 10 context=75 id=6c471f0c09 text=a30cb97780 path=565b6715 blocks=list
+3 74-84 10 context=75 id=b90d51c118 text=b0224e9f89 path=565b6715 blocks=list
+
+== parent-child
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 level=0 id=ab8877a678 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+1 0-84 84 level=1 parent=0 id=cb6ea88425 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== hierarchical
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 level=0 id=ce06619225 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+1 0-84 84 level=1 parent=0 id=b79012e530 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+2 0-84 84 level=2 parent=1 id=c8dd9c917b text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== hierarchical by heading
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 level=0 id=800c9fbf62 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== fixed
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 id=c33333ae73 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== fixed-overlap
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 id=dc49b4ffd2 text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== recursive
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 id=2c7b7fa8af text=61ee53810f path=565b6715 blocks=heading,paragraph,list
+
+== sliding-window
+document 152c87ee0e4f96c99c3c markdown 85 chars
+0 0-84 84 id=ba7e651edc text=61ee53810f path=565b6715 blocks=heading,paragraph,list

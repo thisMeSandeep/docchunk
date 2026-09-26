@@ -1,0 +1,901 @@
+== structure
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-32 32 id=42beb5c496 text=214eae3a48 path=23cdd331 blocks=heading
+1 34-60 26 id=5aeb61d452 text=140cc3844a path=e412e833 blocks=heading
+2 62-378 316 id=0207423987 text=1c0627290d path=1bc8fbdb blocks=heading,list,paragraph
+3 380-1658 1278 id=2f2087313e text=bf00895049 path=1bc8fbdb blocks=blockquote
+4 1660-2848 1188 id=687655729a text=83ffd49aa8 path=55e58082 blocks=heading,paragraph,blockquote
+5 2850-3599 749 id=f18e2e9793 text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+6 3601-4579 978 id=8b774c5d63 text=899c01acb9 path=466a9d04 blocks=heading,paragraph,blockquote
+7 4581-4730 149 id=ca4fb4f671 text=68b356ecbf path=0692421f blocks=heading,paragraph
+8 4732-6125 1393 id=574994309e text=a1e3e263d0 path=0692421f blocks=blockquote
+9 6126-7500 1374 id=a454d3b130 text=6e244fb080 path=0692421f blocks=blockquote
+10 7502-7997 495 id=deb34a568a text=0bb63e59ef path=38da718d blocks=heading,paragraph,blockquote
+11 7999-8249 250 id=46974e0bb0 text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+12 8251-8932 681 id=9a122edf83 text=6fc751af82 path=bc48b99b blocks=heading,paragraph,blockquote
+13 8934-9843 909 id=aae78a0059 text=0d3f1d6a12 path=143a4252 blocks=heading,paragraph,blockquote
+14 9845-10380 535 id=84c66d608e text=6b2e9d29f2 path=5727fcda blocks=heading,paragraph,blockquote
+15 10382-11348 966 id=6c8ae9f8b4 text=404e157c52 path=7155f1ac blocks=heading,list,paragraph,blockquote
+16 11350-12261 911 id=c4837e931c text=a1ae54410d path=cdf80bbe blocks=heading,paragraph,blockquote
+17 12263-12484 221 id=15890c26a4 text=13b2c3aa8f path=c989f27e blocks=heading,paragraph
+18 12486-13918 1432 id=4359f6a87c text=d357d81754 path=c989f27e blocks=blockquote
+19 13918-14229 311 id=681b1dd80b text=50743552e0 path=c989f27e blocks=blockquote
+20 14231-14703 472 id=ac2b56f555 text=b2228eaefb path=422a486c blocks=heading,paragraph,blockquote
+21 14705-14993 288 id=e50bff75ba text=c48ccc0425 path=71c71129 blocks=heading,list
+22 14995-16303 1308 id=1385bd2369 text=d97e2378a1 path=c8348100 blocks=heading,list
+23 16305-16317 12 id=81ebdb946b text=75c6211de8 path=c8348100 blocks=heading
+24 16319-16341 22 id=1f2e7d664e text=99d6fe4a4f path=e9e5e4ea blocks=heading
+25 16343-16622 279 id=a1ac36e51f text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+26 16624-16778 154 id=60af75dd35 text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+27 16780-16933 153 id=14cb64669c text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+28 16935-17087 152 id=d5aa0103a7 text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+29 17089-17254 165 id=67d175bc14 text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+
+== sentence
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 92-150 58 id=3a10829577 text=65b9623b0b path=1bc8fbdb blocks=list
+1 151-188 37 id=1ac42ba663 text=5af5800e2c path=1bc8fbdb blocks=list
+2 189-287 98 id=8fc086778a text=3c01bcd7e4 path=1bc8fbdb blocks=list
+3 289-378 89 id=19f7ab6b3e text=8b5bb5cbd2 path=1bc8fbdb blocks=paragraph
+4 380-642 262 id=5d5202c371 text=e0abd23d6f path=1bc8fbdb blocks=blockquote
+5 643-698 55 id=24d8369956 text=f9d1826cb4 path=1bc8fbdb blocks=blockquote
+6 699-765 66 id=685baf186f text=1652e43107 path=1bc8fbdb blocks=blockquote
+7 766-850 84 id=2b855ec966 text=b3d56abd04 path=1bc8fbdb blocks=blockquote
+8 851-933 82 id=15d638a69a text=6712cef81d path=1bc8fbdb blocks=blockquote
+9 934-1071 137 id=479100d980 text=8d7ac18bd6 path=1bc8fbdb blocks=blockquote
+10 1072-1211 139 id=5eba4145a2 text=364a1b0d67 path=1bc8fbdb blocks=blockquote
+11 1212-1415 203 id=1a6d19dd7c text=73da29d615 path=1bc8fbdb blocks=blockquote
+12 1416-1658 242 id=06cdf1327f text=2930ffab5f path=1bc8fbdb blocks=blockquote
+13 1690-1726 36 id=9aa8baf6e4 text=e7a8f4e4c2 path=55e58082 blocks=paragraph
+14 1728-1774 46 id=dff133765a text=b30fbe7593 path=55e58082 blocks=paragraph
+15 1776-1797 21 id=5df5532620 text=4d91a8470b path=55e58082 blocks=paragraph
+16 1799-1926 127 id=9cba22e1cc text=280048a96f path=55e58082 blocks=blockquote
+17 1927-2062 135 id=a767da419f text=ee7fb7ad17 path=55e58082 blocks=blockquote
+18 2063-2135 72 id=1c36627d3f text=1e8275abb7 path=55e58082 blocks=blockquote
+19 2136-2214 78 id=3df4d89171 text=e9d46d22ee path=55e58082 blocks=blockquote
+20 2215-2398 183 id=b7ee39438b text=ad2783a3bc path=55e58082 blocks=blockquote
+21 2399-2414 15 id=0cdebbfeb2 text=664774a038 path=55e58082 blocks=blockquote
+22 2415-2848 433 id=1f9534aec6 text=845840defa path=55e58082 blocks=blockquote
+23 2883-2915 32 id=5914f154e3 text=28c22c63c4 path=ee98ec2a blocks=list
+24 2916-2941 25 id=dfa80c3b96 text=b79077572b path=ee98ec2a blocks=list
+25 2942-2976 34 id=644654b9b6 text=6e417e9b08 path=ee98ec2a blocks=list
+26 2978-3119 141 id=8a24987f0c text=d8315b0ade path=ee98ec2a blocks=blockquote
+27 3120-3150 30 id=c8a5a2e0de text=cb7240e199 path=ee98ec2a blocks=blockquote
+28 3151-3190 39 id=b340c18321 text=a47d94328f path=ee98ec2a blocks=blockquote
+29 3191-3335 144 id=13b3068d72 text=b7071ef0f6 path=ee98ec2a blocks=blockquote
+30 3336-3366 30 id=ef6fcb843d text=01759bcaea path=ee98ec2a blocks=blockquote
+31 3367-3422 55 id=dd02c99c8d text=e3e7f974ff path=ee98ec2a blocks=blockquote
+32 3423-3599 176 id=3b6b8bf506 text=9abcbf3f25 path=ee98ec2a blocks=blockquote
+33 3629-3645 16 id=30c60f0b53 text=63ef8d177c path=466a9d04 blocks=paragraph
+34 3647-3654 7 id=9d0e2688b7 text=6e0f6eca4f path=466a9d04 blocks=paragraph
+35 3656-3676 20 id=f65878654a text=3ae4855c69 path=466a9d04 blocks=paragraph
+36 3678-3690 12 id=6e2702b4b2 text=51470eda29 path=466a9d04 blocks=paragraph
+37 3692-3702 10 id=395d6cfb0d text=4074904058 path=466a9d04 blocks=paragraph
+38 3704-3720 16 id=f3149c4433 text=6197e16ebd path=466a9d04 blocks=paragraph
+39 3722-3733 11 id=113db606b1 text=0b60fe04b3 path=466a9d04 blocks=paragraph
+40 3735-3755 20 id=2d475d9c46 text=251b30fe44 path=466a9d04 blocks=paragraph
+41 3757-3773 16 id=265ce25225 text=7c064b17b6 path=466a9d04 blocks=paragraph
+42 3775-3782 7 id=ed3a078295 text=f2dc406dd2 path=466a9d04 blocks=paragraph
+43 3784-3804 20 id=fd5c76e7ca text=36302b5b86 path=466a9d04 blocks=paragraph
+44 3806-3932 126 id=30ec06a665 text=3576a7813d path=466a9d04 blocks=blockquote
+45 3932-3962 30 id=fef88dd14f text=564544d800 path=466a9d04 blocks=blockquote
+46 3963-4095 132 id=f1f4418620 text=28180c5d4c path=466a9d04 blocks=blockquote
+47 4096-4201 105 id=38658b1785 text=9cee384bbf path=466a9d04 blocks=blockquote
+48 4202-4256 54 id=04ad0a82c6 text=2d3b5a3289 path=466a9d04 blocks=blockquote
+49 4257-4398 141 id=3755b062c5 text=83adc01e72 path=466a9d04 blocks=blockquote
+50 4399-4541 142 id=76f8613881 text=87b5afb904 path=466a9d04 blocks=blockquote
+51 4542-4579 37 id=c8d56bd565 text=3e13526ff5 path=466a9d04 blocks=blockquote
+52 4614-4623 9 id=0d0f3948c6 text=eff63a10a4 path=0692421f blocks=paragraph
+53 4625-4653 28 id=813098fd7a text=a7752d0721 path=0692421f blocks=paragraph
+54 4655-4693 38 id=9240470494 text=04a6652ce3 path=0692421f blocks=paragraph
+55 4695-4718 23 id=588352c7c1 text=a67b4df23b path=0692421f blocks=paragraph
+56 4720-4730 10 id=a0f0f03fb4 text=1df3125858 path=0692421f blocks=paragraph
+57 4732-4837 105 id=a4973c16d6 text=cb4b130900 path=0692421f blocks=blockquote
+58 4838-4932 94 id=efc9bf8c6c text=bb203d1022 path=0692421f blocks=blockquote
+59 4933-5309 376 id=fd4338a06a text=a36b447cb8 path=0692421f blocks=blockquote
+60 5310-5380 70 id=aa55fdb414 text=62a10dd22d path=0692421f blocks=blockquote
+61 5381-5571 190 id=21032a4a8e text=d0662eb3bf path=0692421f blocks=blockquote
+62 5572-5632 60 id=d05ef9599f text=154e216e79 path=0692421f blocks=blockquote
+63 5633-5718 85 id=292711d99e text=231411a76c path=0692421f blocks=blockquote
+64 5719-5809 90 id=dc5d4e09b0 text=4c58b8caae path=0692421f blocks=blockquote
+65 5810-5866 56 id=a78d2afe7d text=b2464fde5b path=0692421f blocks=blockquote
+66 5867-6125 258 id=eca594d264 text=a8d5e9c26f path=0692421f blocks=blockquote
+67 6126-6282 156 id=4175f11906 text=95515e146b path=0692421f blocks=blockquote
+68 6283-6287 4 id=bebb50a9ad text=f3d000d892 path=0692421f blocks=blockquote
+69 6288-6373 85 id=af27742134 text=2d6a308e7f path=0692421f blocks=blockquote
+70 6374-6473 99 id=e813bf13f0 text=7ad1b1acac path=0692421f blocks=blockquote
+71 6474-6523 49 id=0974d3605d text=dd4e56bfcb path=0692421f blocks=blockquote
+72 6524-6664 140 id=a0bc2344ea text=1a25ffed2c path=0692421f blocks=blockquote
+73 6665-6702 37 id=484f3d16ac text=fc31a6c44f path=0692421f blocks=blockquote
+74 6703-6855 152 id=9efcbbd5db text=962f5be81b path=0692421f blocks=blockquote
+75 6856-6907 51 id=64b6729b0a text=ac71074ea8 path=0692421f blocks=blockquote
+76 6908-6939 31 id=b27c196064 text=74ee362fbd path=0692421f blocks=blockquote
+77 6940-6985 45 id=43939012da text=743c80d7ac path=0692421f blocks=blockquote
+78 6986-7002 16 id=803614c538 text=e66cbf2819 path=0692421f blocks=blockquote
+79 7003-7037 34 id=de8c353ed2 text=5f546545ad path=0692421f blocks=blockquote
+80 7038-7164 126 id=b77a9deb54 text=c2964bbe42 path=0692421f blocks=blockquote
+81 7165-7222 57 id=bc1afe2979 text=ccc8e951f6 path=0692421f blocks=blockquote
+82 7223-7295 72 id=4c95b83433 text=e169c614a9 path=0692421f blocks=blockquote
+83 7296-7373 77 id=8fc536984b text=c1a45b56c5 path=0692421f blocks=blockquote
+84 7374-7500 126 id=989bb26360 text=437511ced2 path=0692421f blocks=blockquote
+85 7537-7560 23 id=d1191cf2c9 text=7b673f4da7 path=38da718d blocks=paragraph
+86 7562-7646 84 id=4eb63c6c9d text=6242062f56 path=38da718d blocks=blockquote
+87 7647-7714 67 id=fcfa8af0fc text=4933a3511e path=38da718d blocks=blockquote
+88 7715-7804 89 id=2674251477 text=1c1ea482e8 path=38da718d blocks=blockquote
+89 7805-7863 58 id=cb29f483b1 text=921f67e1a0 path=38da718d blocks=blockquote
+90 7864-7997 133 id=06334c88d1 text=38c4b987b0 path=38da718d blocks=blockquote
+91 8042-8056 14 id=65516a9f2d text=f44cca7c1a path=7556724d blocks=paragraph
+92 8058-8213 155 id=1d9b3a66d1 text=11af9dc183 path=7556724d blocks=blockquote
+93 8214-8249 35 id=4b1f61c132 text=74bd6cb4fa path=7556724d blocks=blockquote
+94 8275-8297 22 id=08df9c0b85 text=8841fbda8c path=bc48b99b blocks=paragraph
+95 8299-8363 64 id=fab25b4d7a text=796b32c7da path=bc48b99b blocks=blockquote
+96 8364-8471 107 id=336ddc4618 text=714308f57b path=bc48b99b blocks=blockquote
+97 8472-8570 98 id=a4366ab267 text=8d03b05dbb path=bc48b99b blocks=blockquote
+98 8571-8638 67 id=261e72f90c text=d79bd3548a path=bc48b99b blocks=blockquote
+99 8640-8707 67 id=6ddfd035bd text=8e8e3661de path=bc48b99b blocks=blockquote
+100 8708-8932 224 id=79a55a447d text=8bb1a76f95 path=bc48b99b blocks=blockquote
+101 8952-8964 12 id=27a647216c text=ccc7e957b5 path=143a4252 blocks=paragraph
+102 8966-8983 17 id=7fc2954499 text=027b3c69cb path=143a4252 blocks=paragraph
+103 8985-9011 26 id=aa78fcf377 text=cb9534f08f path=143a4252 blocks=paragraph
+104 9013-9038 25 id=1c99e92a53 text=cb53f03542 path=143a4252 blocks=paragraph
+105 9040-9061 21 id=85e14b6c3b text=843bb81aaa path=143a4252 blocks=paragraph
+106 9063-9066 3 id=8ab1900b89 text=29576b54e2 path=143a4252 blocks=paragraph
+107 9068-9089 21 id=51b470168d text=29cfb0e0f6 path=143a4252 blocks=paragraph
+108 9091-9147 56 id=c1afc7bf28 text=7a849c6947 path=143a4252 blocks=paragraph
+109 9149-9239 90 id=858aaba5cc text=81b507d200 path=143a4252 blocks=blockquote
+110 9240-9323 83 id=cf6db62060 text=0db4e9f0d0 path=143a4252 blocks=blockquote
+111 9324-9370 46 id=a4c4da84ed text=8bf7ab2a4a path=143a4252 blocks=blockquote
+112 9371-9428 57 id=afcf3cde18 text=e68da46450 path=143a4252 blocks=blockquote
+113 9429-9499 70 id=e0779620ee text=5174a80836 path=143a4252 blocks=blockquote
+114 9500-9556 56 id=ef1c5196a2 text=a4d22b5f55 path=143a4252 blocks=blockquote
+115 9557-9651 94 id=32dc32f6c9 text=b73b9b5104 path=143a4252 blocks=blockquote
+116 9652-9709 57 id=bd8f470a1b text=3f9c2d5de7 path=143a4252 blocks=blockquote
+117 9710-9786 76 id=f51f4a4458 text=01f425136a path=143a4252 blocks=blockquote
+118 9787-9843 56 id=300e0ca695 text=81cf63dad4 path=143a4252 blocks=blockquote
+119 9877-9913 36 id=d4588e898d text=5d5bc4654f path=5727fcda blocks=paragraph
+120 9915-9936 21 id=35519b4ed5 text=460c7596f7 path=5727fcda blocks=paragraph
+121 9938-9940 2 id=3035dcc088 text=2c58b0f2b0 path=5727fcda blocks=paragraph
+122 9942-9976 34 id=79334752a9 text=84f0279eb1 path=5727fcda blocks=paragraph
+123 9978-10019 41 id=583aa7c171 text=8a7d435a65 path=5727fcda blocks=paragraph
+124 10021-10024 3 id=c38fd338cf text=29576b54e2 path=5727fcda blocks=paragraph
+125 10026-10177 151 id=95ff529a0a text=02e6373db4 path=5727fcda blocks=blockquote
+126 10178-10278 100 id=a516497544 text=f61cc369d1 path=5727fcda blocks=blockquote
+127 10279-10380 101 id=9d8bb28a50 text=7983983ef9 path=5727fcda blocks=blockquote
+128 10416-10467 51 id=ef61efbdd4 text=20e0c0733a path=7155f1ac blocks=list
+129 10468-10600 132 id=66e56d6f43 text=dce1b7b9ad path=7155f1ac blocks=list
+130 10602-10657 55 id=15f5cc2eae text=c0651344b3 path=7155f1ac blocks=paragraph
+131 10659-10707 48 id=0c3ec00891 text=a46fa1426b path=7155f1ac blocks=paragraph
+132 10709-10824 115 id=d09c82a546 text=13955ce880 path=7155f1ac blocks=blockquote
+133 10825-11080 255 id=beefcfee09 text=34e249ef9e path=7155f1ac blocks=blockquote
+134 11081-11245 164 id=49af228d6a text=1bf0e611bf path=7155f1ac blocks=blockquote
+135 11246-11348 102 id=96ef285a29 text=9b2bb025b4 path=7155f1ac blocks=blockquote
+136 11383-11443 60 id=297dcc0b2c text=5fde4eeace path=cdf80bbe blocks=paragraph
+137 11445-11461 16 id=04092d6b8d text=728a33113f path=cdf80bbe blocks=paragraph
+138 11463-11514 51 id=82afdb75c9 text=1a99289b79 path=cdf80bbe blocks=paragraph
+139 11516-11531 15 id=edf3dc0a5d text=9a9f76c1ce path=cdf80bbe blocks=paragraph
+140 11533-11581 48 id=d98e4d26c7 text=911be8ab7b path=cdf80bbe blocks=paragraph
+141 11583-11626 43 id=6fda3c9218 text=3035bddf09 path=cdf80bbe blocks=paragraph
+142 11628-11631 3 id=ae18946721 text=29576b54e2 path=cdf80bbe blocks=paragraph
+143 11633-11635 2 id=6a31d021ef text=9d8b2b5670 path=cdf80bbe blocks=paragraph
+144 11637-11640 3 id=076a303b51 text=29576b54e2 path=cdf80bbe blocks=paragraph
+145 11642-11659 17 id=12ae596fad text=2e093ea5c9 path=cdf80bbe blocks=paragraph
+146 11661-11859 198 id=fb324f287f text=ac5d051e2c path=cdf80bbe blocks=blockquote
+147 11860-12045 185 id=3a40b3f568 text=1daa5eddb0 path=cdf80bbe blocks=blockquote
+148 12046-12159 113 id=13ee89890d text=9205d99abf path=cdf80bbe blocks=blockquote
+149 12160-12261 101 id=8b300d4308 text=2b2e2ac9ea path=cdf80bbe blocks=blockquote
+150 12302-12309 7 id=6e845160e8 text=569ca49f4a path=c989f27e blocks=paragraph
+151 12311-12363 52 id=20439d229e text=991130e026 path=c989f27e blocks=paragraph
+152 12365-12379 14 id=38e785835e text=d163c291b2 path=c989f27e blocks=paragraph
+153 12381-12441 60 id=b5e8ab74cd text=0bc0fc2c77 path=c989f27e blocks=paragraph
+154 12443-12484 41 id=2cc1af739e text=25344a7e0a path=c989f27e blocks=paragraph
+155 12486-12585 99 id=7e7b63101c text=9bf27ba121 path=c989f27e blocks=blockquote
+156 12586-12786 200 id=3108004193 text=8c2d72341b path=c989f27e blocks=blockquote
+157 12787-12941 154 id=07eb038142 text=2006ef95ae path=c989f27e blocks=blockquote
+158 12942-13051 109 id=07ce32bfc9 text=b8ac3a99de path=c989f27e blocks=blockquote
+159 13052-13200 148 id=fb73e58779 text=d2cae8a215 path=c989f27e blocks=blockquote
+160 13201-13288 87 id=849464eda1 text=ac0c59aef1 path=c989f27e blocks=blockquote
+161 13289-13455 166 id=af447fe34e text=3266dc1268 path=c989f27e blocks=blockquote
+162 13456-13558 102 id=210edbf120 text=e8d11f6d3b path=c989f27e blocks=blockquote
+163 13559-13632 73 id=2cdd8df53e text=f65d545fc0 path=c989f27e blocks=blockquote
+164 13633-13694 61 id=f0c0edc237 text=85ad62eaf3 path=c989f27e blocks=blockquote
+165 13695-13918 223 id=823466d98f text=f3d5ea26af path=c989f27e blocks=blockquote
+166 13918-14229 311 id=9b1b04e062 text=50743552e0 path=c989f27e blocks=blockquote
+167 14265-14275 10 id=f8caa3e715 text=4b1e0ff24e path=422a486c blocks=paragraph
+168 14277-14405 128 id=7626314a13 text=b0b41ad421 path=422a486c blocks=blockquote
+169 14406-14484 78 id=35401c3204 text=63b885e127 path=422a486c blocks=blockquote
+170 14485-14569 84 id=c937a459bf text=f2f37ec2fd path=422a486c blocks=blockquote
+171 14570-14703 133 id=cb96cf6559 text=da62b4d43f path=422a486c blocks=blockquote
+172 14722-14768 46 id=273e086dbb text=a45123d666 path=71c71129 blocks=list
+173 14769-14794 25 id=8c06b0a202 text=21e0ed05e6 path=71c71129 blocks=list
+174 14795-14816 21 id=7936ef3e3c text=fba76308ea path=71c71129 blocks=list
+175 14817-14864 47 id=bd628f7c44 text=ea0d52d597 path=71c71129 blocks=list
+176 14865-14924 59 id=3b9e703bca text=72342b5e12 path=71c71129 blocks=list
+177 14925-14959 34 id=fcec0b8c88 text=d03241ec59 path=71c71129 blocks=list
+178 14960-14993 33 id=6a7f812525 text=f40d967906 path=71c71129 blocks=list
+179 15009-15101 92 id=db1542518e text=216492ade5 path=c8348100 blocks=list
+180 15102-15189 87 id=d89ff63261 text=8ef2cc7d86 path=c8348100 blocks=list
+181 15190-15260 70 id=4390fe28ea text=7c5dfe329d path=c8348100 blocks=list
+182 15261-15334 73 id=212e7e7b0d text=4a97f2109b path=c8348100 blocks=list
+183 15334-15363 29 id=fc4de82f6c text=a6cf74b83a path=c8348100 blocks=list
+184 15364-15454 90 id=e86add0831 text=6101330995 path=c8348100 blocks=list
+185 15454-15483 29 id=03aedc4fa2 text=32dedcecf3 path=c8348100 blocks=list
+186 15484-15615 131 id=d29452e280 text=60784107e5 path=c8348100 blocks=list
+187 15617-15716 99 id=ccc9485f16 text=bdff8b6434 path=c8348100 blocks=list
+188 15717-15822 105 id=7e9c1a68cd text=45ceb7a80e path=c8348100 blocks=list
+189 15822-15828 6 id=4d5a0e2f92 text=48e4e80baf path=c8348100 blocks=list
+190 15829-15906 77 id=f35bdfbb92 text=1772bed1f2 path=c8348100 blocks=list
+191 15907-16053 146 id=440cb70c11 text=79483bcf41 path=c8348100 blocks=list
+192 16053-16061 8 id=4f587244cc text=2a315a7d95 path=c8348100 blocks=list
+193 16061-16066 5 id=69a134e3bd text=184d2eb193 path=c8348100 blocks=list
+194 16066-16077 11 id=8b9e326419 text=fb148885f1 path=c8348100 blocks=list
+195 16078-16177 99 id=0071b96ef6 text=dca9ea9fc0 path=c8348100 blocks=list
+196 16178-16303 125 id=db296718da text=7086dc50e5 path=c8348100 blocks=list
+197 16382-16405 23 id=7e6a8fd341 text=b049f1731b path=1f40c714 blocks=list
+198 16406-16470 64 id=9bcabc035e text=5ce4987c19 path=1f40c714 blocks=list
+199 16471-16539 68 id=c660988aab text=0f36a72617 path=1f40c714 blocks=list
+200 16540-16599 59 id=1a472f1082 text=8bacc9c014 path=1f40c714 blocks=list
+201 16601-16622 21 id=9afedcfc1d text=6390e7e0c8 path=1f40c714 blocks=paragraph
+202 16668-16691 23 id=5c503afbb4 text=7b673f4da7 path=03369ea3 blocks=paragraph
+203 16693-16720 27 id=674170fa42 text=3eac5fc431 path=03369ea3 blocks=list
+204 16722-16758 36 id=8683299167 text=124a5e3cf3 path=03369ea3 blocks=list
+205 16760-16778 18 id=c57201a2f0 text=2523778b02 path=03369ea3 blocks=list
+206 16825-16845 20 id=a6bc365a1d text=6e459e1cfb path=87d83646 blocks=paragraph
+207 16847-16874 27 id=78d81a05fa text=3eac5fc431 path=87d83646 blocks=list
+208 16876-16913 37 id=6f7e6c54c8 text=54aee4a5a3 path=87d83646 blocks=list
+209 16915-16933 18 id=a76de4767b text=2523778b02 path=87d83646 blocks=list
+210 16978-17001 23 id=a99a9719a5 text=2f5424bafe path=e300d526 blocks=paragraph
+211 17003-17030 27 id=a4e4f32f81 text=3eac5fc431 path=e300d526 blocks=list
+212 17032-17069 37 id=5f24cd1c1b text=54aee4a5a3 path=e300d526 blocks=list
+213 17071-17087 16 id=8be128fafd text=1d2308ee84 path=e300d526 blocks=list
+214 17131-17149 18 id=2fea5b018b text=7cc2d2bd6e path=09e33c11 blocks=paragraph
+215 17151-17178 27 id=b42435777b text=3eac5fc431 path=09e33c11 blocks=list
+216 17180-17216 36 id=755f0f3adf text=67e1daebe8 path=09e33c11 blocks=list
+217 17218-17234 16 id=81e561d7fd text=1d2308ee84 path=09e33c11 blocks=list
+218 17236-17254 18 id=bf8447115c text=4d2881f461 path=09e33c11 blocks=list
+
+== paragraph
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-32 32 id=25d1476af2 text=214eae3a48 path=23cdd331 blocks=heading
+1 34-60 26 id=3430cd0329 text=140cc3844a path=e412e833 blocks=heading
+2 62-287 225 id=d015a29487 text=167a55187c path=1bc8fbdb blocks=heading,list
+3 289-378 89 id=607a405fbd text=8b5bb5cbd2 path=1bc8fbdb blocks=paragraph
+4 380-1658 1278 id=c549669ec4 text=bf00895049 path=1bc8fbdb blocks=blockquote
+5 1660-1726 66 id=afbeedd00f text=b99e73c36d path=55e58082 blocks=heading,paragraph
+6 1728-1774 46 id=338c8f3af0 text=b30fbe7593 path=55e58082 blocks=paragraph
+7 1776-1797 21 id=176ee82937 text=4d91a8470b path=55e58082 blocks=paragraph
+8 1799-2848 1049 id=383117a295 text=8f925941fd path=55e58082 blocks=blockquote
+9 2850-2976 126 id=b8178627ff text=c75536a286 path=ee98ec2a blocks=heading,list
+10 2978-3599 621 id=f9eb5e7694 text=e70e3fc96e path=ee98ec2a blocks=blockquote
+11 3601-3645 44 id=bc2ad18be8 text=6931cfce1b path=466a9d04 blocks=heading,paragraph
+12 3647-3654 7 id=a3f402bec4 text=6e0f6eca4f path=466a9d04 blocks=paragraph
+13 3656-3676 20 id=9c447c8a89 text=3ae4855c69 path=466a9d04 blocks=paragraph
+14 3678-3690 12 id=5fee453ef2 text=51470eda29 path=466a9d04 blocks=paragraph
+15 3692-3702 10 id=5b2fcfbc35 text=4074904058 path=466a9d04 blocks=paragraph
+16 3704-3720 16 id=57e88fa8de text=6197e16ebd path=466a9d04 blocks=paragraph
+17 3722-3733 11 id=6217d55046 text=0b60fe04b3 path=466a9d04 blocks=paragraph
+18 3735-3755 20 id=52602120f5 text=251b30fe44 path=466a9d04 blocks=paragraph
+19 3757-3773 16 id=f566c5f997 text=7c064b17b6 path=466a9d04 blocks=paragraph
+20 3775-3782 7 id=5e18585dc2 text=f2dc406dd2 path=466a9d04 blocks=paragraph
+21 3784-3804 20 id=a4e8771223 text=36302b5b86 path=466a9d04 blocks=paragraph
+22 3806-4579 773 id=b472706a80 text=5b56dc645c path=466a9d04 blocks=blockquote
+23 4581-4623 42 id=68646af641 text=7dcb1c5c7f path=0692421f blocks=heading,paragraph
+24 4625-4653 28 id=9d64f0881a text=a7752d0721 path=0692421f blocks=paragraph
+25 4655-4693 38 id=9861a56fad text=04a6652ce3 path=0692421f blocks=paragraph
+26 4695-4718 23 id=fa70d768ea text=a67b4df23b path=0692421f blocks=paragraph
+27 4720-4730 10 id=4c72f19d07 text=1df3125858 path=0692421f blocks=paragraph
+28 4732-7500 2768 id=486715f0cf text=03176f39da path=0692421f blocks=blockquote
+29 7502-7560 58 id=f7e79312ad text=ef64d308ed path=38da718d blocks=heading,paragraph
+30 7562-7997 435 id=c10d069268 text=98ca59a458 path=38da718d blocks=blockquote
+31 7999-8056 57 id=e232e532ee text=19a997eac4 path=7556724d blocks=heading,paragraph
+32 8058-8249 191 id=a00f7f052e text=2274e056eb path=7556724d blocks=blockquote
+33 8251-8297 46 id=f9005fde55 text=773c6bb7d7 path=bc48b99b blocks=heading,paragraph
+34 8299-8932 633 id=c56c9eb8ef text=8854d03a44 path=bc48b99b blocks=blockquote
+35 8934-8964 30 id=cad4495413 text=6658a0a342 path=143a4252 blocks=heading,paragraph
+36 8966-8983 17 id=faa138e008 text=027b3c69cb path=143a4252 blocks=paragraph
+37 8985-9011 26 id=df1d3aed89 text=cb9534f08f path=143a4252 blocks=paragraph
+38 9013-9038 25 id=dd325be950 text=cb53f03542 path=143a4252 blocks=paragraph
+39 9040-9061 21 id=01f41c87f8 text=843bb81aaa path=143a4252 blocks=paragraph
+40 9063-9066 3 id=8f4a39553e text=29576b54e2 path=143a4252 blocks=paragraph
+41 9068-9089 21 id=099834ea26 text=29cfb0e0f6 path=143a4252 blocks=paragraph
+42 9091-9147 56 id=a66a443bdd text=7a849c6947 path=143a4252 blocks=paragraph
+43 9149-9843 694 id=d88f66f290 text=c50195e6b1 path=143a4252 blocks=blockquote
+44 9845-9913 68 id=9f7ef3c9e3 text=66705f2464 path=5727fcda blocks=heading,paragraph
+45 9915-9936 21 id=dfc062799c text=460c7596f7 path=5727fcda blocks=paragraph
+46 9938-9940 2 id=37d67db344 text=2c58b0f2b0 path=5727fcda blocks=paragraph
+47 9942-9976 34 id=354a020c48 text=84f0279eb1 path=5727fcda blocks=paragraph
+48 9978-10019 41 id=856e1a3d61 text=8a7d435a65 path=5727fcda blocks=paragraph
+49 10021-10024 3 id=853b562477 text=29576b54e2 path=5727fcda blocks=paragraph
+50 10026-10380 354 id=d05e7dad98 text=6073f52b5f path=5727fcda blocks=blockquote
+51 10382-10600 218 id=fa72d652b7 text=6c34f00bd9 path=7155f1ac blocks=heading,list
+52 10602-10657 55 id=3712ece287 text=c0651344b3 path=7155f1ac blocks=paragraph
+53 10659-10707 48 id=b19171caf4 text=a46fa1426b path=7155f1ac blocks=paragraph
+54 10709-11348 639 id=b559a176c3 text=32279c22ba path=7155f1ac blocks=blockquote
+55 11350-11443 93 id=322612a910 text=c2553d3bd2 path=cdf80bbe blocks=heading,paragraph
+56 11445-11461 16 id=fccdbbf593 text=728a33113f path=cdf80bbe blocks=paragraph
+57 11463-11514 51 id=5ab615d916 text=1a99289b79 path=cdf80bbe blocks=paragraph
+58 11516-11531 15 id=360d809b25 text=9a9f76c1ce path=cdf80bbe blocks=paragraph
+59 11533-11581 48 id=bf2656f96d text=911be8ab7b path=cdf80bbe blocks=paragraph
+60 11583-11626 43 id=801ed08413 text=3035bddf09 path=cdf80bbe blocks=paragraph
+61 11628-11631 3 id=408dd0223b text=29576b54e2 path=cdf80bbe blocks=paragraph
+62 11633-11635 2 id=a130f122a4 text=9d8b2b5670 path=cdf80bbe blocks=paragraph
+63 11637-11640 3 id=4fbdef0ec7 text=29576b54e2 path=cdf80bbe blocks=paragraph
+64 11642-11659 17 id=71875b4dc1 text=2e093ea5c9 path=cdf80bbe blocks=paragraph
+65 11661-12261 600 id=1d56a19b5a text=052ea2a33c path=cdf80bbe blocks=blockquote
+66 12263-12309 46 id=414a215b6a text=55fe5b21d6 path=c989f27e blocks=heading,paragraph
+67 12311-12363 52 id=05ccfd5747 text=991130e026 path=c989f27e blocks=paragraph
+68 12365-12379 14 id=66abe10024 text=d163c291b2 path=c989f27e blocks=paragraph
+69 12381-12441 60 id=45728df443 text=0bc0fc2c77 path=c989f27e blocks=paragraph
+70 12443-12484 41 id=c0a954177a text=25344a7e0a path=c989f27e blocks=paragraph
+71 12486-14229 1743 id=e1b945c233 text=17fb814ab2 path=c989f27e blocks=blockquote
+72 14231-14275 44 id=6c279bc84a text=8c536d0d7c path=422a486c blocks=heading,paragraph
+73 14277-14703 426 id=e7fe372b16 text=2056ccbaea path=422a486c blocks=blockquote
+74 14705-14993 288 id=11e80adcb7 text=c48ccc0425 path=71c71129 blocks=heading,list
+75 14995-16303 1308 id=d6fc63c660 text=d97e2378a1 path=c8348100 blocks=heading,list
+76 16305-16317 12 id=68a4c9aa39 text=75c6211de8 path=c8348100 blocks=heading
+77 16319-16341 22 id=729773f8dc text=99d6fe4a4f path=e9e5e4ea blocks=heading
+78 16343-16599 256 id=abdb3fb53d text=f237367478 path=1f40c714 blocks=heading,list
+79 16601-16622 21 id=fd92295347 text=6390e7e0c8 path=1f40c714 blocks=paragraph
+80 16624-16691 67 id=c1b5950f70 text=d30cf45895 path=03369ea3 blocks=heading,paragraph
+81 16693-16778 85 id=e0e692ecbb text=265e95ad20 path=03369ea3 blocks=list
+82 16780-16845 65 id=ce920a2c39 text=a6b80fbfdb path=87d83646 blocks=heading,paragraph
+83 16847-16933 86 id=2f28906a52 text=95f405ad78 path=87d83646 blocks=list
+84 16935-17001 66 id=e11f706d03 text=fe17bc9431 path=e300d526 blocks=heading,paragraph
+85 17003-17087 84 id=4d3620c378 text=bb75276254 path=e300d526 blocks=list
+86 17089-17149 60 id=c59a404e6a text=2e6f3c2d5c path=09e33c11 blocks=heading,paragraph
+87 17151-17254 103 id=6ee5aa678a text=0606b441e7 path=09e33c11 blocks=list
+
+== heading
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-32 32 id=e66513bc52 text=214eae3a48 path=23cdd331 blocks=heading
+1 34-60 26 id=958f1c1951 text=140cc3844a path=e412e833 blocks=heading
+2 62-1658 1596 id=38f1028247 text=f0e5afa5b2 path=1bc8fbdb blocks=heading,list,paragraph,blockquote
+3 1660-2848 1188 id=ec8a4c44ed text=83ffd49aa8 path=55e58082 blocks=heading,paragraph,blockquote
+4 2850-3599 749 id=d02441c51a text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+5 3601-4579 978 id=c20f4949b3 text=899c01acb9 path=466a9d04 blocks=heading,paragraph,blockquote
+6 4581-7500 2919 id=f55ea53a5e text=6336fa80a2 path=0692421f blocks=heading,paragraph,blockquote
+7 7502-7997 495 id=028b045b62 text=0bb63e59ef path=38da718d blocks=heading,paragraph,blockquote
+8 7999-8249 250 id=da9472f946 text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+9 8251-8932 681 id=6fc4d49c14 text=6fc751af82 path=bc48b99b blocks=heading,paragraph,blockquote
+10 8934-9843 909 id=701c4183e3 text=0d3f1d6a12 path=143a4252 blocks=heading,paragraph,blockquote
+11 9845-10380 535 id=0b133b7bd7 text=6b2e9d29f2 path=5727fcda blocks=heading,paragraph,blockquote
+12 10382-11348 966 id=b3f55792a6 text=404e157c52 path=7155f1ac blocks=heading,list,paragraph,blockquote
+13 11350-12261 911 id=8ff107e06d text=a1ae54410d path=cdf80bbe blocks=heading,paragraph,blockquote
+14 12263-14229 1966 id=8eaa155fbe text=e1606b65b7 path=c989f27e blocks=heading,paragraph,blockquote
+15 14231-14703 472 id=705af2b114 text=b2228eaefb path=422a486c blocks=heading,paragraph,blockquote
+16 14705-14993 288 id=5f31c33da8 text=c48ccc0425 path=71c71129 blocks=heading,list
+17 14995-16303 1308 id=64e1a28e34 text=d97e2378a1 path=c8348100 blocks=heading,list
+18 16305-16317 12 id=37e4a9f320 text=75c6211de8 path=c8348100 blocks=heading
+19 16319-16341 22 id=e7aa2dd3a5 text=99d6fe4a4f path=e9e5e4ea blocks=heading
+20 16343-16622 279 id=edfa560093 text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+21 16624-16778 154 id=023f5ab92f text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+22 16780-16933 153 id=5b0872a5c2 text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+23 16935-17087 152 id=62f1781d1e text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+24 17089-17254 165 id=fc873f458a text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+
+== sentence-window
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 92-150 58 context=286 id=1efe624bfd text=65b9623b0b path=1bc8fbdb blocks=list
+1 151-188 37 context=550 id=8f2acf2662 text=5af5800e2c path=1bc8fbdb blocks=list
+2 189-287 98 context=606 id=8d0989bec2 text=3c01bcd7e4 path=1bc8fbdb blocks=list
+3 289-378 89 context=673 id=30c56a6986 text=8b5bb5cbd2 path=1bc8fbdb blocks=paragraph
+4 380-642 262 context=699 id=7bea250e7d text=e0abd23d6f path=1bc8fbdb blocks=blockquote
+5 643-698 55 context=744 id=63f37e0421 text=f9d1826cb4 path=1bc8fbdb blocks=blockquote
+6 699-765 66 context=782 id=b12987e014 text=1652e43107 path=1bc8fbdb blocks=blockquote
+7 766-850 84 context=831 id=87ad2ad7a3 text=b3d56abd04 path=1bc8fbdb blocks=blockquote
+8 851-933 82 context=772 id=d333ad07de text=6712cef81d path=1bc8fbdb blocks=blockquote
+9 934-1071 137 context=959 id=3a15b4fc5d text=8d7ac18bd6 path=1bc8fbdb blocks=blockquote
+10 1072-1211 139 context=892 id=3e1d140220 text=364a1b0d67 path=1bc8fbdb blocks=blockquote
+11 1212-1415 203 context=807 id=075eb855da text=73da29d615 path=1bc8fbdb blocks=blockquote
+12 1416-1658 242 context=724 id=5deb3623c9 text=2930ffab5f path=1bc8fbdb blocks=blockquote
+13 1690-1726 36 context=236 id=3e762c46e7 text=e7a8f4e4c2 path=55e58082 blocks=paragraph
+14 1728-1774 46 context=372 id=23d5e15c11 text=b30fbe7593 path=55e58082 blocks=paragraph
+15 1776-1797 21 context=445 id=f61245eb4d text=4d91a8470b path=55e58082 blocks=paragraph
+16 1799-1926 127 context=524 id=1ccfb37307 text=280048a96f path=55e58082 blocks=blockquote
+17 1927-2062 135 context=670 id=aa18010222 text=ee7fb7ad17 path=55e58082 blocks=blockquote
+18 2063-2135 72 context=638 id=c1f90e0ba4 text=1e8275abb7 path=55e58082 blocks=blockquote
+19 2136-2214 78 context=1049 id=912a74b104 text=e9d46d22ee path=55e58082 blocks=blockquote
+20 2215-2398 183 context=921 id=71e466b5b2 text=ad2783a3bc path=55e58082 blocks=blockquote
+21 2399-2414 15 context=785 id=9bdf0b9fc2 text=664774a038 path=55e58082 blocks=blockquote
+22 2415-2848 433 context=712 id=fee057afd9 text=845840defa path=55e58082 blocks=blockquote
+23 2883-2915 32 context=236 id=c40965848d text=28c22c63c4 path=ee98ec2a blocks=list
+24 2916-2941 25 context=267 id=6664a186c0 text=b79077572b path=ee98ec2a blocks=list
+25 2942-2976 34 context=307 id=d620120ea3 text=6e417e9b08 path=ee98ec2a blocks=list
+26 2978-3119 141 context=452 id=612ded9655 text=d8315b0ade path=ee98ec2a blocks=blockquote
+27 3120-3150 30 context=450 id=53c1c89419 text=cb7240e199 path=ee98ec2a blocks=blockquote
+28 3151-3190 39 context=480 id=867bab7893 text=a47d94328f path=ee98ec2a blocks=blockquote
+29 3191-3335 144 context=621 id=ab0be049a7 text=b7071ef0f6 path=ee98ec2a blocks=blockquote
+30 3336-3366 30 context=479 id=04b6e72754 text=01759bcaea path=ee98ec2a blocks=blockquote
+31 3367-3422 55 context=448 id=31b21a4cc2 text=e3e7f974ff path=ee98ec2a blocks=blockquote
+32 3423-3599 176 context=408 id=236ae9e36d text=9abcbf3f25 path=ee98ec2a blocks=blockquote
+33 3629-3645 16 context=61 id=561e0b505b text=63ef8d177c path=466a9d04 blocks=paragraph
+34 3647-3654 7 context=73 id=ccb6045222 text=6e0f6eca4f path=466a9d04 blocks=paragraph
+35 3656-3676 20 context=91 id=c652591e4f text=3ae4855c69 path=466a9d04 blocks=paragraph
+36 3678-3690 12 context=104 id=ceab05b24a text=51470eda29 path=466a9d04 blocks=paragraph
+37 3692-3702 10 context=108 id=a2473ba1bc text=4074904058 path=466a9d04 blocks=paragraph
+38 3704-3720 16 context=117 id=3a5c5db79d text=6197e16ebd path=466a9d04 blocks=paragraph
+39 3722-3733 11 context=104 id=7e862f589a text=0b60fe04b3 path=466a9d04 blocks=paragraph
+40 3735-3755 20 context=112 id=5ab1bcc47a text=251b30fe44 path=466a9d04 blocks=paragraph
+41 3757-3773 16 context=228 id=f5d4720eb3 text=7c064b17b6 path=466a9d04 blocks=paragraph
+42 3775-3782 7 context=240 id=3f0bdfd75d text=f2dc406dd2 path=466a9d04 blocks=paragraph
+43 3784-3804 20 context=360 id=04d603448f text=36302b5b86 path=466a9d04 blocks=paragraph
+44 3806-3932 126 context=444 id=9da5a4ddc5 text=3576a7813d path=466a9d04 blocks=blockquote
+45 3932-3962 30 context=481 id=3b3628786c text=564544d800 path=466a9d04 blocks=blockquote
+46 3963-4095 132 context=614 id=a6b4c4b825 text=28180c5d4c path=466a9d04 blocks=blockquote
+47 4096-4201 105 context=735 id=d9c87626d4 text=9cee384bbf path=466a9d04 blocks=blockquote
+48 4202-4256 54 context=647 id=9bceea633e text=2d3b5a3289 path=466a9d04 blocks=blockquote
+49 4257-4398 141 context=616 id=414244e600 text=83adc01e72 path=466a9d04 blocks=blockquote
+50 4399-4541 142 context=483 id=263cb1f2b2 text=87b5afb904 path=466a9d04 blocks=blockquote
+51 4542-4579 37 context=377 id=9a0d1dfc35 text=3e13526ff5 path=466a9d04 blocks=blockquote
+52 4614-4623 9 context=104 id=4f2a67a951 text=eff63a10a4 path=0692421f blocks=paragraph
+53 4625-4653 28 context=116 id=14137125fe text=a7752d0721 path=0692421f blocks=paragraph
+54 4655-4693 38 context=223 id=b0525e7618 text=04a6652ce3 path=0692421f blocks=paragraph
+55 4695-4718 23 context=318 id=65c04dc362 text=a67b4df23b path=0692421f blocks=paragraph
+56 4720-4730 10 context=684 id=d5b705acc1 text=1df3125858 path=0692421f blocks=paragraph
+57 4732-4837 105 context=725 id=be2daf989f text=cb4b130900 path=0692421f blocks=blockquote
+58 4838-4932 94 context=876 id=c32b62e561 text=bb203d1022 path=0692421f blocks=blockquote
+59 4933-5309 376 context=912 id=8b71bb56f1 text=a36b447cb8 path=0692421f blocks=blockquote
+60 5310-5380 70 context=986 id=807d87e9e1 text=62a10dd22d path=0692421f blocks=blockquote
+61 5381-5571 190 context=971 id=df3b6e009d text=d0662eb3bf path=0692421f blocks=blockquote
+62 5572-5632 60 context=933 id=77b5d8eb83 text=154e216e79 path=0692421f blocks=blockquote
+63 5633-5718 85 context=815 id=9a6844ccb5 text=231411a76c path=0692421f blocks=blockquote
+64 5719-5809 90 context=901 id=7bf54893de text=4c58b8caae path=0692421f blocks=blockquote
+65 5810-5866 56 context=715 id=cf66702c7b text=b2464fde5b path=0692421f blocks=blockquote
+66 5867-6125 258 context=740 id=7447a9ce48 text=a8d5e9c26f path=0692421f blocks=blockquote
+67 6126-6282 156 context=754 id=0fcfd442b7 text=95515e146b path=0692421f blocks=blockquote
+68 6283-6287 4 context=713 id=7c8d1a8625 text=f3d000d892 path=0692421f blocks=blockquote
+69 6288-6373 85 context=797 id=7b43a39508 text=2d6a308e7f path=0692421f blocks=blockquote
+70 6374-6473 99 context=576 id=2beaeb558a text=7ad1b1acac path=0692421f blocks=blockquote
+71 6474-6523 49 context=572 id=9c457a69c0 text=dd4e56bfcb path=0692421f blocks=blockquote
+72 6524-6664 140 context=619 id=40910998b3 text=1a25ffed2c path=0692421f blocks=blockquote
+73 6665-6702 37 context=565 id=dddce8cad3 text=fc31a6c44f path=0692421f blocks=blockquote
+74 6703-6855 152 context=511 id=eb59558d59 text=962f5be81b path=0692421f blocks=blockquote
+75 6856-6907 51 context=478 id=9b3a12cc99 text=ac71074ea8 path=0692421f blocks=blockquote
+76 6908-6939 31 context=372 id=3932cead33 text=74ee362fbd path=0692421f blocks=blockquote
+77 6940-6985 45 context=461 id=9ac224b2e6 text=743c80d7ac path=0692421f blocks=blockquote
+78 6986-7002 16 context=366 id=8cf86ab2fc text=e66cbf2819 path=0692421f blocks=blockquote
+79 7003-7037 34 context=387 id=54fb258a62 text=5f546545ad path=0692421f blocks=blockquote
+80 7038-7164 126 context=433 id=0ff97f8a2f text=c2964bbe42 path=0692421f blocks=blockquote
+81 7165-7222 57 context=514 id=bcfd26557c text=ccc8e951f6 path=0692421f blocks=blockquote
+82 7223-7295 72 context=497 id=d3335b207e text=e169c614a9 path=0692421f blocks=blockquote
+83 7296-7373 77 context=462 id=436a693b47 text=c1a45b56c5 path=0692421f blocks=blockquote
+84 7374-7500 126 context=335 id=40eb60cb19 text=437511ced2 path=0692421f blocks=blockquote
+85 7537-7560 23 context=267 id=9fb30ea633 text=7b673f4da7 path=38da718d blocks=paragraph
+86 7562-7646 84 context=326 id=86bce645c0 text=6242062f56 path=38da718d blocks=blockquote
+87 7647-7714 67 context=460 id=60777ec30c text=4933a3511e path=38da718d blocks=blockquote
+88 7715-7804 89 context=460 id=f6be0619ae text=1c1ea482e8 path=38da718d blocks=blockquote
+89 7805-7863 58 context=435 id=f1c9812445 text=921f67e1a0 path=38da718d blocks=blockquote
+90 7864-7997 133 context=350 id=db881ed597 text=38c4b987b0 path=38da718d blocks=blockquote
+91 8042-8056 14 context=207 id=ac88e9a2ba text=f44cca7c1a path=7556724d blocks=paragraph
+92 8058-8213 155 context=207 id=3ab2c9d944 text=11af9dc183 path=7556724d blocks=blockquote
+93 8214-8249 35 context=207 id=85030c2ae7 text=74bd6cb4fa path=7556724d blocks=blockquote
+94 8275-8297 22 context=295 id=dabc6b70b4 text=8841fbda8c path=bc48b99b blocks=paragraph
+95 8299-8363 64 context=363 id=be9c12be31 text=796b32c7da path=bc48b99b blocks=blockquote
+96 8364-8471 107 context=432 id=5d8f38a898 text=714308f57b path=bc48b99b blocks=blockquote
+97 8472-8570 98 context=657 id=281fbd612e text=8d03b05dbb path=bc48b99b blocks=blockquote
+98 8571-8638 67 context=633 id=4c544a3270 text=d79bd3548a path=bc48b99b blocks=blockquote
+99 8640-8707 67 context=568 id=85b6faf9b2 text=8e8e3661de path=bc48b99b blocks=blockquote
+100 8708-8932 224 context=460 id=b872702569 text=8bb1a76f95 path=bc48b99b blocks=blockquote
+101 8952-8964 12 context=86 id=ba3369b611 text=ccc7e957b5 path=143a4252 blocks=paragraph
+102 8966-8983 17 context=109 id=7ea78f5dae text=027b3c69cb path=143a4252 blocks=paragraph
+103 8985-9011 26 context=114 id=0b1f7a498b text=cb9534f08f path=143a4252 blocks=paragraph
+104 9013-9038 25 context=137 id=e98077d173 text=cb53f03542 path=143a4252 blocks=paragraph
+105 9040-9061 21 context=181 id=18274a3b13 text=843bb81aaa path=143a4252 blocks=paragraph
+106 9063-9066 3 context=254 id=f84f31fbf3 text=29576b54e2 path=143a4252 blocks=paragraph
+107 9068-9089 21 context=310 id=2ff595c320 text=29cfb0e0f6 path=143a4252 blocks=paragraph
+108 9091-9147 56 context=330 id=ecd0d8de46 text=7a849c6947 path=143a4252 blocks=paragraph
+109 9149-9239 90 context=365 id=4521c5a937 text=81b507d200 path=143a4252 blocks=blockquote
+110 9240-9323 83 context=431 id=a07e58ce29 text=0db4e9f0d0 path=143a4252 blocks=blockquote
+111 9324-9370 46 context=465 id=0bf4f60147 text=8bf7ab2a4a path=143a4252 blocks=blockquote
+112 9371-9428 57 context=502 id=af5b69d39a text=e68da46450 path=143a4252 blocks=blockquote
+113 9429-9499 70 context=469 id=6fdab91500 text=5174a80836 path=143a4252 blocks=blockquote
+114 9500-9556 56 context=462 id=2d6ed356a3 text=a4d22b5f55 path=143a4252 blocks=blockquote
+115 9557-9651 94 context=472 id=e2c93433b0 text=b73b9b5104 path=143a4252 blocks=blockquote
+116 9652-9709 57 context=414 id=b38c76a717 text=3f9c2d5de7 path=143a4252 blocks=blockquote
+117 9710-9786 76 context=343 id=db15243114 text=01f425136a path=143a4252 blocks=blockquote
+118 9787-9843 56 context=286 id=51fafbc422 text=81cf63dad4 path=143a4252 blocks=blockquote
+119 9877-9913 36 context=99 id=3647dd8064 text=5d5bc4654f path=5727fcda blocks=paragraph
+120 9915-9936 21 context=142 id=9b2eba02a1 text=460c7596f7 path=5727fcda blocks=paragraph
+121 9938-9940 2 context=147 id=0aba113211 text=2c58b0f2b0 path=5727fcda blocks=paragraph
+122 9942-9976 34 context=300 id=092ae3f032 text=84f0279eb1 path=5727fcda blocks=paragraph
+123 9978-10019 41 context=363 id=c051fbbb41 text=8a7d435a65 path=5727fcda blocks=paragraph
+124 10021-10024 3 context=442 id=940b125eb6 text=29576b54e2 path=5727fcda blocks=paragraph
+125 10026-10177 151 context=438 id=abf480f082 text=02e6373db4 path=5727fcda blocks=blockquote
+126 10178-10278 100 context=402 id=bdbac24b80 text=f61cc369d1 path=5727fcda blocks=blockquote
+127 10279-10380 101 context=359 id=135f13a3a3 text=7983983ef9 path=5727fcda blocks=blockquote
+128 10416-10467 51 context=291 id=7711dd8991 text=20e0c0733a path=7155f1ac blocks=list
+129 10468-10600 132 context=408 id=9189967f7c text=dce1b7b9ad path=7155f1ac blocks=list
+130 10602-10657 55 context=664 id=f4a91d8b21 text=c0651344b3 path=7155f1ac blocks=paragraph
+131 10659-10707 48 context=829 id=4df29e38b6 text=a46fa1426b path=7155f1ac blocks=paragraph
+132 10709-10824 115 context=880 id=2da08860f2 text=13955ce880 path=7155f1ac blocks=blockquote
+133 10825-11080 255 context=746 id=627a793186 text=34e249ef9e path=7155f1ac blocks=blockquote
+134 11081-11245 164 context=689 id=cd9810f5cf text=1bf0e611bf path=7155f1ac blocks=blockquote
+135 11246-11348 102 context=639 id=8ade1b2a2c text=9b2bb025b4 path=7155f1ac blocks=blockquote
+136 11383-11443 60 context=148 id=e48e3d5898 text=5fde4eeace path=cdf80bbe blocks=paragraph
+137 11445-11461 16 context=198 id=dd8eaee75f text=728a33113f path=cdf80bbe blocks=paragraph
+138 11463-11514 51 context=243 id=87f574c77f text=1a99289b79 path=cdf80bbe blocks=paragraph
+139 11516-11531 15 context=248 id=b9e0cba381 text=9a9f76c1ce path=cdf80bbe blocks=paragraph
+140 11533-11581 48 context=190 id=29af92938f text=911be8ab7b path=cdf80bbe blocks=paragraph
+141 11583-11626 43 context=177 id=387fa685f9 text=3035bddf09 path=cdf80bbe blocks=paragraph
+142 11628-11631 3 context=143 id=7649bc7819 text=29576b54e2 path=cdf80bbe blocks=paragraph
+143 11633-11635 2 context=326 id=fd82b27f3d text=9d8b2b5670 path=cdf80bbe blocks=paragraph
+144 11637-11640 3 context=462 id=69bccbe92f text=29576b54e2 path=cdf80bbe blocks=paragraph
+145 11642-11659 17 context=531 id=01709dd5d5 text=2e093ea5c9 path=cdf80bbe blocks=paragraph
+146 11661-11859 198 context=628 id=a41d8c3571 text=ac5d051e2c path=cdf80bbe blocks=blockquote
+147 11860-12045 185 context=624 id=3e332a06be text=1daa5eddb0 path=cdf80bbe blocks=blockquote
+148 12046-12159 113 context=619 id=ca7af682d3 text=9205d99abf path=cdf80bbe blocks=blockquote
+149 12160-12261 101 context=600 id=96a719910d text=2b2e2ac9ea path=cdf80bbe blocks=blockquote
+150 12302-12309 7 context=139 id=c066960f14 text=569ca49f4a path=c989f27e blocks=paragraph
+151 12311-12363 52 context=182 id=f7c8d582b8 text=991130e026 path=c989f27e blocks=paragraph
+152 12365-12379 14 context=283 id=0c468605d3 text=d163c291b2 path=c989f27e blocks=paragraph
+153 12381-12441 60 context=484 id=e48393781d text=0bc0fc2c77 path=c989f27e blocks=paragraph
+154 12443-12484 41 context=630 id=7e77a2a1b9 text=25344a7e0a path=c989f27e blocks=paragraph
+155 12486-12585 99 context=686 id=1d63327bf1 text=9bf27ba121 path=c989f27e blocks=blockquote
+156 12586-12786 200 context=819 id=6c8ecb1736 text=8c2d72341b path=c989f27e blocks=blockquote
+157 12787-12941 154 context=845 id=cf503c0e05 text=2006ef95ae path=c989f27e blocks=blockquote
+158 12942-13051 109 context=969 id=8ecda2eced text=b8ac3a99de path=c989f27e blocks=blockquote
+159 13052-13200 148 context=972 id=15c74dd330 text=d2cae8a215 path=c989f27e blocks=blockquote
+160 13201-13288 87 context=845 id=9712da22f3 text=ac0c59aef1 path=c989f27e blocks=blockquote
+161 13289-13455 166 context=752 id=e8095703f0 text=3266dc1268 path=c989f27e blocks=blockquote
+162 13456-13558 102 context=866 id=38f92d2ab6 text=e8d11f6d3b path=c989f27e blocks=blockquote
+163 13559-13632 73 context=1028 id=e613dca3cb text=f65d545fc0 path=c989f27e blocks=blockquote
+164 13633-13694 61 context=940 id=f1345dc9c1 text=85ad62eaf3 path=c989f27e blocks=blockquote
+165 13695-13918 223 context=773 id=fb426e9d01 text=f3d5ea26af path=c989f27e blocks=blockquote
+166 13918-14229 311 context=670 id=bff983ea2c text=50743552e0 path=c989f27e blocks=blockquote
+167 14265-14275 10 context=304 id=de308381c0 text=4b1e0ff24e path=422a486c blocks=paragraph
+168 14277-14405 128 context=438 id=244e828eef text=b0b41ad421 path=422a486c blocks=blockquote
+169 14406-14484 78 context=438 id=145b540da5 text=63b885e127 path=422a486c blocks=blockquote
+170 14485-14569 84 context=438 id=5310315942 text=f2f37ec2fd path=422a486c blocks=blockquote
+171 14570-14703 133 context=426 id=2563c11371 text=da62b4d43f path=422a486c blocks=blockquote
+172 14722-14768 46 context=142 id=0636847b4f text=a45123d666 path=71c71129 blocks=list
+173 14769-14794 25 context=202 id=03d04dd6db text=21e0ed05e6 path=71c71129 blocks=list
+174 14795-14816 21 context=237 id=fc721a6e18 text=fba76308ea path=71c71129 blocks=list
+175 14817-14864 47 context=271 id=168e5464d8 text=ea0d52d597 path=71c71129 blocks=list
+176 14865-14924 59 context=224 id=7f87901827 text=72342b5e12 path=71c71129 blocks=list
+177 14925-14959 34 context=198 id=fec2bd6549 text=d03241ec59 path=71c71129 blocks=list
+178 14960-14993 33 context=176 id=0674b3cf1a text=f40d967906 path=71c71129 blocks=list
+179 15009-15101 92 context=325 id=ec07ead3b1 text=216492ade5 path=c8348100 blocks=list
+180 15102-15189 87 context=354 id=fbd7c4f604 text=8ef2cc7d86 path=c8348100 blocks=list
+181 15190-15260 70 context=445 id=4620bd72e5 text=7c5dfe329d path=c8348100 blocks=list
+182 15261-15334 73 context=474 id=2ebc0aedef text=4a97f2109b path=c8348100 blocks=list
+183 15334-15363 29 context=513 id=88f5cbc044 text=a6cf74b83a path=c8348100 blocks=list
+184 15364-15454 90 context=526 id=11557dbb37 text=6101330995 path=c8348100 blocks=list
+185 15454-15483 29 context=561 id=fe6edeb153 text=32dedcecf3 path=c8348100 blocks=list
+186 15484-15615 131 context=494 id=8da009bc55 text=60784107e5 path=c8348100 blocks=list
+187 15617-15716 99 context=542 id=ddd2659bfe text=bdff8b6434 path=c8348100 blocks=list
+188 15717-15822 105 context=599 id=a2d7462740 text=45ceb7a80e path=c8348100 blocks=list
+189 15822-15828 6 context=577 id=5695082d47 text=48e4e80baf path=c8348100 blocks=list
+190 15829-15906 77 context=449 id=d4aef92187 text=1772bed1f2 path=c8348100 blocks=list
+191 15907-16053 146 context=360 id=2917ca02d9 text=79483bcf41 path=c8348100 blocks=list
+192 16053-16061 8 context=355 id=b7bc3e6bfc text=2a315a7d95 path=c8348100 blocks=list
+193 16061-16066 5 context=474 id=c8f6a25fc3 text=184d2eb193 path=c8348100 blocks=list
+194 16066-16077 11 context=396 id=2eac76dd2f text=fb148885f1 path=c8348100 blocks=list
+195 16078-16177 99 context=250 id=c19ec38c5a text=dca9ea9fc0 path=c8348100 blocks=list
+196 16178-16303 125 context=242 id=2f76693e28 text=7086dc50e5 path=c8348100 blocks=list
+197 16382-16405 23 context=217 id=40909e0618 text=b049f1731b path=1f40c714 blocks=list
+198 16406-16470 64 context=240 id=c0e6a8a8a8 text=5ce4987c19 path=1f40c714 blocks=list
+199 16471-16539 68 context=240 id=50bb6496df text=0f36a72617 path=1f40c714 blocks=list
+200 16540-16599 59 context=240 id=08e31cc557 text=8bacc9c014 path=1f40c714 blocks=list
+201 16601-16622 21 context=216 id=c84ebf8150 text=6390e7e0c8 path=1f40c714 blocks=paragraph
+202 16668-16691 23 context=110 id=36d995235a text=7b673f4da7 path=03369ea3 blocks=paragraph
+203 16693-16720 27 context=110 id=7536df014d text=3eac5fc431 path=03369ea3 blocks=list
+204 16722-16758 36 context=110 id=9fae9b5705 text=124a5e3cf3 path=03369ea3 blocks=list
+205 16760-16778 18 context=110 id=3db2cce761 text=2523778b02 path=03369ea3 blocks=list
+206 16825-16845 20 context=108 id=1f13e381eb text=6e459e1cfb path=87d83646 blocks=paragraph
+207 16847-16874 27 context=108 id=4986213cf8 text=3eac5fc431 path=87d83646 blocks=list
+208 16876-16913 37 context=108 id=8100138f44 text=54aee4a5a3 path=87d83646 blocks=list
+209 16915-16933 18 context=108 id=135c96c923 text=2523778b02 path=87d83646 blocks=list
+210 16978-17001 23 context=109 id=1117dcc712 text=2f5424bafe path=e300d526 blocks=paragraph
+211 17003-17030 27 context=109 id=6884671f04 text=3eac5fc431 path=e300d526 blocks=list
+212 17032-17069 37 context=109 id=77603ae4fc text=54aee4a5a3 path=e300d526 blocks=list
+213 17071-17087 16 context=109 id=37998f63c8 text=1d2308ee84 path=e300d526 blocks=list
+214 17131-17149 18 context=103 id=0a69b8974d text=7cc2d2bd6e path=09e33c11 blocks=paragraph
+215 17151-17178 27 context=123 id=fd07b4b0dc text=3eac5fc431 path=09e33c11 blocks=list
+216 17180-17216 36 context=123 id=4795a75d08 text=67e1daebe8 path=09e33c11 blocks=list
+217 17218-17234 16 context=123 id=2803691335 text=1d2308ee84 path=09e33c11 blocks=list
+218 17236-17254 18 context=103 id=ef851b4d27 text=4d2881f461 path=09e33c11 blocks=list
+
+== parent-child
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-32 32 level=0 id=b226eab5b9 text=214eae3a48 path=23cdd331 blocks=heading
+1 0-32 32 level=1 parent=0 id=93d95a9fef text=214eae3a48 path=23cdd331 blocks=heading
+2 34-60 26 level=0 id=20fc36c0d6 text=140cc3844a path=e412e833 blocks=heading
+3 34-60 26 level=1 parent=2 id=7fc93855ad text=140cc3844a path=e412e833 blocks=heading
+4 62-1658 1596 level=0 id=c6cc4f573b text=f0e5afa5b2 path=1bc8fbdb blocks=heading,list,paragraph,blockquote
+5 62-378 316 level=1 parent=4 id=16f6c0e50f text=1c0627290d path=1bc8fbdb blocks=heading,list,paragraph
+6 380-1071 691 level=1 parent=4 id=44d5c201a0 text=03da1c0110 path=1bc8fbdb blocks=blockquote
+7 1072-1658 586 level=1 parent=4 id=23756a0e51 text=a05b5828ed path=1bc8fbdb blocks=blockquote
+8 1660-2848 1188 level=0 id=fe4b9981ce text=83ffd49aa8 path=55e58082 blocks=heading,paragraph,blockquote
+9 1660-2414 754 level=1 parent=8 id=5475aa328f text=09a909e19f path=55e58082 blocks=heading,paragraph,blockquote
+10 2415-2848 433 level=1 parent=8 id=e90a75d5e6 text=845840defa path=55e58082 blocks=blockquote
+11 2850-3599 749 level=0 id=71bdc5e28c text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+12 2850-3599 749 level=1 parent=11 id=c9d4ed7a86 text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+13 3601-4579 978 level=0 id=e37fcd1862 text=899c01acb9 path=466a9d04 blocks=heading,paragraph,blockquote
+14 3601-3804 203 level=1 parent=13 id=46ceeebe61 text=73e6098bbb path=466a9d04 blocks=heading,paragraph
+15 3806-4579 773 level=1 parent=13 id=27919f2bee text=5b56dc645c path=466a9d04 blocks=blockquote
+16 4581-7500 2919 level=0 id=39e90999ba text=6336fa80a2 path=0692421f blocks=heading,paragraph,blockquote
+17 4581-5380 799 level=1 parent=16 id=8d8ab04cdf text=a50c141eba path=0692421f blocks=heading,paragraph,blockquote
+18 5381-6125 744 level=1 parent=16 id=03579cdfcd text=48499c818b path=0692421f blocks=blockquote
+19 6126-6907 781 level=1 parent=16 id=1d0792cf74 text=6d19ef7385 path=0692421f blocks=blockquote
+20 6908-7500 592 level=1 parent=16 id=ddba2810ff text=b26c3a9a92 path=0692421f blocks=blockquote
+21 7502-7997 495 level=0 id=7d314f8441 text=0bb63e59ef path=38da718d blocks=heading,paragraph,blockquote
+22 7502-7997 495 level=1 parent=21 id=1d281d3d56 text=0bb63e59ef path=38da718d blocks=heading,paragraph,blockquote
+23 7999-8249 250 level=0 id=68b0b93982 text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+24 7999-8249 250 level=1 parent=23 id=27b0e1d4f1 text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+25 8251-8932 681 level=0 id=a03781ed38 text=6fc751af82 path=bc48b99b blocks=heading,paragraph,blockquote
+26 8251-8932 681 level=1 parent=25 id=cf7f1b4f3a text=6fc751af82 path=bc48b99b blocks=heading,paragraph,blockquote
+27 8934-9843 909 level=0 id=a88a76515f text=0d3f1d6a12 path=143a4252 blocks=heading,paragraph,blockquote
+28 8934-9147 213 level=1 parent=27 id=623c494d10 text=c533cc9412 path=143a4252 blocks=heading,paragraph
+29 9149-9843 694 level=1 parent=27 id=0f150456c8 text=c50195e6b1 path=143a4252 blocks=blockquote
+30 9845-10380 535 level=0 id=277662ace0 text=6b2e9d29f2 path=5727fcda blocks=heading,paragraph,blockquote
+31 9845-10380 535 level=1 parent=30 id=22429a7554 text=6b2e9d29f2 path=5727fcda blocks=heading,paragraph,blockquote
+32 10382-11348 966 level=0 id=8ed329a57d text=404e157c52 path=7155f1ac blocks=heading,list,paragraph,blockquote
+33 10382-10707 325 level=1 parent=32 id=3e7eb1f7a4 text=59e3108606 path=7155f1ac blocks=heading,list,paragraph
+34 10709-11348 639 level=1 parent=32 id=7f59e31c9b text=32279c22ba path=7155f1ac blocks=blockquote
+35 11350-12261 911 level=0 id=c645e8fa48 text=a1ae54410d path=cdf80bbe blocks=heading,paragraph,blockquote
+36 11350-11659 309 level=1 parent=35 id=0ac6bd1ed5 text=93348674c0 path=cdf80bbe blocks=heading,paragraph
+37 11661-12261 600 level=1 parent=35 id=95a7fb9915 text=052ea2a33c path=cdf80bbe blocks=blockquote
+38 12263-14229 1966 level=0 id=231bbd53a9 text=e1606b65b7 path=c989f27e blocks=heading,paragraph,blockquote
+39 12263-12484 221 level=1 parent=38 id=f91ef21871 text=13b2c3aa8f path=c989f27e blocks=heading,paragraph
+40 12486-13200 714 level=1 parent=38 id=7570b26548 text=e2c15d51f6 path=c989f27e blocks=blockquote
+41 13201-13918 717 level=1 parent=38 id=00d4671972 text=1ffd06caf1 path=c989f27e blocks=blockquote
+42 13918-14229 311 level=1 parent=38 id=748acefb8c text=50743552e0 path=c989f27e blocks=blockquote
+43 14231-14703 472 level=0 id=a9dff86935 text=b2228eaefb path=422a486c blocks=heading,paragraph,blockquote
+44 14231-14703 472 level=1 parent=43 id=2040d2c8b5 text=b2228eaefb path=422a486c blocks=heading,paragraph,blockquote
+45 14705-14993 288 level=0 id=4a90cbddc4 text=c48ccc0425 path=71c71129 blocks=heading,list
+46 14705-14993 288 level=1 parent=45 id=155bef4fc8 text=c48ccc0425 path=71c71129 blocks=heading,list
+47 14995-16303 1308 level=0 id=9235036bba text=d97e2378a1 path=c8348100 blocks=heading,list
+48 14995-15716 721 level=1 parent=47 id=2e58df9bd1 text=668b6d0896 path=c8348100 blocks=heading,list
+49 15717-16303 586 level=1 parent=47 id=c9e0521b9e text=10fceb2752 path=c8348100 blocks=list
+50 16305-16317 12 level=0 id=224919593e text=75c6211de8 path=c8348100 blocks=heading
+51 16305-16317 12 level=1 parent=50 id=91d72782a8 text=75c6211de8 path=c8348100 blocks=heading
+52 16319-16341 22 level=0 id=4c2208a7f3 text=99d6fe4a4f path=e9e5e4ea blocks=heading
+53 16319-16341 22 level=1 parent=52 id=aca6ed2577 text=99d6fe4a4f path=e9e5e4ea blocks=heading
+54 16343-16622 279 level=0 id=9a94aed7c7 text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+55 16343-16622 279 level=1 parent=54 id=043d37b6c7 text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+56 16624-16778 154 level=0 id=34e4a63606 text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+57 16624-16778 154 level=1 parent=56 id=8855d0b7ca text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+58 16780-16933 153 level=0 id=0261ca9dc9 text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+59 16780-16933 153 level=1 parent=58 id=7436e0ab8f text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+60 16935-17087 152 level=0 id=a99be1b91b text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+61 16935-17087 152 level=1 parent=60 id=03a293c4e8 text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+62 17089-17254 165 level=0 id=8ba4bdc97e text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+63 17089-17254 165 level=1 parent=62 id=4f3ab4f451 text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+
+== hierarchical
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-32 32 level=0 id=6b90f4af7f text=214eae3a48 path=23cdd331 blocks=heading
+1 0-32 32 level=1 parent=0 id=a21f36aedc text=214eae3a48 path=23cdd331 blocks=heading
+2 0-32 32 level=2 parent=1 id=f6b0eac99e text=214eae3a48 path=23cdd331 blocks=heading
+3 34-60 26 level=0 id=6177f6fd9b text=140cc3844a path=e412e833 blocks=heading
+4 34-60 26 level=1 parent=3 id=f9cea5b066 text=140cc3844a path=e412e833 blocks=heading
+5 34-60 26 level=2 parent=4 id=78f0770293 text=140cc3844a path=e412e833 blocks=heading
+6 62-1658 1596 level=0 id=4fbdaaf97c text=f0e5afa5b2 path=1bc8fbdb blocks=heading,list,paragraph,blockquote
+7 62-378 316 level=1 parent=6 id=0404938ccc text=1c0627290d path=1bc8fbdb blocks=heading,list,paragraph
+8 62-378 316 level=2 parent=7 id=1f80a7ebea text=1c0627290d path=1bc8fbdb blocks=heading,list,paragraph
+9 380-1658 1278 level=1 parent=6 id=3aca8ac35d text=bf00895049 path=1bc8fbdb blocks=blockquote
+10 380-765 385 level=2 parent=9 id=1eae0173da text=8de5c6590c path=1bc8fbdb blocks=blockquote
+11 766-1071 305 level=2 parent=9 id=c84e0641a5 text=cb0f6a7f04 path=1bc8fbdb blocks=blockquote
+12 1072-1415 343 level=2 parent=9 id=ac48dc17c2 text=4d9087a933 path=1bc8fbdb blocks=blockquote
+13 1416-1658 242 level=2 parent=9 id=e54de04551 text=2930ffab5f path=1bc8fbdb blocks=blockquote
+14 1660-2848 1188 level=0 id=6258ea8859 text=83ffd49aa8 path=55e58082 blocks=heading,paragraph,blockquote
+15 1660-2848 1188 level=1 parent=14 id=64b2e6f934 text=83ffd49aa8 path=55e58082 blocks=heading,paragraph,blockquote
+16 1660-1797 137 level=2 parent=15 id=5c47f24166 text=95847ba2bd path=55e58082 blocks=heading,paragraph
+17 1799-2135 336 level=2 parent=15 id=79ad394b07 text=031fdc768e path=55e58082 blocks=blockquote
+18 2136-2414 278 level=2 parent=15 id=7abd9ebb85 text=bd441e2b49 path=55e58082 blocks=blockquote
+19 2415-2809 394 level=2 parent=15 id=59ab597bdc text=60eb0b0e98 path=55e58082 blocks=blockquote
+20 2810-2848 38 level=2 parent=15 id=c49ff64cb6 text=20c8e01f67 path=55e58082 blocks=blockquote
+21 2850-3599 749 level=0 id=41baebb72e text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+22 2850-3599 749 level=1 parent=21 id=db69600fad text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+23 2850-2976 126 level=2 parent=22 id=5f16c4bd71 text=c75536a286 path=ee98ec2a blocks=heading,list
+24 2978-3366 388 level=2 parent=22 id=31b7fe20b7 text=98349eb422 path=ee98ec2a blocks=blockquote
+25 3367-3599 232 level=2 parent=22 id=a35915ed9f text=7184e57352 path=ee98ec2a blocks=blockquote
+26 3601-4579 978 level=0 id=d063967941 text=899c01acb9 path=466a9d04 blocks=heading,paragraph,blockquote
+27 3601-4579 978 level=1 parent=26 id=2a851504bc text=899c01acb9 path=466a9d04 blocks=heading,paragraph,blockquote
+28 3601-3804 203 level=2 parent=27 id=7f41e0dcad text=73e6098bbb path=466a9d04 blocks=heading,paragraph
+29 3806-4201 395 level=2 parent=27 id=6b048139d1 text=b46a4c8d1f path=466a9d04 blocks=blockquote
+30 4202-4579 377 level=2 parent=27 id=833dad3cbd text=b9c98027e8 path=466a9d04 blocks=blockquote
+31 4581-7500 2919 level=0 id=e8adde245a text=6336fa80a2 path=0692421f blocks=heading,paragraph,blockquote
+32 4581-4730 149 level=1 parent=31 id=5b41c5aa57 text=68b356ecbf path=0692421f blocks=heading,paragraph
+33 4581-4730 149 level=2 parent=32 id=6694c20384 text=68b356ecbf path=0692421f blocks=heading,paragraph
+34 4732-6125 1393 level=1 parent=31 id=e09e49abaa text=a1e3e263d0 path=0692421f blocks=blockquote
+35 4732-4932 200 level=2 parent=34 id=2f3a2e47dc text=4577604976 path=0692421f blocks=blockquote
+36 4933-5309 376 level=2 parent=34 id=90d7ef3ca7 text=a36b447cb8 path=0692421f blocks=blockquote
+37 5310-5632 322 level=2 parent=34 id=e104afa9f4 text=f204b24559 path=0692421f blocks=blockquote
+38 5633-5866 233 level=2 parent=34 id=9ceb9a7ada text=1c21c720bf path=0692421f blocks=blockquote
+39 5867-6125 258 level=2 parent=34 id=abf892fa6f text=a8d5e9c26f path=0692421f blocks=blockquote
+40 6126-7500 1374 level=1 parent=31 id=ca743c5660 text=6e244fb080 path=0692421f blocks=blockquote
+41 6126-6523 397 level=2 parent=40 id=aa643e6192 text=fd841e6ee9 path=0692421f blocks=blockquote
+42 6524-6907 383 level=2 parent=40 id=23d8605e67 text=fdfca3fbfb path=0692421f blocks=blockquote
+43 6908-7295 387 level=2 parent=40 id=c20ca50466 text=c90caf4986 path=0692421f blocks=blockquote
+44 7296-7500 204 level=2 parent=40 id=14f681e278 text=072fb7cf36 path=0692421f blocks=blockquote
+45 7502-7997 495 level=0 id=a35dab5a31 text=0bb63e59ef path=38da718d blocks=heading,paragraph,blockquote
+46 7502-7997 495 level=1 parent=45 id=d60a27718c text=0bb63e59ef path=38da718d blocks=heading,paragraph,blockquote
+47 7502-7863 361 level=2 parent=46 id=b30fae6d2b text=832b774435 path=38da718d blocks=heading,paragraph,blockquote
+48 7864-7997 133 level=2 parent=46 id=1306f42513 text=38c4b987b0 path=38da718d blocks=blockquote
+49 7999-8249 250 level=0 id=70fe950b49 text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+50 7999-8249 250 level=1 parent=49 id=87c452290e text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+51 7999-8249 250 level=2 parent=50 id=04807c0b78 text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+52 8251-8932 681 level=0 id=0e9876cb0a text=6fc751af82 path=bc48b99b blocks=heading,paragraph,blockquote
+53 8251-8932 681 level=1 parent=52 id=81d8114b1e text=6fc751af82 path=bc48b99b blocks=heading,paragraph,blockquote
+54 8251-8638 387 level=2 parent=53 id=c34ece9a8c text=2a805e16f9 path=bc48b99b blocks=heading,paragraph,blockquote
+55 8640-8932 292 level=2 parent=53 id=b803e13955 text=ccc1273ee6 path=bc48b99b blocks=blockquote
+56 8934-9843 909 level=0 id=5e970cbc41 text=0d3f1d6a12 path=143a4252 blocks=heading,paragraph,blockquote
+57 8934-9843 909 level=1 parent=56 id=72159e68ae text=0d3f1d6a12 path=143a4252 blocks=heading,paragraph,blockquote
+58 8934-9147 213 level=2 parent=57 id=fb8b81ea86 text=c533cc9412 path=143a4252 blocks=heading,paragraph
+59 9149-9499 350 level=2 parent=57 id=471630d750 text=6313111061 path=143a4252 blocks=blockquote
+60 9500-9843 343 level=2 parent=57 id=d1b0585ebf text=2fd2919b4c path=143a4252 blocks=blockquote
+61 9845-10380 535 level=0 id=d9fe10e087 text=6b2e9d29f2 path=5727fcda blocks=heading,paragraph,blockquote
+62 9845-10380 535 level=1 parent=61 id=268f8a7ebe text=6b2e9d29f2 path=5727fcda blocks=heading,paragraph,blockquote
+63 9845-10024 179 level=2 parent=62 id=63dc2815df text=cafed0704a path=5727fcda blocks=heading,paragraph
+64 10026-10380 354 level=2 parent=62 id=4fb1158bc2 text=6073f52b5f path=5727fcda blocks=blockquote
+65 10382-11348 966 level=0 id=63cd1417bf text=404e157c52 path=7155f1ac blocks=heading,list,paragraph,blockquote
+66 10382-11348 966 level=1 parent=65 id=4a683e3cf6 text=404e157c52 path=7155f1ac blocks=heading,list,paragraph,blockquote
+67 10382-10707 325 level=2 parent=66 id=be2b66d8f1 text=59e3108606 path=7155f1ac blocks=heading,list,paragraph
+68 10709-11080 371 level=2 parent=66 id=ae4101b16a text=d53a0816f1 path=7155f1ac blocks=blockquote
+69 11081-11348 267 level=2 parent=66 id=2fed1618fe text=fca22f7c42 path=7155f1ac blocks=blockquote
+70 11350-12261 911 level=0 id=513f1762a0 text=a1ae54410d path=cdf80bbe blocks=heading,paragraph,blockquote
+71 11350-12261 911 level=1 parent=70 id=a62acedab3 text=a1ae54410d path=cdf80bbe blocks=heading,paragraph,blockquote
+72 11350-11659 309 level=2 parent=71 id=0ba4d2bbab text=93348674c0 path=cdf80bbe blocks=heading,paragraph
+73 11661-12045 384 level=2 parent=71 id=dcca59ab7c text=65588ecb32 path=cdf80bbe blocks=blockquote
+74 12046-12261 215 level=2 parent=71 id=aa9c0943a1 text=fb6d1d3786 path=cdf80bbe blocks=blockquote
+75 12263-14229 1966 level=0 id=7af31c3a56 text=e1606b65b7 path=c989f27e blocks=heading,paragraph,blockquote
+76 12263-12484 221 level=1 parent=75 id=67824e0cf7 text=13b2c3aa8f path=c989f27e blocks=heading,paragraph
+77 12263-12484 221 level=2 parent=76 id=177d877716 text=13b2c3aa8f path=c989f27e blocks=heading,paragraph
+78 12486-13918 1432 level=1 parent=75 id=1f21015aff text=d357d81754 path=c989f27e blocks=blockquote
+79 12486-12786 300 level=2 parent=78 id=afaaaa56cc text=b64cd67608 path=c989f27e blocks=blockquote
+80 12787-13051 264 level=2 parent=78 id=abd224cd3a text=ce76e268dd path=c989f27e blocks=blockquote
+81 13052-13288 236 level=2 parent=78 id=3373e75e90 text=a81831e504 path=c989f27e blocks=blockquote
+82 13289-13632 343 level=2 parent=78 id=cb9221c872 text=907d37d455 path=c989f27e blocks=blockquote
+83 13633-13918 285 level=2 parent=78 id=b652c6e12c text=43de90be51 path=c989f27e blocks=blockquote
+84 13918-14229 311 level=1 parent=75 id=6bc24193d0 text=50743552e0 path=c989f27e blocks=blockquote
+85 13918-14229 311 level=2 parent=84 id=e57f5f29c7 text=50743552e0 path=c989f27e blocks=blockquote
+86 14231-14703 472 level=0 id=02358b844d text=b2228eaefb path=422a486c blocks=heading,paragraph,blockquote
+87 14231-14703 472 level=1 parent=86 id=294ee6462a text=b2228eaefb path=422a486c blocks=heading,paragraph,blockquote
+88 14231-14569 338 level=2 parent=87 id=6c3b358c09 text=c0d9ade56b path=422a486c blocks=heading,paragraph,blockquote
+89 14570-14703 133 level=2 parent=87 id=45e9040778 text=da62b4d43f path=422a486c blocks=blockquote
+90 14705-14993 288 level=0 id=60220825af text=c48ccc0425 path=71c71129 blocks=heading,list
+91 14705-14993 288 level=1 parent=90 id=29392b3a66 text=c48ccc0425 path=71c71129 blocks=heading,list
+92 14705-14993 288 level=2 parent=91 id=cc75c5f2ee text=c48ccc0425 path=71c71129 blocks=heading,list
+93 14995-16303 1308 level=0 id=c8814d942d text=d97e2378a1 path=c8348100 blocks=heading,list
+94 14995-16303 1308 level=1 parent=93 id=c7c2619ae2 text=d97e2378a1 path=c8348100 blocks=heading,list
+95 14995-15363 368 level=2 parent=94 id=190573d312 text=d158afb781 path=c8348100 blocks=heading,list
+96 15364-15716 352 level=2 parent=94 id=b617674333 text=af9dc119d6 path=c8348100 blocks=list
+97 15717-16077 360 level=2 parent=94 id=7fbae6e51b text=16186b2c42 path=c8348100 blocks=list
+98 16078-16303 225 level=2 parent=94 id=daad5469a8 text=f7cb1d9b39 path=c8348100 blocks=list
+99 16305-16317 12 level=0 id=5f366ff48c text=75c6211de8 path=c8348100 blocks=heading
+100 16305-16317 12 level=1 parent=99 id=b3e8b66e6f text=75c6211de8 path=c8348100 blocks=heading
+101 16305-16317 12 level=2 parent=100 id=a38eeded59 text=75c6211de8 path=c8348100 blocks=heading
+102 16319-16341 22 level=0 id=b65cfe2ce1 text=99d6fe4a4f path=e9e5e4ea blocks=heading
+103 16319-16341 22 level=1 parent=102 id=d9a61b7d09 text=99d6fe4a4f path=e9e5e4ea blocks=heading
+104 16319-16341 22 level=2 parent=103 id=b8fd82cd36 text=99d6fe4a4f path=e9e5e4ea blocks=heading
+105 16343-16622 279 level=0 id=13496d5728 text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+106 16343-16622 279 level=1 parent=105 id=e804d7c682 text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+107 16343-16622 279 level=2 parent=106 id=ffdcb34b3f text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+108 16624-16778 154 level=0 id=1424697a70 text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+109 16624-16778 154 level=1 parent=108 id=3726153b10 text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+110 16624-16778 154 level=2 parent=109 id=97afacda8d text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+111 16780-16933 153 level=0 id=745c054f7d text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+112 16780-16933 153 level=1 parent=111 id=d05bcd2279 text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+113 16780-16933 153 level=2 parent=112 id=cc8c2a17a4 text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+114 16935-17087 152 level=0 id=29c2379f3e text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+115 16935-17087 152 level=1 parent=114 id=6177ee013b text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+116 16935-17087 152 level=2 parent=115 id=2bcdc03a92 text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+117 17089-17254 165 level=0 id=d277b3c23f text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+118 17089-17254 165 level=1 parent=117 id=6f71c73617 text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+119 17089-17254 165 level=2 parent=118 id=eb8e9ab050 text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+
+== hierarchical by heading
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-32 32 level=0 id=b6d5f00d83 text=214eae3a48 path=23cdd331 blocks=heading
+1 34-60 26 level=0 id=1fc837c7cb text=140cc3844a path=e412e833 blocks=heading
+2 62-1658 1596 level=0 id=e3ffb18a74 text=f0e5afa5b2 path=1bc8fbdb blocks=heading,list,paragraph,blockquote
+3 62-378 316 level=1 parent=2 id=b74d9694ef text=1c0627290d path=1bc8fbdb blocks=heading,list,paragraph
+4 380-1658 1278 level=1 parent=2 id=221959823d text=bf00895049 path=1bc8fbdb blocks=blockquote
+5 1660-2848 1188 level=0 id=779a928599 text=83ffd49aa8 path=55e58082 blocks=heading,paragraph,blockquote
+6 2850-3599 749 level=0 id=44d0ebf81e text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+7 3601-4579 978 level=0 id=fa72d070ba text=899c01acb9 path=466a9d04 blocks=heading,paragraph,blockquote
+8 4581-7500 2919 level=0 id=7e8f774bbf text=6336fa80a2 path=0692421f blocks=heading,paragraph,blockquote
+9 4581-4730 149 level=1 parent=8 id=3e1be15945 text=68b356ecbf path=0692421f blocks=heading,paragraph
+10 4732-6125 1393 level=1 parent=8 id=1d533ce373 text=a1e3e263d0 path=0692421f blocks=blockquote
+11 6126-7500 1374 level=1 parent=8 id=0fbcd3b847 text=6e244fb080 path=0692421f blocks=blockquote
+12 7502-7997 495 level=0 id=a78c565f0a text=0bb63e59ef path=38da718d blocks=heading,paragraph,blockquote
+13 7999-8249 250 level=0 id=cc6a1497c6 text=d11befee36 path=7556724d blocks=heading,paragraph,blockquote
+14 8251-8932 681 level=0 id=a145c067dd text=6fc751af82 path=bc48b99b blocks=heading,paragraph,blockquote
+15 8934-9843 909 level=0 id=fd53535d37 text=0d3f1d6a12 path=143a4252 blocks=heading,paragraph,blockquote
+16 9845-10380 535 level=0 id=792a02ca1e text=6b2e9d29f2 path=5727fcda blocks=heading,paragraph,blockquote
+17 10382-11348 966 level=0 id=b6219ad379 text=404e157c52 path=7155f1ac blocks=heading,list,paragraph,blockquote
+18 11350-12261 911 level=0 id=e6e4ccc5d3 text=a1ae54410d path=cdf80bbe blocks=heading,paragraph,blockquote
+19 12263-14229 1966 level=0 id=151dc5fcb6 text=e1606b65b7 path=c989f27e blocks=heading,paragraph,blockquote
+20 12263-12484 221 level=1 parent=19 id=ae86a9bcbb text=13b2c3aa8f path=c989f27e blocks=heading,paragraph
+21 12486-13918 1432 level=1 parent=19 id=dd115f1165 text=d357d81754 path=c989f27e blocks=blockquote
+22 13918-14229 311 level=1 parent=19 id=eeb28712ae text=50743552e0 path=c989f27e blocks=blockquote
+23 14231-14703 472 level=0 id=515bb07d02 text=b2228eaefb path=422a486c blocks=heading,paragraph,blockquote
+24 14705-14993 288 level=0 id=cf76288f51 text=c48ccc0425 path=71c71129 blocks=heading,list
+25 14995-16303 1308 level=0 id=41337ddb14 text=d97e2378a1 path=c8348100 blocks=heading,list
+26 16305-16317 12 level=0 id=51cb9ad944 text=75c6211de8 path=c8348100 blocks=heading
+27 16319-16341 22 level=0 id=617742c4c3 text=99d6fe4a4f path=e9e5e4ea blocks=heading
+28 16343-16622 279 level=0 id=8a051f67b4 text=02de365220 path=1f40c714 blocks=heading,list,paragraph
+29 16624-16778 154 level=0 id=c3384776e8 text=59e581e4c9 path=03369ea3 blocks=heading,paragraph,list
+30 16780-16933 153 level=0 id=3facd03437 text=cff6852c6e path=87d83646 blocks=heading,paragraph,list
+31 16935-17087 152 level=0 id=35a35fb5fb text=1c12578a85 path=e300d526 blocks=heading,paragraph,list
+32 17089-17254 165 level=0 id=2d577aaa24 text=0e2ec92077 path=09e33c11 blocks=heading,paragraph,list
+
+== fixed
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-1441 1441 id=6e4d0a5e79 text=ff87973e56 path=23cdd331 blocks=heading,list,paragraph,blockquote
+1 1442-2941 1499 id=c013f3a205 text=88b6699b0e path=1bc8fbdb blocks=blockquote,heading,paragraph,list
+2 2942-4441 1499 id=8f7f37da37 text=1541647cc2 path=ee98ec2a blocks=list,blockquote,heading,paragraph
+3 4442-5870 1428 id=99140d469f text=956ff68a6a path=466a9d04 blocks=blockquote,heading,paragraph
+4 5871-7361 1490 id=ee5bb23773 text=935136bfd9 path=0692421f blocks=blockquote
+5 7362-8860 1498 id=b2ec07aa4c text=9b73746122 path=0692421f blocks=blockquote,heading,paragraph
+6 8861-10361 1500 id=75ccbb63ac text=9f5daabadc path=bc48b99b blocks=blockquote,heading,paragraph
+7 10362-11861 1499 id=9aa251c23f text=3891fea27b path=5727fcda blocks=blockquote,heading,list,paragraph
+8 11862-13356 1494 id=4dbd85bdfe text=800403bc45 path=cdf80bbe blocks=blockquote,heading,paragraph
+9 13357-14855 1498 id=b0de180006 text=62cb342c6d path=c989f27e blocks=blockquote,heading,paragraph,list
+10 14856-16353 1497 id=9e8ea385d9 text=615ff5566a path=71c71129 blocks=list,heading
+11 16354-17254 900 id=8f7d99b2c6 text=d251f3cf8d path=1f40c714 blocks=heading,list,paragraph
+
+== fixed-overlap
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-1441 1441 id=3afe07daea text=ff87973e56 path=23cdd331 blocks=heading,list,paragraph,blockquote
+1 1242-2737 1495 id=1a888125c4 text=903aae7b39 path=1bc8fbdb blocks=blockquote,heading,paragraph
+2 2538-3981 1443 id=cec90d38c4 text=46023e4bea path=55e58082 blocks=blockquote,heading,list,paragraph
+3 3784-5282 1498 id=22e8d71841 text=25e09eef37 path=466a9d04 blocks=paragraph,blockquote,heading
+4 5082-6556 1474 id=440d88d899 text=f12876361e path=0692421f blocks=blockquote
+5 6357-7852 1495 id=59965202df text=359045065e path=0692421f blocks=blockquote,heading,paragraph
+6 7653-9150 1497 id=0cc9a1ceb6 text=07551a9163 path=38da718d blocks=blockquote,heading,paragraph
+7 8952-10447 1495 id=fc604bb9a2 text=c521e1e0b1 path=143a4252 blocks=paragraph,blockquote,heading,list
+8 10248-11746 1498 id=db585f8254 text=0867936657 path=5727fcda blocks=blockquote,heading,list,paragraph
+9 11547-13042 1495 id=6aaf630dc5 text=0ab52274f0 path=cdf80bbe blocks=paragraph,blockquote,heading
+10 12843-14343 1500 id=04024e8a62 text=b6d32ccf75 path=c989f27e blocks=blockquote,heading,paragraph
+11 14143-15618 1475 id=78900effd8 text=8067bb1610 path=c989f27e blocks=blockquote,heading,paragraph,list
+12 15419-16917 1498 id=ca612a9841 text=d8164655fd path=c8348100 blocks=list,heading,paragraph
+13 16718-17254 536 id=bb726c44e4 text=00090ff4cf path=03369ea3 blocks=list,heading,paragraph
+
+== recursive
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-60 60 id=05ad34d811 text=a443b69163 path=23cdd331 blocks=heading
+1 62-378 316 id=0de33d86a8 text=1c0627290d path=1bc8fbdb blocks=heading,list,paragraph
+2 380-1658 1278 id=8b3f06d0d7 text=bf00895049 path=1bc8fbdb blocks=blockquote
+3 1660-2848 1188 id=d8e0413849 text=83ffd49aa8 path=55e58082 blocks=heading,paragraph,blockquote
+4 2850-3599 749 id=514ff8e773 text=f482de47f5 path=ee98ec2a blocks=heading,list,blockquote
+5 3601-4579 978 id=7e9f8ca63e text=899c01acb9 path=466a9d04 blocks=heading,paragraph,blockquote
+6 4581-4730 149 id=5506ce844c text=68b356ecbf path=0692421f blocks=heading,paragraph
+7 4732-6120 1388 id=2e2f9d4f27 text=c7ed67be4f path=0692421f blocks=blockquote
+8 6121-7500 1379 id=35c074c0ee text=2b429cd656 path=0692421f blocks=blockquote
+9 7502-8932 1430 id=c3519274da text=1cbcd708a7 path=38da718d blocks=heading,paragraph,blockquote
+10 8934-10380 1446 id=56cd79986b text=859025fdc4 path=143a4252 blocks=heading,paragraph,blockquote
+11 10382-11348 966 id=de0636cc47 text=404e157c52 path=7155f1ac blocks=heading,list,paragraph,blockquote
+12 11350-12261 911 id=c6c68fc2d9 text=a1ae54410d path=cdf80bbe blocks=heading,paragraph,blockquote
+13 12263-12484 221 id=aba14a02ad text=13b2c3aa8f path=c989f27e blocks=heading,paragraph
+14 12486-13938 1452 id=a6483f3f48 text=3ef5a4d623 path=c989f27e blocks=blockquote
+15 13939-14229 290 id=3cf7a365b5 text=6ac1809cf1 path=c989f27e blocks=blockquote
+16 14231-14993 762 id=9e7a881fb2 text=91104c509d path=422a486c blocks=heading,paragraph,blockquote,list
+17 14995-16341 1346 id=8380f853b9 text=3d85f7b7d2 path=c8348100 blocks=heading,list
+18 16343-17254 911 id=450a32a211 text=43016479e5 path=1f40c714 blocks=heading,list,paragraph
+
+== sliding-window
+document 920e29ec1aadd914eaf8 pptx 17255 chars
+0 0-1441 1441 id=ca457ee877 text=ff87973e56 path=23cdd331 blocks=heading,list,paragraph,blockquote
+1 693-2188 1495 id=1f2b9d4d4b text=ccf0ad27b6 path=1bc8fbdb blocks=blockquote,heading,paragraph
+2 1440-2933 1493 id=30c0b660aa text=a252897325 path=1bc8fbdb blocks=blockquote,heading,paragraph,list
+3 2184-3676 1492 id=b53a2f759d text=c2570e28b2 path=55e58082 blocks=blockquote,heading,list,paragraph
+4 2928-4428 1500 id=25ae306709 text=b32e40b961 path=ee98ec2a blocks=list,blockquote,heading,paragraph
+5 3678-5174 1496 id=093f616b24 text=260a417710 path=466a9d04 blocks=paragraph,blockquote,heading
+6 4425-5870 1445 id=075be08ecb text=e5226cffba path=466a9d04 blocks=blockquote,heading,paragraph
+7 5121-6556 1435 id=469a52a05f text=1ae7975767 path=0692421f blocks=blockquote
+8 5807-7304 1497 id=291a39db34 text=6c2ab7c41e path=0692421f blocks=blockquote
+9 6555-8044 1489 id=354d782fc5 text=7ecbe126b4 path=0692421f blocks=blockquote,heading,paragraph
+10 7296-8794 1498 id=b81df3582d text=aa17cfb720 path=0692421f blocks=blockquote,heading,paragraph
+11 8045-9539 1494 id=bc0aff948c text=16b49d4b45 path=7556724d blocks=paragraph,blockquote,heading
+12 8790-10290 1500 id=0d9fa57ab3 text=4a72d706f4 path=bc48b99b blocks=blockquote,heading,paragraph
+13 9540-11036 1496 id=35299388f0 text=aea993a358 path=143a4252 blocks=blockquote,heading,paragraph,list
+14 10288-11786 1498 id=f793a24897 text=dd3a9343e1 path=5727fcda blocks=blockquote,heading,list,paragraph
+15 11037-12534 1497 id=01f655c7e2 text=8bf459b191 path=7155f1ac blocks=blockquote,heading,paragraph
+16 11785-13278 1493 id=9746188b86 text=2cac62daaf path=cdf80bbe blocks=blockquote,heading,paragraph
+17 12530-13960 1430 id=4f0430197d text=09a4aa60ba path=c989f27e blocks=blockquote
+18 13211-14711 1500 id=d14a8fc3d4 text=bd6cb96804 path=c989f27e blocks=blockquote,heading,paragraph
+19 13961-15387 1426 id=fef00e4440 text=76f4e5c727 path=c989f27e blocks=blockquote,heading,paragraph,list
+20 14639-16092 1453 id=cfdb4f5d2f text=44c6f112b6 path=422a486c blocks=blockquote,heading,list
+21 15343-16837 1494 id=238766a708 text=3d267dfacb path=c8348100 blocks=list,heading,paragraph
+22 16088-17254 1166 id=5f5690836b text=d0eb47f770 path=c8348100 blocks=list,heading,paragraph

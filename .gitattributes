@@ -2,3 +2,4 @@
 test/fixtures/**/*.md -text diff
 test/fixtures/**/*.txt -text diff
 test/fixtures/**/*.csv -text diff
+test/snapshots/** -text diff

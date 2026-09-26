@@ -1,0 +1,113 @@
+== structure
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-1369 1369 id=af98087933 text=8c84cb79a1 path=4f53cda1 blocks=table
+1 1370-2664 1434 id=04d04c996d text=3c58655d10 path=4f53cda1 blocks=table
+2 2665-3954 1429 id=d1a5f2d3e0 text=deaddd64c6 path=4f53cda1 blocks=table
+3 3955-5221 1406 id=e048d69c55 text=4084476a93 path=4f53cda1 blocks=table
+4 5222-5458 376 id=a71be10ae5 text=7358beb9eb path=4f53cda1 blocks=table
+
+== sentence
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-5458 5458 id=067458f0dd text=c30d686d8f path=4f53cda1 blocks=table
+
+== paragraph
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-5458 5458 id=52cc6fc53d text=c30d686d8f path=4f53cda1 blocks=table
+
+== heading
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-5458 5458 id=b9b71c4a48 text=c30d686d8f path=4f53cda1 blocks=table
+
+== sentence-window
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-5458 5458 context=5458 id=7635e96f63 text=c30d686d8f path=4f53cda1 blocks=table
+
+== parent-child
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-3954 3954 level=0 id=c61ca1144c text=8088dd6128 path=4f53cda1 blocks=table
+1 0-756 756 level=1 parent=0 id=757007d11e text=a7fc279592 path=4f53cda1 blocks=table
+2 757-1369 752 level=1 parent=0 id=96b2178d70 text=1d242800b7 path=4f53cda1 blocks=table
+3 1370-1923 693 level=1 parent=0 id=df6f2d7be9 text=6fb90ef894 path=4f53cda1 blocks=table
+4 1924-2560 776 level=1 parent=0 id=75175f48f4 text=2439c06735 path=4f53cda1 blocks=table
+5 2561-3174 753 level=1 parent=0 id=ec497600ad text=e898f40179 path=4f53cda1 blocks=table
+6 3175-3743 708 level=1 parent=0 id=6c4f21c7b6 text=4702786c6e path=4f53cda1 blocks=table
+7 3744-3954 350 level=1 parent=0 id=b2f50a938c text=3fb7dd3a59 path=4f53cda1 blocks=table
+8 3955-5458 1643 level=0 id=593eb00c98 text=4ddd77804b path=4f53cda1 blocks=table
+9 3955-4597 782 level=1 parent=8 id=35e5428da4 text=e8dfa54972 path=4f53cda1 blocks=table
+10 4598-5221 763 level=1 parent=8 id=6d916eadf7 text=ad19462d62 path=4f53cda1 blocks=table
+11 5222-5458 376 level=1 parent=8 id=3a07ac9e87 text=7358beb9eb path=4f53cda1 blocks=table
+
+== hierarchical
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-5458 5458 level=0 id=50dd59f00b text=c30d686d8f path=4f53cda1 blocks=table
+1 0-1369 1369 level=1 parent=0 id=6981a99de5 text=8c84cb79a1 path=4f53cda1 blocks=table
+2 0-318 318 level=2 parent=1 id=3fe23d6aa7 text=1ee5ad990a path=4f53cda1 blocks=table
+3 319-557 378 level=2 parent=1 id=dc91d95e39 text=3df3a66273 path=4f53cda1 blocks=table
+4 558-756 338 level=2 parent=1 id=a3761fb4f1 text=a1b1ebd9c4 path=4f53cda1 blocks=table
+5 757-965 348 level=2 parent=1 id=de41d6d3c6 text=e1c49acec2 path=4f53cda1 blocks=table
+6 966-1161 335 level=2 parent=1 id=1c602a082d text=90a4e64ec8 path=4f53cda1 blocks=table
+7 1162-1369 347 level=2 parent=1 id=1870028853 text=d283842cda path=4f53cda1 blocks=table
+8 1370-2664 1434 level=1 parent=0 id=0bb5fd1476 text=3c58655d10 path=4f53cda1 blocks=table
+9 1370-1604 374 level=2 parent=8 id=9adedfffb0 text=230119cd1c path=4f53cda1 blocks=table
+10 1605-1823 358 level=2 parent=8 id=2a352674ac text=13bab50b39 path=4f53cda1 blocks=table
+11 1824-2032 348 level=2 parent=8 id=f1ee5bf561 text=b55d04b9d0 path=4f53cda1 blocks=table
+12 2033-2218 325 level=2 parent=8 id=65dba53526 text=afaa1a5987 path=4f53cda1 blocks=table
+13 2219-2461 382 level=2 parent=8 id=caa665d996 text=deb4d40dc3 path=4f53cda1 blocks=table
+14 2462-2664 342 level=2 parent=8 id=bd67a3d879 text=756561ddca path=4f53cda1 blocks=table
+15 2665-3954 1429 level=1 parent=0 id=6300ac9cce text=deaddd64c6 path=4f53cda1 blocks=table
+16 2665-2876 351 level=2 parent=15 id=4382debe03 text=2b9a656c29 path=4f53cda1 blocks=table
+17 2877-3074 337 level=2 parent=15 id=a93db57f0c text=e90e529d87 path=4f53cda1 blocks=table
+18 3075-3285 350 level=2 parent=15 id=80bd6585b5 text=71556c4089 path=4f53cda1 blocks=table
+19 3286-3522 376 level=2 parent=15 id=4c99167950 text=7ab3c8df78 path=4f53cda1 blocks=table
+20 3523-3743 360 level=2 parent=15 id=223cb6bf06 text=945e6c4c37 path=4f53cda1 blocks=table
+21 3744-3954 350 level=2 parent=15 id=2b19da4739 text=3fb7dd3a59 path=4f53cda1 blocks=table
+22 3955-5221 1406 level=1 parent=0 id=7d1864f20f text=4084476a93 path=4f53cda1 blocks=table
+23 3955-4143 328 level=2 parent=22 id=4b53071593 text=f696c91be3 path=4f53cda1 blocks=table
+24 4144-4390 386 level=2 parent=22 id=efdf05cc70 text=4bf7936493 path=4f53cda1 blocks=table
+25 4391-4597 346 level=2 parent=22 id=4aea447dc1 text=fd1cda0275 path=4f53cda1 blocks=table
+26 4598-4812 354 level=2 parent=22 id=211913dfd4 text=625d0e05f2 path=4f53cda1 blocks=table
+27 4813-5011 338 level=2 parent=22 id=18706d0331 text=dc39bcbab9 path=4f53cda1 blocks=table
+28 5012-5221 349 level=2 parent=22 id=c6c1bee2d3 text=26f8dd6166 path=4f53cda1 blocks=table
+29 5222-5458 376 level=1 parent=0 id=d2e0f7bc8d text=7358beb9eb path=4f53cda1 blocks=table
+30 5222-5458 376 level=2 parent=29 id=9aa2160e9e text=7358beb9eb path=4f53cda1 blocks=table
+
+== hierarchical by heading
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-5458 5458 level=0 id=e099e06067 text=c30d686d8f path=4f53cda1 blocks=table
+1 0-1369 1369 level=1 parent=0 id=142396a4ca text=8c84cb79a1 path=4f53cda1 blocks=table
+2 1370-2664 1434 level=1 parent=0 id=9254dfc7ff text=3c58655d10 path=4f53cda1 blocks=table
+3 2665-3954 1429 level=1 parent=0 id=ea06896509 text=deaddd64c6 path=4f53cda1 blocks=table
+4 3955-5221 1406 level=1 parent=0 id=f282221da8 text=4084476a93 path=4f53cda1 blocks=table
+5 5222-5458 376 level=1 parent=0 id=fed9994ce7 text=7358beb9eb path=4f53cda1 blocks=table
+
+== fixed
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-1484 1484 id=d0ad48c482 text=76c1f187f7 path=4f53cda1 blocks=table
+1 1485-2984 1499 id=cdec557088 text=ca68af9cf0 path=4f53cda1 blocks=table
+2 2985-4471 1486 id=5d4060b33a text=d72b49b924 path=4f53cda1 blocks=table
+3 4472-5458 986 id=24704ab13d text=cbebce815b path=4f53cda1 blocks=table
+
+== fixed-overlap
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-1484 1484 id=e327d0bc27 text=76c1f187f7 path=4f53cda1 blocks=table
+1 1286-2784 1498 id=d572e0d3c5 text=8486cee8d5 path=4f53cda1 blocks=table
+2 2585-4082 1497 id=164644f35c text=d24c8f5f31 path=4f53cda1 blocks=table
+3 3884-5383 1499 id=169fca55e9 text=edccef3e14 path=4f53cda1 blocks=table
+4 5183-5458 275 id=cb970e9e98 text=8d80cc6962 path=4f53cda1 blocks=table
+
+== recursive
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-1369 1369 id=3dfa9ee93f text=8c84cb79a1 path=4f53cda1 blocks=table
+1 1370-2777 1407 id=fd0d8f1aa6 text=51a7cd4db3 path=4f53cda1 blocks=table
+2 2778-4254 1476 id=35a194a533 text=751b98403b path=4f53cda1 blocks=table
+3 4255-5458 1203 id=57f023a128 text=d8ceec0c56 path=4f53cda1 blocks=table
+
+== sliding-window
+document 56d7ad068220f9ad78e9 csv 5459 chars
+0 0-1484 1484 id=b4fc612b45 text=76c1f187f7 path=4f53cda1 blocks=table
+1 735-2231 1496 id=09dbc23fc5 text=38b6d644b4 path=4f53cda1 blocks=table
+2 1483-2982 1499 id=064f745868 text=b117ca6179 path=4f53cda1 blocks=table
+3 2232-3723 1491 id=e4f40e914b text=869a98de54 path=4f53cda1 blocks=table
+4 2974-4471 1497 id=b83d710d05 text=280a425c6b path=4f53cda1 blocks=table
+5 3722-5221 1499 id=89ee6b7348 text=921c728af1 path=4f53cda1 blocks=table
+6 4472-5458 986 id=ef6441b017 text=cbebce815b path=4f53cda1 blocks=table

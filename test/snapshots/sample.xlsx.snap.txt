@@ -1,0 +1,50 @@
+== structure
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=9fdcbbe883 text=195e2dd9ee path=4f53cda1 blocks=table
+
+== sentence
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=5d2606db41 text=195e2dd9ee path=4f53cda1 blocks=table
+
+== paragraph
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=11c29e4b5b text=195e2dd9ee path=4f53cda1 blocks=table
+
+== heading
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=b6708a905f text=195e2dd9ee path=4f53cda1 blocks=table
+
+== sentence-window
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 context=90 id=ce29f7ab3b text=195e2dd9ee path=4f53cda1 blocks=table
+
+== parent-child
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 level=0 id=602d7f82d4 text=195e2dd9ee path=4f53cda1 blocks=table
+1 0-90 90 level=1 parent=0 id=6707867c6f text=195e2dd9ee path=4f53cda1 blocks=table
+
+== hierarchical
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 level=0 id=29fef53f82 text=195e2dd9ee path=4f53cda1 blocks=table
+1 0-90 90 level=1 parent=0 id=353abb42d3 text=195e2dd9ee path=4f53cda1 blocks=table
+2 0-90 90 level=2 parent=1 id=84a84a33f4 text=195e2dd9ee path=4f53cda1 blocks=table
+
+== hierarchical by heading
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 level=0 id=69fd064807 text=195e2dd9ee path=4f53cda1 blocks=table
+
+== fixed
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=745f839251 text=195e2dd9ee path=4f53cda1 blocks=table
+
+== fixed-overlap
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=38217805cb text=195e2dd9ee path=4f53cda1 blocks=table
+
+== recursive
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=4e39c7e3cb text=195e2dd9ee path=4f53cda1 blocks=table
+
+== sliding-window
+document 66a0e899bff6dacd14f1 xlsx 91 chars
+0 0-90 90 id=e22c17f716 text=195e2dd9ee path=4f53cda1 blocks=table

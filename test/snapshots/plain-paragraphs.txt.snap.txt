@@ -1,0 +1,58 @@
+== structure
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 id=1ae12ee324 text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== sentence
+document 3bdb1122676041e8253d text 188 chars
+0 0-37 37 id=a042916efa text=bb4f293d01 path=4f53cda1 blocks=paragraph
+1 39-109 70 id=1a2c4ea6af text=e0674711cc path=4f53cda1 blocks=paragraph
+2 110-140 30 id=9c57f925a7 text=18f2b1d22d path=4f53cda1 blocks=paragraph
+3 144-187 43 id=f5eea232bf text=4444f34049 path=4f53cda1 blocks=paragraph
+
+== paragraph
+document 3bdb1122676041e8253d text 188 chars
+0 0-37 37 id=380c210fd7 text=bb4f293d01 path=4f53cda1 blocks=paragraph
+1 39-140 101 id=66fd7c92fc text=c44b45ca4e path=4f53cda1 blocks=paragraph
+2 144-187 43 id=042817dc00 text=4444f34049 path=4f53cda1 blocks=paragraph
+
+== heading
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 id=00ef33306f text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== sentence-window
+document 3bdb1122676041e8253d text 188 chars
+0 0-37 37 context=187 id=b4f329ff11 text=bb4f293d01 path=4f53cda1 blocks=paragraph
+1 39-109 70 context=187 id=3ae83da4d2 text=e0674711cc path=4f53cda1 blocks=paragraph
+2 110-140 30 context=187 id=7ab81de1ca text=18f2b1d22d path=4f53cda1 blocks=paragraph
+3 144-187 43 context=187 id=64ec78ac7b text=4444f34049 path=4f53cda1 blocks=paragraph
+
+== parent-child
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 level=0 id=0c51406833 text=a54648ab38 path=4f53cda1 blocks=paragraph
+1 0-187 187 level=1 parent=0 id=a6a3fff805 text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== hierarchical
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 level=0 id=c54be40f83 text=a54648ab38 path=4f53cda1 blocks=paragraph
+1 0-187 187 level=1 parent=0 id=bbb682a496 text=a54648ab38 path=4f53cda1 blocks=paragraph
+2 0-187 187 level=2 parent=1 id=7ec92b2d43 text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== hierarchical by heading
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 level=0 id=d957d1740d text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== fixed
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 id=38ac904a08 text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== fixed-overlap
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 id=1d4394f16b text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== recursive
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 id=f8e296e1fd text=a54648ab38 path=4f53cda1 blocks=paragraph
+
+== sliding-window
+document 3bdb1122676041e8253d text 188 chars
+0 0-187 187 id=5e80e85d44 text=a54648ab38 path=4f53cda1 blocks=paragraph
