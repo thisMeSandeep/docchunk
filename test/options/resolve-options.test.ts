@@ -17,6 +17,30 @@ function resolveError(options: unknown): DocchunkError {
 }
 
 describe("resolveOptions", () => {
+  it("uses the structure strategy with its defaults when no strategy is given", () => {
+    const expected = {
+      strategy: "structure",
+      strategyOptions: { size: 1500, minSize: 200, overlapChars: 0, headingLevel: 3 },
+      metadata: {},
+      documentId: undefined,
+      headingPrefix: false,
+      signal: undefined,
+    };
+    expect(resolveOptions(undefined)).toEqual(expected);
+    expect(resolveOptions({})).toEqual(expected);
+  });
+
+  it("applies structure options given without a strategy name", () => {
+    const resolved = resolveOptions({ size: 800, minSize: 100 });
+    expect(resolved.strategy).toBe("structure");
+    expect(resolved.strategyOptions).toEqual({
+      size: 800,
+      minSize: 100,
+      overlapChars: 0,
+      headingLevel: 3,
+    });
+  });
+
   it("fills in the strategy defaults and the common defaults", () => {
     expect(resolveOptions({ strategy: "fixed" })).toEqual({
       strategy: "fixed",
@@ -60,18 +84,9 @@ describe("resolveOptions errors", () => {
     expect(resolveError({ strategy: "fixed", size: 0 }).code).toBe("INVALID_OPTIONS");
   });
 
-  it("requires a strategy until the default strategy exists", () => {
-    expect(resolveError(undefined).message).toBe(
-      'Option "strategy" is required. Use one of "fixed", "fixed-overlap", "recursive", "sliding-window".',
-    );
-    expect(resolveError({}).message).toBe(
-      'Option "strategy" is required. Use one of "fixed", "fixed-overlap", "recursive", "sliding-window".',
-    );
-  });
-
   it("rejects an unknown strategy", () => {
     expect(resolveError({ strategy: "semantic" }).message).toBe(
-      'Option "strategy" must be one of "fixed", "fixed-overlap", "recursive", "sliding-window", got "semantic".',
+      'Option "strategy" must be one of "structure", "fixed", "fixed-overlap", "recursive", "sliding-window", got "semantic".',
     );
   });
 

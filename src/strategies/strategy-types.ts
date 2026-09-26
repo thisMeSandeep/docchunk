@@ -21,6 +21,12 @@ export interface RawChunk {
   isOversized?: boolean;
 }
 
+/** A raw chunk that knows its section, so post-processing never joins chunks from different sections. */
+export interface SectionChunk extends RawChunk {
+  /** The section id of the blocks the chunk was made from. */
+  sectionId: number;
+}
+
 /** Everything the library needs to know about one strategy. */
 export interface StrategyDefinition<Name extends StrategyName> {
   /** The strategy's name, the same as its key in the registry. */

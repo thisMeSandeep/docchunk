@@ -12,6 +12,22 @@ export function checkPositiveInteger(optionName: string, value: unknown): void {
   }
 }
 
+/** Throws unless the value is an integer from `min` to `max`, inclusive. */
+export function checkIntegerBetween(
+  optionName: string,
+  value: unknown,
+  min: number,
+  max: number,
+): void {
+  const isInRange = Number.isInteger(value) && Number(value) >= min && Number(value) <= max;
+  if (!isInRange) {
+    throw new DocchunkError(
+      "INVALID_OPTIONS",
+      `Option "${optionName}" must be an integer from ${min} to ${max}, got ${String(value)}.`,
+    );
+  }
+}
+
 /** Throws unless the value is an integer of 0 or more. */
 export function checkNonNegativeInteger(optionName: string, value: unknown): void {
   const isNonNegativeInteger = Number.isInteger(value) && Number(value) >= 0;

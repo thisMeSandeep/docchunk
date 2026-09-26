@@ -48,6 +48,17 @@ export type DocumentSource = PathSource | BytesSource | ContentSource;
 
 /** Options for each strategy, keyed by strategy name. */
 export interface StrategyOptionsByName {
+  /** The default. Packs whole blocks into chunks up to `size`, never across a section. Keeps tables, code, and lists whole when they fit. */
+  structure: {
+    /** Maximum characters per chunk. Default 1500. */
+    size?: number;
+    /** Chunks smaller than this are merged into a neighbor in the same section when the result fits `size`. Default 200. */
+    minSize?: number;
+    /** Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. Must be less than `size`. Default 0. */
+    overlapChars?: number;
+    /** Headings at this level or higher (1 to 6) start a new section. Default 3. */
+    headingLevel?: number;
+  };
   /** Cuts the Markdown every `size` characters, ignoring structure. */
   fixed: {
     /** Maximum characters per chunk. Default 1500. */
@@ -104,8 +115,11 @@ type OptionsForStrategy = {
   [Name in StrategyName]: { strategy: Name } & StrategyOptionsByName[Name];
 }[StrategyName];
 
+/** Options when no strategy is named: the default strategy, structure, with its options. */
+type DefaultStrategyOptions = { strategy?: undefined } & StrategyOptionsByName["structure"];
+
 /** Options for chunkDocument: the strategy and its options, plus the options every strategy shares. */
-export type ChunkOptions = CommonOptions & OptionsForStrategy;
+export type ChunkOptions = CommonOptions & (DefaultStrategyOptions | OptionsForStrategy);
 
 /** One chunk of a document. */
 export interface Chunk {

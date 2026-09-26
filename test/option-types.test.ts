@@ -32,8 +32,16 @@ describe("ChunkOptions", () => {
 
   it("lists the registered strategy names", () => {
     expectTypeOf<StrategyName>().toEqualTypeOf<
-      "fixed" | "fixed-overlap" | "recursive" | "sliding-window"
+      "structure" | "fixed" | "fixed-overlap" | "recursive" | "sliding-window"
     >();
+  });
+
+  it("accepts structure options without a strategy name, and rejects other strategies' options there", () => {
+    const defaultOptions: ChunkOptions = { size: 1000, minSize: 100, headingLevel: 2 };
+    expectTypeOf(defaultOptions).toExtend<ChunkOptions>();
+    // @ts-expect-error boundary is not a structure option, so it needs strategy "fixed".
+    const wrongOptions: ChunkOptions = { boundary: "char" };
+    expectTypeOf(wrongOptions).toExtend<ChunkOptions>();
   });
 });
 

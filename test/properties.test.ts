@@ -4,6 +4,8 @@ import { describe, expect, it } from "vitest";
 import { type ChunkOptions, type ChunkResult, chunkDocument } from "../src/index";
 import { parseMarkdown } from "../src/ir/parse-markdown";
 
+const graphemeSegmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+
 /** Pieces of Markdown that generated documents are built from, including Hindi, Japanese, and emoji. */
 const markdownLines = [
   "# Heading one",
@@ -85,6 +87,17 @@ const recursiveOptionsArbitrary = fc.integer({ min: 1, max: 400 }).chain((size) 
   }),
 );
 
+/** Generates structure options, keeping minSize <= size and overlapChars < size. */
+const structureOptionsArbitrary = fc.integer({ min: 1, max: 400 }).chain((size) =>
+  fc.record({
+    strategy: fc.constant("structure" as const),
+    size: fc.constant(size),
+    minSize: fc.integer({ min: 1, max: size }),
+    overlapChars: fc.integer({ min: 0, max: size - 1 }),
+    headingLevel: fc.integer({ min: 1, max: 6 }),
+  }),
+);
+
 /** Checks 0 <= start < end <= markdown length for every chunk. */
 function checkRanges(result: ChunkResult): void {
   for (const chunk of result.chunks) {
@@ -94,21 +107,45 @@ function checkRanges(result: ChunkResult): void {
   }
 }
 
-/** Checks every chunk is at most size characters. A single character larger than size is allowed (DECISIONS 9). */
+/** Checks every chunk is at most size characters. A single grapheme larger than size is allowed (DECISIONS 9). */
 function checkSize(result: ChunkResult, size: number): void {
   for (const chunk of result.chunks) {
-    const isSingleCharacter = [...chunk.text].length === 1;
-    if (!isSingleCharacter) {
+    const graphemeCount = [...graphemeSegmenter.segment(chunk.text)].length;
+    if (graphemeCount !== 1) {
       expect(chunk.charCount).toBeLessThanOrEqual(size);
     }
   }
 }
 
-/** Checks each chunk's text is its slice of the Markdown and charCount is its length. */
+/** Checks each chunk's text is its slice of the Markdown, except split table and code pieces (PRD 7.4). */
 function checkTextSlice(result: ChunkResult): void {
   for (const chunk of result.chunks) {
-    expect(chunk.text).toBe(result.document.markdown.slice(chunk.start, chunk.end));
+    const slice = result.document.markdown.slice(chunk.start, chunk.end);
+    const isSplitPiece = chunk.blockTypes.includes("table") || chunk.blockTypes.includes("code");
+    if (isSplitPiece && chunk.text !== slice) {
+      // A split piece has a repeated header or fence around its slice.
+      expect(chunk.text).toContain(slice);
+    } else {
+      expect(chunk.text).toBe(slice);
+    }
     expect(chunk.charCount).toBe(chunk.text.length);
+  }
+}
+
+/** Checks that no chunk touches blocks from two different sections. */
+function checkSections(result: ChunkResult, headingLevel: number): void {
+  if (result.document.sourceFormat !== "markdown") {
+    return;
+  }
+  const blocks = parseMarkdown(result.document.markdown, headingLevel);
+  for (const chunk of result.chunks) {
+    const sectionIds = new Set<number>();
+    for (const block of blocks) {
+      if (block.start < chunk.end && block.end > chunk.start) {
+        sectionIds.add(block.sectionId);
+      }
+    }
+    expect(sectionIds.size).toBeLessThanOrEqual(1);
   }
 }
 
@@ -200,6 +237,18 @@ describe("recursive strategy properties", () => {
       fc.asyncProperty(sourceArbitrary, recursiveOptionsArbitrary, async (source, options) => {
         const result = await checkCommonProperties(source, options);
         checkSize(result, options.size);
+      }),
+    );
+  });
+});
+
+describe("structure strategy properties", () => {
+  it("keeps every invariant on generated documents and never crosses a section", async () => {
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, structureOptionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        checkSize(result, options.size);
+        checkSections(result, options.headingLevel);
       }),
     );
   });

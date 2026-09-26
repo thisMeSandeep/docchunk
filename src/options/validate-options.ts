@@ -3,6 +3,9 @@ import { DocchunkError } from "../errors";
 import { strategyRegistry } from "../strategies/registry";
 import type { StrategyName } from "../types";
 
+/** The strategy used when the caller does not name one (PRD 6.1). */
+const defaultStrategyName: StrategyName = "structure";
+
 /** Names of the options every strategy accepts. */
 const commonOptionNames = ["metadata", "documentId", "headingPrefix", "signal"];
 
@@ -26,15 +29,15 @@ export function readOptionValues(options: unknown): Map<string, unknown> {
   return new Map(optionEntries);
 }
 
-/** Returns the strategy name. Throws if it is missing or not a registered strategy. */
+/** Returns the strategy name, or the default strategy when none is given. Throws if it is not a registered strategy. */
 export function readStrategyName(value: unknown): StrategyName {
-  const allowedList = Object.keys(strategyRegistry)
-    .map((strategyName) => `"${strategyName}"`)
-    .join(", ");
   if (value === undefined) {
-    throw invalidOptions(`Option "strategy" is required. Use one of ${allowedList}.`);
+    return defaultStrategyName;
   }
   if (!isStrategyName(value)) {
+    const allowedList = Object.keys(strategyRegistry)
+      .map((strategyName) => `"${strategyName}"`)
+      .join(", ");
     throw invalidOptions(
       `Option "strategy" must be one of ${allowedList}, got ${describe(value)}.`,
     );
