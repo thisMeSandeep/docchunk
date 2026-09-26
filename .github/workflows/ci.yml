@@ -1,0 +1,54 @@
+# Runs install, typecheck, lint, network check, tests, and build on Node 22, Node 24, and Bun.
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Node 22
+            node-version: 22
+            test-script: test:node
+          - name: Node 24
+            node-version: 24
+            test-script: test:node
+          # The Bun job runs the tests under Bun; Node 24 is only for the tools (tsc, biome, tsup).
+          - name: Bun
+            node-version: 24
+            test-script: test
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Typecheck
+        run: bun run typecheck
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Network import check
+        run: bun run check:network
+
+      - name: Tests
+        run: bun run ${{ matrix.test-script }}
+
+      - name: Build
+        run: bun run build
