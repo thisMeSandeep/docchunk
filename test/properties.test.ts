@@ -1,8 +1,15 @@
 // Property-based tests (PRD 11, item 2): invariants every strategy must keep, checked on generated documents.
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import { type ChunkOptions, type ChunkResult, chunkDocument } from "../src/index";
+import {
+  type Chunk,
+  type ChunkOptions,
+  type ChunkResult,
+  chunkDocument,
+  DocchunkError,
+} from "../src/index";
 import { parseMarkdown } from "../src/ir/parse-markdown";
+import { headingPrefixText } from "../src/options/heading-prefix";
 
 const graphemeSegmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
 
@@ -126,26 +133,38 @@ function checkRanges(result: ChunkResult): void {
   }
 }
 
+/** Returns the chunk text without its heading prefix, checking the prefix is the expected one. */
+function bodyText(chunk: Chunk, hasHeadingPrefix: boolean): string {
+  if (!hasHeadingPrefix) {
+    return chunk.text;
+  }
+  const prefix = headingPrefixText(chunk.headingPath);
+  expect(chunk.text.startsWith(prefix)).toBe(true);
+  return chunk.text.slice(prefix.length);
+}
+
 /** Checks every chunk is at most size characters. A single grapheme larger than size is allowed (DECISIONS 9). */
-function checkSize(result: ChunkResult, size: number): void {
+function checkSize(result: ChunkResult, size: number, hasHeadingPrefix = false): void {
   for (const chunk of result.chunks) {
-    const graphemeCount = [...graphemeSegmenter.segment(chunk.text)].length;
+    const body = bodyText(chunk, hasHeadingPrefix);
+    const graphemeCount = [...graphemeSegmenter.segment(body)].length;
     if (graphemeCount !== 1) {
       expect(chunk.charCount).toBeLessThanOrEqual(size);
     }
   }
 }
 
-/** Checks each chunk's text is its slice of the Markdown, except split table and code pieces (PRD 7.4). */
-function checkTextSlice(result: ChunkResult): void {
+/** Checks each chunk's text is its slice of the Markdown, except heading prefixes and split table or code pieces (PRD 7.4). */
+function checkTextSlice(result: ChunkResult, hasHeadingPrefix: boolean): void {
   for (const chunk of result.chunks) {
     const slice = result.document.markdown.slice(chunk.start, chunk.end);
+    const body = bodyText(chunk, hasHeadingPrefix);
     const isSplitPiece = chunk.blockTypes.includes("table") || chunk.blockTypes.includes("code");
-    if (isSplitPiece && chunk.text !== slice) {
+    if (isSplitPiece && body !== slice) {
       // A split piece has a repeated header or fence around its slice.
-      expect(chunk.text).toContain(slice);
+      expect(body).toContain(slice);
     } else {
-      expect(chunk.text).toBe(slice);
+      expect(body).toBe(slice);
     }
     expect(chunk.charCount).toBe(chunk.text.length);
   }
@@ -212,7 +231,7 @@ async function checkCommonProperties(
 ): Promise<ChunkResult> {
   const result = await chunkDocument(source, options);
   checkRanges(result);
-  checkTextSlice(result);
+  checkTextSlice(result, options.headingPrefix === true);
   checkIndexes(result);
   checkCoverage(result, shouldIgnoreHeadings);
   const secondRun = await chunkDocument(source, options);
@@ -321,6 +340,50 @@ describe("heading strategy properties", () => {
           checkSize(result, options.size);
         }
         checkSections(result, options.headingLevel);
+      }),
+    );
+  });
+});
+
+/** Generates options for several strategies, all with headingPrefix on. */
+const prefixedOptionsArbitrary = fc
+  .oneof(
+    structureOptionsArbitrary,
+    fixedOptionsArbitrary,
+    recursiveOptionsArbitrary,
+    headingOptionsArbitrary,
+    packingOptionsArbitrary("sentence"),
+  )
+  .map((options) => ({ ...options, headingPrefix: true }));
+
+/** Returns false when headingPrefix leaves no room within size, which is a valid INVALID_OPTIONS error. */
+async function leavesRoomForPrefix(
+  source: { content: string; format: "markdown" | "text" },
+  options: ChunkOptions,
+): Promise<boolean> {
+  try {
+    await chunkDocument(source, options);
+    return true;
+  } catch (error) {
+    const isNoRoomError =
+      error instanceof DocchunkError && error.message.startsWith('Option "headingPrefix"');
+    if (isNoRoomError) {
+      return false;
+    }
+    throw error;
+  }
+}
+
+describe("headingPrefix properties", () => {
+  it("keeps every invariant, with the prefix counted toward size", async () => {
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, prefixedOptionsArbitrary, async (source, options) => {
+        fc.pre(await leavesRoomForPrefix(source, options));
+        const isSentence = options.strategy === "sentence";
+        const result = await checkCommonProperties(source, options, isSentence);
+        if (options.size !== undefined) {
+          checkSize(result, options.size, true);
+        }
       }),
     );
   });

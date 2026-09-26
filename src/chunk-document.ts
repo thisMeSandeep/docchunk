@@ -4,6 +4,7 @@ import type { DocumentIR } from "./ir/ir-types";
 import { normalizeMarkdown } from "./ir/normalize-markdown";
 import { parseMarkdown } from "./ir/parse-markdown";
 import { parseText } from "./ir/parse-text";
+import { reserveHeadingPrefixSpace } from "./options/heading-prefix";
 import { type ResolvedOptions, resolveOptions } from "./options/resolve-options";
 import { buildStats } from "./output/build-stats";
 import { finalizeChunks } from "./output/finalize-chunks";
@@ -111,5 +112,7 @@ function splitDocument<Name extends StrategyName>(
   options: ResolvedOptions<Name>,
 ): RawChunk[] {
   const strategy = strategyRegistry[options.strategy];
-  return strategy.split(ir, options.strategyOptions);
+  // The chunk ids still use the caller's options; only the split sees the reduced size.
+  const splitOptions = reserveHeadingPrefixSpace(options, ir.blocks);
+  return strategy.split(ir, splitOptions);
 }

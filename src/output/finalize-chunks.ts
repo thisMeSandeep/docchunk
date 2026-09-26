@@ -1,10 +1,15 @@
 // Turns the ranges a strategy returns into finished chunks: text, ids, hashes, index, headings, and metadata.
 import type { Block, DocumentIR, Range } from "../ir/ir-types";
 import { canonicalOptions } from "../options/canonical-options";
+import { headingPrefixText } from "../options/heading-prefix";
+import { noSizeLimit } from "../options/option-checks";
 import type { ResolvedOptions } from "../options/resolve-options";
 import type { RawChunk } from "../strategies/strategy-types";
 import type { Chunk, ChunkWarning } from "../types";
 import { hashText } from "./hash";
+
+/** Chunks larger than this get a LARGE_CHUNK warning when the strategy has no size limit (PRD 6.4). */
+const largeChunkChars = 8000;
 
 /** The finished chunks and the warnings raised while building them. */
 export interface FinalizedChunks {
@@ -29,19 +34,41 @@ export function finalizeChunks(
   keptChunks.sort(compareRanges);
 
   const idPrefix = `${documentId}\n${canonicalOptions(options)}`;
+  const isSizeLimited = hasSizeLimit(options);
   const chunks: Chunk[] = [];
   const warnings: ChunkWarning[] = [];
   for (const [index, rawChunk] of keptChunks.entries()) {
-    chunks.push(buildChunk(ir, rawChunk, index, idPrefix, options.metadata));
-    if (rawChunk.isOversized === true) {
-      warnings.push({
-        code: "OVERSIZED_BLOCK",
-        message: `Chunk ${index} is a hard cut of a row, item, line, or word longer than size.`,
-        chunkIndex: index,
-      });
-    }
+    const chunk = buildChunk(ir, rawChunk, index, idPrefix, options);
+    chunks.push(chunk);
+    warnings.push(...chunkWarnings(chunk, rawChunk, isSizeLimited));
   }
   return { chunks, warnings };
+}
+
+/** Returns the warnings for one chunk: OVERSIZED_BLOCK for a hard cut, LARGE_CHUNK for a large chunk with no size limit. */
+function chunkWarnings(chunk: Chunk, rawChunk: RawChunk, isSizeLimited: boolean): ChunkWarning[] {
+  const warnings: ChunkWarning[] = [];
+  if (rawChunk.isOversized === true) {
+    warnings.push({
+      code: "OVERSIZED_BLOCK",
+      message: `Chunk ${chunk.index} is a hard cut of a row, item, line, or word longer than size.`,
+      chunkIndex: chunk.index,
+    });
+  }
+  if (!isSizeLimited && chunk.charCount > largeChunkChars) {
+    warnings.push({
+      code: "LARGE_CHUNK",
+      message: `Chunk ${chunk.index} has ${chunk.charCount} characters, more than ${largeChunkChars}. Set "size" to split it.`,
+      chunkIndex: chunk.index,
+    });
+  }
+  return warnings;
+}
+
+/** Returns true when the strategy has a size limit, so LARGE_CHUNK warnings do not apply. */
+function hasSizeLimit(options: ResolvedOptions): boolean {
+  const strategyOptions = options.strategyOptions;
+  return "size" in strategyOptions && strategyOptions.size !== noSizeLimit;
 }
 
 /** Builds one chunk from its trimmed raw chunk. */
@@ -50,11 +77,12 @@ function buildChunk(
   rawChunk: RawChunk,
   index: number,
   idPrefix: string,
-  metadata: Record<string, unknown>,
+  options: ResolvedOptions,
 ): Chunk {
-  const text = chunkText(ir.markdown, rawChunk);
   const touchedBlocks = findTouchedBlocks(ir.blocks, rawChunk);
-  const firstBlock = touchedBlocks[0];
+  const headingPath = touchedBlocks[0]?.headingPath ?? [];
+  const bodyText = chunkText(ir.markdown, rawChunk);
+  const text = options.headingPrefix ? headingPrefixText(headingPath) + bodyText : bodyText;
   return {
     id: hashText(`${idPrefix}\n${rawChunk.start}\n${rawChunk.end}`),
     text,
@@ -62,11 +90,11 @@ function buildChunk(
     start: rawChunk.start,
     end: rawChunk.end,
     charCount: text.length,
-    headingPath: firstBlock === undefined ? [] : [...firstBlock.headingPath],
+    headingPath: [...headingPath],
     blockTypes: uniqueBlockTypes(touchedBlocks),
     contentHash: hashText(text),
     // Each chunk gets its own copy, so changing one chunk's metadata does not change the others.
-    metadata: { ...metadata },
+    metadata: { ...options.metadata },
   };
 }
 
