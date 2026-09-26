@@ -5,10 +5,16 @@ import type { DocumentIR } from "../../src/ir/ir-types";
 import { normalizeMarkdown } from "../../src/ir/normalize-markdown";
 import { parseMarkdown } from "../../src/ir/parse-markdown";
 import { resolveOptions } from "../../src/options/resolve-options";
-import { finalizeChunks } from "../../src/output/finalize-chunks";
+import { finalizeChunks as finalizeWithWarnings } from "../../src/output/finalize-chunks";
 import { hashText } from "../../src/output/hash";
+import type { Chunk } from "../../src/types";
 
 const fixedOptions = resolveOptions({ strategy: "fixed" });
+
+/** Returns only the chunks from finalizeChunks. Warnings are checked in their own tests. */
+function finalizeChunks(...args: Parameters<typeof finalizeWithWarnings>): Chunk[] {
+  return finalizeWithWarnings(...args).chunks;
+}
 
 /** Builds the IR for a Markdown fixture. */
 function buildFixtureIR(name: string): DocumentIR {
@@ -160,5 +166,46 @@ describe("finalizeChunks ids, hashes, and metadata", () => {
     }
     expect(chunks[1]?.metadata).toEqual({ team: "legal" });
     expect(options.metadata).toEqual({ team: "legal" });
+  });
+});
+
+describe("finalizeChunks with prefixes, suffixes, and oversized pieces", () => {
+  const markdown = "```ts\n  const a = 1;\n  const b = 2;\n```";
+  const ir: DocumentIR = { markdown, blocks: parseMarkdown(markdown, 3) };
+  const openingFence = { start: 0, end: 5 };
+  const closingFence = { start: markdown.length - 3, end: markdown.length };
+  const secondLine = { start: markdown.indexOf("  const b"), end: markdown.indexOf("\n```") };
+
+  it("joins prefix, range text, and suffix with newlines, and keeps start and end on the range", () => {
+    const rawChunk = { ...secondLine, prefix: openingFence, suffix: closingFence };
+    const [chunk] = finalizeChunks(ir, [rawChunk], fixedOptions, "doc");
+    expect(chunk?.text).toBe("```ts\n  const b = 2;\n```");
+    expect(chunk?.start).toBe(secondLine.start);
+    expect(chunk?.end).toBe(secondLine.end);
+    expect(chunk?.charCount).toBe(chunk?.text.length);
+  });
+
+  it("keeps the indentation of a code line that follows a prefix", () => {
+    const rawChunk = { ...secondLine, prefix: openingFence };
+    const [chunk] = finalizeChunks(ir, [rawChunk], fixedOptions, "doc");
+    expect(chunk?.text).toBe("```ts\n  const b = 2;");
+  });
+
+  it("drops a piece whose range has no text, even with a prefix", () => {
+    const blank = { start: 5, end: 6, prefix: openingFence };
+    expect(finalizeChunks(ir, [blank], fixedOptions, "doc")).toEqual([]);
+  });
+
+  it("raises one OVERSIZED_BLOCK warning per oversized chunk, with its index", () => {
+    const rawChunks = [
+      { start: 0, end: 12, isOversized: true },
+      { start: 12, end: 25 },
+      { start: 25, end: markdown.length, isOversized: true },
+    ];
+    const { warnings } = finalizeWithWarnings(ir, rawChunks, fixedOptions, "doc");
+    expect(warnings.map((warning) => [warning.code, warning.chunkIndex])).toEqual([
+      ["OVERSIZED_BLOCK", 0],
+      ["OVERSIZED_BLOCK", 2],
+    ]);
   });
 });

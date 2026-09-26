@@ -3,8 +3,14 @@ import type { Block, DocumentIR, Range } from "../ir/ir-types";
 import { canonicalOptions } from "../options/canonical-options";
 import type { ResolvedOptions } from "../options/resolve-options";
 import type { RawChunk } from "../strategies/strategy-types";
-import type { Chunk } from "../types";
+import type { Chunk, ChunkWarning } from "../types";
 import { hashText } from "./hash";
+
+/** The finished chunks and the warnings raised while building them. */
+export interface FinalizedChunks {
+  chunks: Chunk[];
+  warnings: ChunkWarning[];
+}
 
 /** Returns the finished chunks, sorted by position. Drops ranges that are empty after trimming. */
 export function finalizeChunks(
@@ -12,41 +18,49 @@ export function finalizeChunks(
   rawChunks: RawChunk[],
   options: ResolvedOptions,
   documentId: string,
-): Chunk[] {
-  const keptRanges: Range[] = [];
+): FinalizedChunks {
+  const keptChunks: RawChunk[] = [];
   for (const rawChunk of rawChunks) {
-    const trimmedRange = trimRange(ir.markdown, rawChunk);
-    if (trimmedRange !== undefined && !isOnlyThematicBreaks(ir.blocks, trimmedRange)) {
-      keptRanges.push(trimmedRange);
+    const trimmedChunk = trimRawChunk(ir.markdown, rawChunk);
+    if (trimmedChunk !== undefined && !isOnlyThematicBreaks(ir.blocks, trimmedChunk)) {
+      keptChunks.push(trimmedChunk);
     }
   }
-  keptRanges.sort(compareRanges);
+  keptChunks.sort(compareRanges);
 
   const idPrefix = `${documentId}\n${canonicalOptions(options)}`;
   const chunks: Chunk[] = [];
-  for (const [index, range] of keptRanges.entries()) {
-    chunks.push(buildChunk(ir, range, index, idPrefix, options.metadata));
+  const warnings: ChunkWarning[] = [];
+  for (const [index, rawChunk] of keptChunks.entries()) {
+    chunks.push(buildChunk(ir, rawChunk, index, idPrefix, options.metadata));
+    if (rawChunk.isOversized === true) {
+      warnings.push({
+        code: "OVERSIZED_BLOCK",
+        message: `Chunk ${index} is a hard cut of a row, item, line, or word longer than size.`,
+        chunkIndex: index,
+      });
+    }
   }
-  return chunks;
+  return { chunks, warnings };
 }
 
-/** Builds one chunk from its trimmed range. */
+/** Builds one chunk from its trimmed raw chunk. */
 function buildChunk(
   ir: DocumentIR,
-  range: Range,
+  rawChunk: RawChunk,
   index: number,
   idPrefix: string,
   metadata: Record<string, unknown>,
 ): Chunk {
-  const text = ir.markdown.slice(range.start, range.end);
-  const touchedBlocks = findTouchedBlocks(ir.blocks, range);
+  const text = chunkText(ir.markdown, rawChunk);
+  const touchedBlocks = findTouchedBlocks(ir.blocks, rawChunk);
   const firstBlock = touchedBlocks[0];
   return {
-    id: hashText(`${idPrefix}\n${range.start}\n${range.end}`),
+    id: hashText(`${idPrefix}\n${rawChunk.start}\n${rawChunk.end}`),
     text,
     index,
-    start: range.start,
-    end: range.end,
+    start: rawChunk.start,
+    end: rawChunk.end,
     charCount: text.length,
     headingPath: firstBlock === undefined ? [] : [...firstBlock.headingPath],
     blockTypes: uniqueBlockTypes(touchedBlocks),
@@ -56,20 +70,40 @@ function buildChunk(
   };
 }
 
-/** Returns the range without leading and trailing whitespace, or undefined if nothing is left. */
-function trimRange(markdown: string, range: Range): Range | undefined {
-  let start = range.start;
-  let end = range.end;
-  while (start < end && isWhitespace(markdown, start)) {
-    start++;
+/** Returns the chunk's text: the prefix, the range's text, and the suffix, joined by newlines. */
+function chunkText(markdown: string, rawChunk: RawChunk): string {
+  const parts: string[] = [];
+  if (rawChunk.prefix !== undefined) {
+    parts.push(markdown.slice(rawChunk.prefix.start, rawChunk.prefix.end));
   }
-  while (end > start && isWhitespace(markdown, end - 1)) {
-    end--;
+  parts.push(markdown.slice(rawChunk.start, rawChunk.end));
+  if (rawChunk.suffix !== undefined) {
+    parts.push(markdown.slice(rawChunk.suffix.start, rawChunk.suffix.end));
   }
-  if (start === end) {
+  return parts.join("\n");
+}
+
+/** Returns the raw chunk with whitespace trimmed from its range, or undefined if no text is left. */
+function trimRawChunk(markdown: string, rawChunk: RawChunk): RawChunk | undefined {
+  let start = rawChunk.start;
+  let end = rawChunk.end;
+  // A side with a prefix or suffix is not where the chunk text starts or ends, so it keeps its
+  // whitespace, such as the indentation of a code line.
+  if (rawChunk.prefix === undefined) {
+    while (start < end && isWhitespace(markdown, start)) {
+      start++;
+    }
+  }
+  if (rawChunk.suffix === undefined) {
+    while (end > start && isWhitespace(markdown, end - 1)) {
+      end--;
+    }
+  }
+  const hasText = /\S/.test(markdown.slice(start, end));
+  if (!hasText) {
     return undefined;
   }
-  return { start, end };
+  return { ...rawChunk, start, end };
 }
 
 /** Returns true when the character at the index is whitespace. */

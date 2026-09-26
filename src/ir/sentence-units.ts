@@ -62,8 +62,16 @@ function addListItemUnits(
   }
 }
 
-/** Adds one unit per sentence in the range, with surrounding whitespace trimmed off. */
+/** Adds one unit per sentence in the range. */
 function addSentenceUnits(units: Unit[], markdown: string, range: Range, blockIndex: number): void {
+  for (const sentence of sentenceRanges(markdown, range)) {
+    units.push({ start: sentence.start, end: sentence.end, blockIndex, kind: "sentence" });
+  }
+}
+
+/** Returns the sentences in the range, each with surrounding whitespace trimmed off. */
+export function sentenceRanges(markdown: string, range: Range): Range[] {
+  const sentences: Range[] = [];
   // A line break inside a paragraph does not end a sentence, but the segmenter treats it as one.
   // Spaces keep the text the same length, so offsets still match the Markdown.
   const text = markdown.slice(range.start, range.end).replaceAll("\n", " ");
@@ -73,7 +81,8 @@ function addSentenceUnits(units: Unit[], markdown: string, range: Range, blockIn
     const start = range.start + sentence.index + leadingSpace;
     const end = range.start + sentence.index + sentence.segment.length - trailingSpace;
     if (end > start) {
-      units.push({ start, end, blockIndex, kind: "sentence" });
+      sentences.push({ start, end });
     }
   }
+  return sentences;
 }

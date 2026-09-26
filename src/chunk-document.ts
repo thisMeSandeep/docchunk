@@ -41,7 +41,9 @@ export async function chunkDocument(
     warnings.push({ code: "EMPTY_DOCUMENT", message: "The document has no text to chunk." });
   } else {
     const rawChunks = splitDocument(ir, resolvedOptions);
-    chunks = finalizeChunks(ir, rawChunks, resolvedOptions, documentId);
+    const finalized = finalizeChunks(ir, rawChunks, resolvedOptions, documentId);
+    chunks = finalized.chunks;
+    warnings.push(...finalized.warnings);
   }
 
   const durationMs = performance.now() - startedAt;
