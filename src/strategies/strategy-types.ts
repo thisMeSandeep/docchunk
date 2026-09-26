@@ -41,6 +41,10 @@ export interface StrategyDefinition<Name extends StrategyName> {
   defaults: ResolvedStrategyOptions[Name];
   /** Throws a DocchunkError with code INVALID_OPTIONS if the options are not allowed. */
   validate: (options: ResolvedStrategyOptions[Name]) => void;
-  /** Returns the ranges of the chunks. Never builds chunk text, ids, or hashes. */
-  split: (ir: DocumentIR, options: ResolvedStrategyOptions[Name]) => RawChunk[];
+  /** Returns the ranges of the chunks. Never builds chunk text, ids, or hashes. Long strategies check the signal between steps. */
+  split: (
+    ir: DocumentIR,
+    options: ResolvedStrategyOptions[Name],
+    signal?: AbortSignal,
+  ) => RawChunk[];
 }

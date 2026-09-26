@@ -1,4 +1,5 @@
 // The hierarchical strategy: nested chunks at several sizes, or following the heading tree (PRD 6.2).
+import { checkAborted } from "../check-aborted";
 import type { Block, DocumentIR, Range } from "../ir/ir-types";
 import {
   checkDecreasingSizes,
@@ -24,19 +25,26 @@ export const hierarchicalStrategy: StrategyDefinition<"hierarchical"> = {
     checkIntegerBetween("headingLevel", options.headingLevel, 1, 6);
     checkPositiveInteger("leafSize", options.leafSize);
   },
-  split: (ir, options) => {
+  split: (ir, options, signal) => {
     if (options.by === "heading") {
-      return splitByHeading(ir, options.headingLevel, options.leafSize);
+      return splitByHeading(ir, options.headingLevel, options.leafSize, signal);
     }
-    return splitBySize(ir, options.levels, options.headingLevel);
+    return splitBySize(ir, options.levels, options.headingLevel, signal);
   },
 };
 
 /** Level 0 is structure at levels[0]; every chunk of level n is re-chunked inside itself at levels[n + 1]. */
-export function splitBySize(ir: DocumentIR, levels: number[], headingLevel: number): RawChunk[] {
+function splitBySize(
+  ir: DocumentIR,
+  levels: number[],
+  headingLevel: number,
+  signal: AbortSignal | undefined,
+): RawChunk[] {
   const allChunks: RawChunk[] = [];
   let parentIndexes: number[] = [];
   for (const [level, size] of levels.entries()) {
+    // Each level re-chunks every chunk of the level above, so a long run can be stopped between levels.
+    checkAborted(signal);
     const nextParentIndexes: number[] = [];
     // Level 0 has one "parent": the whole document.
     const parents = level === 0 ? [undefined] : parentIndexes;
@@ -55,8 +63,15 @@ export function splitBySize(ir: DocumentIR, levels: number[], headingLevel: numb
 }
 
 /** One chunk per section at each heading depth. A section without subsections that is larger than leafSize gets children. */
-function splitByHeading(ir: DocumentIR, headingLevel: number, leafSize: number): RawChunk[] {
+function splitByHeading(
+  ir: DocumentIR,
+  headingLevel: number,
+  leafSize: number,
+  signal: AbortSignal | undefined,
+): RawChunk[] {
   const tree = buildSectionTree(ir.blocks, headingLevel);
+  // The sections are one level; their children are the next, so the run can be stopped in between.
+  checkAborted(signal);
   const allChunks: RawChunk[] = [...tree.chunks];
   for (const [sectionIndex, section] of tree.chunks.entries()) {
     const isLargeLeaf =

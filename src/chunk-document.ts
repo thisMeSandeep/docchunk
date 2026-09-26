@@ -1,4 +1,5 @@
 // chunkDocument: turns one document into chunks.
+import { checkAborted } from "./check-aborted";
 import { loadDocument } from "./input/load-document";
 import type { DocumentIR } from "./ir/ir-types";
 import { normalizeMarkdown } from "./ir/normalize-markdown";
@@ -31,7 +32,11 @@ export async function chunkDocument(
 ): Promise<ChunkResult> {
   const startedAt = performance.now();
   const resolvedOptions = resolveOptions(options);
+  const signal = resolvedOptions.signal;
+  checkAborted(signal);
   const loaded = await loadDocument(source);
+  // Reading and converting cannot be stopped halfway, so the signal is checked again once they finish.
+  checkAborted(signal);
   const markdown = normalizeMarkdown(loaded.text);
   const ir = buildIR(markdown, loaded.parseAs, headingLevelFor(resolvedOptions));
   const documentId = resolvedOptions.documentId ?? hashText(markdown);
@@ -46,6 +51,7 @@ export async function chunkDocument(
     warnings.push({ code: "EMPTY_DOCUMENT", message: "The document has no text to chunk." });
   } else {
     const rawChunks = splitDocument(ir, resolvedOptions);
+    checkAborted(signal);
     const finalized = finalizeChunks(ir, rawChunks, resolvedOptions, documentId);
     chunks = finalized.chunks;
     warnings.push(...finalized.warnings);
@@ -88,5 +94,5 @@ function splitDocument<Name extends StrategyName>(
   const strategy = strategyRegistry[options.strategy];
   // The chunk ids still use the caller's options; only the split sees the reduced size.
   const splitOptions = reserveHeadingPrefixSpace(options, ir.blocks);
-  return strategy.split(ir, splitOptions);
+  return strategy.split(ir, splitOptions, options.signal);
 }

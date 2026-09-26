@@ -11,10 +11,14 @@ export const parentChildStrategy: StrategyDefinition<"parent-child"> = {
     checkPositiveInteger("childSize", options.childSize);
     checkLessThan("childSize", options.childSize, "parentSize", options.parentSize);
   },
-  split: (ir, options) =>
-    hierarchicalStrategy.split(ir, {
-      ...hierarchicalStrategy.defaults,
-      by: "size",
-      levels: [options.parentSize, options.childSize],
-    }),
+  split: (ir, options, signal) =>
+    hierarchicalStrategy.split(
+      ir,
+      {
+        ...hierarchicalStrategy.defaults,
+        by: "size",
+        levels: [options.parentSize, options.childSize],
+      },
+      signal,
+    ),
 };
