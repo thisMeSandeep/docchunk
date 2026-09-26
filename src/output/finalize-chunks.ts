@@ -83,7 +83,7 @@ function buildChunk(
   const headingPath = touchedBlocks[0]?.headingPath ?? [];
   const bodyText = chunkText(ir.markdown, rawChunk);
   const text = options.headingPrefix ? headingPrefixText(headingPath) + bodyText : bodyText;
-  return {
+  const chunk: Chunk = {
     id: hashText(`${idPrefix}\n${rawChunk.start}\n${rawChunk.end}`),
     text,
     index,
@@ -96,6 +96,10 @@ function buildChunk(
     // Each chunk gets its own copy, so changing one chunk's metadata does not change the others.
     metadata: { ...options.metadata },
   };
+  if (rawChunk.context !== undefined) {
+    chunk.contextText = ir.markdown.slice(rawChunk.context.start, rawChunk.context.end);
+  }
+  return chunk;
 }
 
 /** Returns the chunk's text: the prefix, the range's text, and the suffix, joined by newlines. */

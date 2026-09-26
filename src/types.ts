@@ -84,6 +84,11 @@ export interface StrategyOptionsByName {
     /** Headings at this level or higher (1 to 6) start a new section. Default 3. */
     headingLevel?: number;
   };
+  /** One chunk per sentence unit, with `contextText` holding the sentences around it in the same section. */
+  "sentence-window": {
+    /** Sentence units on each side of the chunk's sentence that go into its contextText. Default 3. */
+    windowSize?: number;
+  };
   /** Cuts the Markdown every `size` characters, ignoring structure. */
   fixed: {
     /** Maximum characters per chunk. Default 1500. */

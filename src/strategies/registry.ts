@@ -6,6 +6,7 @@ import { headingStrategy } from "./heading";
 import { paragraphStrategy } from "./paragraph";
 import { recursiveStrategy } from "./recursive";
 import { sentenceStrategy } from "./sentence";
+import { sentenceWindowStrategy } from "./sentence-window";
 import { slidingWindowStrategy } from "./sliding-window";
 import type { StrategyDefinition } from "./strategy-types";
 import { structureStrategy } from "./structure";
@@ -16,6 +17,7 @@ export const strategyRegistry: { [Name in StrategyName]: StrategyDefinition<Name
   sentence: sentenceStrategy,
   paragraph: paragraphStrategy,
   heading: headingStrategy,
+  "sentence-window": sentenceWindowStrategy,
   fixed: fixedStrategy,
   "fixed-overlap": fixedOverlapStrategy,
   recursive: recursiveStrategy,

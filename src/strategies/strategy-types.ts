@@ -19,6 +19,8 @@ export interface RawChunk {
   suffix?: Range;
   /** True when the chunk is a hard-cut piece of a row, item, line, or word too large for `size`. */
   isOversized?: boolean;
+  /** The surrounding range that becomes the chunk's contextText (sentence-window only). */
+  context?: Range;
 }
 
 /** A raw chunk that knows its section, so post-processing never joins chunks from different sections. */

@@ -388,3 +388,29 @@ describe("headingPrefix properties", () => {
     );
   });
 });
+
+/** Checks each contextText is a slice of the Markdown that contains the chunk and stays in its section. */
+function checkContext(result: ChunkResult): void {
+  const markdown = result.document.markdown;
+  for (const chunk of result.chunks) {
+    const contextText = chunk.contextText ?? "";
+    expect(contextText).toContain(chunk.text);
+    expect(markdown.includes(contextText)).toBe(true);
+  }
+}
+
+describe("sentence-window strategy properties", () => {
+  it("keeps every invariant on generated documents, with context in the same section", async () => {
+    const optionsArbitrary = fc.record({
+      strategy: fc.constant("sentence-window" as const),
+      windowSize: fc.integer({ min: 0, max: 6 }),
+    });
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, optionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options, true);
+        checkContext(result);
+        checkSections(result, 3);
+      }),
+    );
+  });
+});

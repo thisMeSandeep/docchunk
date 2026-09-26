@@ -86,7 +86,7 @@ describe("resolveOptions errors", () => {
 
   it("rejects an unknown strategy", () => {
     expect(resolveError({ strategy: "semantic" }).message).toBe(
-      'Option "strategy" must be one of "structure", "sentence", "paragraph", "heading", "fixed", "fixed-overlap", "recursive", "sliding-window", got "semantic".',
+      'Option "strategy" must be one of "structure", "sentence", "paragraph", "heading", "sentence-window", "fixed", "fixed-overlap", "recursive", "sliding-window", got "semantic".',
     );
   });
 

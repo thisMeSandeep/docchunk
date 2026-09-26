@@ -16,6 +16,7 @@ describe("strategyRegistry", () => {
       "sentence",
       "paragraph",
       "heading",
+      "sentence-window",
       "fixed",
       "fixed-overlap",
       "recursive",
