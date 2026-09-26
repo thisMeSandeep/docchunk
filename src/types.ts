@@ -96,7 +96,7 @@ export interface Chunk {
   end: number;
   /** Length of `text` in characters. */
   charCount: number;
-  /** Headings above this chunk, outermost first, as plain text. */
+  /** Headings above the start of this chunk, outermost first, as plain text. */
   headingPath: string[];
   /** Block types this chunk touches, in order, without duplicates. */
   blockTypes: string[];
@@ -134,7 +134,7 @@ export interface ChunkStats {
   minChars: number;
   /** Characters in the largest chunk. */
   maxChars: number;
-  /** Average characters per chunk. */
+  /** Average characters per chunk, rounded to a whole number. */
   avgChars: number;
   /** Time taken, in milliseconds. */
   durationMs: number;
