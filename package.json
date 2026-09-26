@@ -2,6 +2,17 @@
   "name": "docchunk",
   "version": "0.0.0",
   "description": "Local document chunking for RAG: PDF, Office, Markdown and text to chunks.",
+  "license": "MIT",
+  "keywords": [
+    "rag",
+    "chunking",
+    "text-splitter",
+    "markdown",
+    "pdf",
+    "docx",
+    "embeddings",
+    "retrieval"
+  ],
   "type": "module",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -32,10 +43,14 @@
     "build": "tsup",
     "bench": "bun run bench/run.ts",
     "bench:node": "bun build bench/run.ts --target=node --packages=external --outfile=node_modules/.cache/docchunk-bench.mjs && node node_modules/.cache/docchunk-bench.mjs",
-    "check:network": "bun run scripts/check-no-network.ts"
+    "check:network": "bun run scripts/check-no-network.ts",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "bun run build && changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
+    "@changesets/cli": "3.0.3",
     "@types/mdast": "4.0.4",
     "@types/node": "22",
     "fast-check": "4.10.2",
