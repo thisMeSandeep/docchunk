@@ -53,6 +53,25 @@ export function checkAtMost(
   }
 }
 
+/** Throws unless the value is an array of non-empty strings. */
+export function checkNonEmptyStrings(optionName: string, value: unknown): void {
+  const isArray = Array.isArray(value);
+  let hasOnlyNonEmptyStrings = isArray;
+  if (isArray) {
+    for (const item of value) {
+      if (typeof item !== "string" || item === "") {
+        hasOnlyNonEmptyStrings = false;
+      }
+    }
+  }
+  if (!hasOnlyNonEmptyStrings) {
+    throw new DocchunkError(
+      "INVALID_OPTIONS",
+      `Option "${optionName}" must be an array of non-empty strings, got ${JSON.stringify(value)}.`,
+    );
+  }
+}
+
 /** Throws unless the value is one of the allowed values. */
 export function checkOneOf(optionName: string, value: unknown, allowedValues: string[]): void {
   const isAllowed = typeof value === "string" && allowedValues.includes(value);

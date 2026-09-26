@@ -62,16 +62,16 @@ describe("resolveOptions errors", () => {
 
   it("requires a strategy until the default strategy exists", () => {
     expect(resolveError(undefined).message).toBe(
-      'Option "strategy" is required. Use one of "fixed", "fixed-overlap", "sliding-window".',
+      'Option "strategy" is required. Use one of "fixed", "fixed-overlap", "recursive", "sliding-window".',
     );
     expect(resolveError({}).message).toBe(
-      'Option "strategy" is required. Use one of "fixed", "fixed-overlap", "sliding-window".',
+      'Option "strategy" is required. Use one of "fixed", "fixed-overlap", "recursive", "sliding-window".',
     );
   });
 
   it("rejects an unknown strategy", () => {
     expect(resolveError({ strategy: "semantic" }).message).toBe(
-      'Option "strategy" must be one of "fixed", "fixed-overlap", "sliding-window", got "semantic".',
+      'Option "strategy" must be one of "fixed", "fixed-overlap", "recursive", "sliding-window", got "semantic".',
     );
   });
 

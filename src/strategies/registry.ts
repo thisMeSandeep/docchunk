@@ -2,6 +2,7 @@
 import type { StrategyName } from "../types";
 import { fixedStrategy } from "./fixed";
 import { fixedOverlapStrategy } from "./fixed-overlap";
+import { recursiveStrategy } from "./recursive";
 import { slidingWindowStrategy } from "./sliding-window";
 import type { StrategyDefinition } from "./strategy-types";
 
@@ -9,5 +10,6 @@ import type { StrategyDefinition } from "./strategy-types";
 export const strategyRegistry: { [Name in StrategyName]: StrategyDefinition<Name> } = {
   fixed: fixedStrategy,
   "fixed-overlap": fixedOverlapStrategy,
+  recursive: recursiveStrategy,
   "sliding-window": slidingWindowStrategy,
 };

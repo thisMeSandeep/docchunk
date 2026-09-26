@@ -1,4 +1,4 @@
-// chunkDocument: turns one document into chunks. Phase 2 supports Markdown or text already in memory.
+// chunkDocument: turns one document into chunks.
 import { DocchunkError } from "./errors";
 import type { DocumentIR } from "./ir/ir-types";
 import { normalizeMarkdown } from "./ir/normalize-markdown";

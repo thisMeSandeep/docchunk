@@ -64,6 +64,15 @@ export interface StrategyOptionsByName {
     /** "word" moves a cut back to whitespace within the last 10% of the chunk; "char" cuts at exactly `size`. Default "word". */
     boundary?: "word" | "char";
   };
+  /** Splits on separators (headings, blank lines, lines), then sentences, then spaces, until pieces fit `size`. */
+  recursive: {
+    /** Maximum characters per chunk. Default 1500. */
+    size?: number;
+    /** Characters of whole pieces each chunk repeats from the end of the previous one. Must be less than `size`. Default 0. */
+    overlapChars?: number;
+    /** Separators tried in order before sentences, spaces, and a hard cut. Default ["\n# ", "\n## ", "\n### ", "\n#### ", "\n\n", "\n"]. */
+    separators?: string[];
+  };
   /** A window of `size` characters that moves forward `step` characters at a time. */
   "sliding-window": {
     /** Characters in each window. Default 1500. */

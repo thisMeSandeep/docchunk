@@ -72,6 +72,19 @@ const slidingWindowOptionsArbitrary = fc.integer({ min: 1, max: 400 }).chain((si
   }),
 );
 
+/** Generates recursive options: the default separators or a custom list, with overlapChars below size. */
+const recursiveOptionsArbitrary = fc.integer({ min: 1, max: 400 }).chain((size) =>
+  fc.record({
+    strategy: fc.constant("recursive" as const),
+    size: fc.constant(size),
+    overlapChars: fc.integer({ min: 0, max: size - 1 }),
+    separators: fc.option(
+      fc.constantFrom(["\n"], ["\n\n", "."], ["|", "\n#"]).map((list) => [...list]),
+      { nil: undefined },
+    ),
+  }),
+);
+
 /** Checks 0 <= start < end <= markdown length for every chunk. */
 function checkRanges(result: ChunkResult): void {
   for (const chunk of result.chunks) {
@@ -174,6 +187,17 @@ describe("sliding-window strategy properties", () => {
   it("keeps every invariant on generated documents", async () => {
     await fc.assert(
       fc.asyncProperty(sourceArbitrary, slidingWindowOptionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        checkSize(result, options.size);
+      }),
+    );
+  });
+});
+
+describe("recursive strategy properties", () => {
+  it("keeps every invariant on generated documents", async () => {
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, recursiveOptionsArbitrary, async (source, options) => {
         const result = await checkCommonProperties(source, options);
         checkSize(result, options.size);
       }),

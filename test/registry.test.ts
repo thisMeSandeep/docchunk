@@ -11,7 +11,12 @@ describe("strategyRegistry", () => {
   });
 
   it("contains the strategies built so far", () => {
-    expect(Object.keys(strategyRegistry)).toEqual(["fixed", "fixed-overlap", "sliding-window"]);
+    expect(Object.keys(strategyRegistry)).toEqual([
+      "fixed",
+      "fixed-overlap",
+      "recursive",
+      "sliding-window",
+    ]);
   });
 
   it("gives every strategy defaults that pass its own validation", () => {
