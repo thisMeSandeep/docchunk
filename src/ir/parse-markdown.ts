@@ -3,7 +3,9 @@ import type { Nodes, RootContent } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmFromMarkdown } from "mdast-util-gfm";
 import { gfm } from "micromark-extension-gfm";
-import type { Block, BlockType, Range } from "./ir-types";
+import { codeLineParts, listItemParts, tableHeaderPart, tableRowParts } from "./block-parts";
+import type { Block, BlockType } from "./ir-types";
+import { nodeRange } from "./node-range";
 
 /** mdast node types that become blocks of the same type. Every other node type becomes "other". */
 const blockTypeByNodeType = new Map<string, BlockType>([
@@ -41,13 +43,18 @@ export function parseMarkdown(markdown: string, headingLevel: number): Block[] {
         sectionId++;
       }
     }
-    blocks.push(createBlock(node, openHeadings, sectionId));
+    blocks.push(createBlock(node, markdown, openHeadings, sectionId));
   }
   return blocks;
 }
 
 /** Builds the block for one top-level node. */
-function createBlock(node: RootContent, openHeadings: OpenHeading[], sectionId: number): Block {
+function createBlock(
+  node: RootContent,
+  markdown: string,
+  openHeadings: OpenHeading[],
+  sectionId: number,
+): Block {
   const range = nodeRange(node);
   const headingPath: string[] = [];
   for (const openHeading of openHeadings) {
@@ -60,10 +67,25 @@ function createBlock(node: RootContent, openHeadings: OpenHeading[], sectionId: 
     headingPath,
     sectionId,
   };
+  addTypeSpecificFields(block, node, markdown);
+  return block;
+}
+
+/** Adds the fields only some block types have: heading level, and list, table, or code parts. */
+function addTypeSpecificFields(block: Block, node: RootContent, markdown: string): void {
   if (node.type === "heading") {
     block.level = node.depth;
   }
-  return block;
+  if (node.type === "list") {
+    block.parts = listItemParts(node);
+  }
+  if (node.type === "table") {
+    block.headerPart = tableHeaderPart(node, markdown);
+    block.parts = tableRowParts(node);
+  }
+  if (node.type === "code") {
+    block.parts = codeLineParts(node, markdown);
+  }
 }
 
 /** Removes open headings at the same level or deeper, since a new heading of this level ends them. */
@@ -73,16 +95,6 @@ function closeHeadingsAtOrBelow(openHeadings: OpenHeading[], level: number): voi
     openHeadings.pop();
     lastHeading = openHeadings.at(-1);
   }
-}
-
-/** Returns the start and end offsets of a node in the Markdown. */
-function nodeRange(node: RootContent): Range {
-  const start = node.position?.start.offset;
-  const end = node.position?.end.offset;
-  if (start === undefined || end === undefined) {
-    throw new Error(`The Markdown parser returned a ${node.type} node without offsets.`);
-  }
-  return { start, end };
 }
 
 /** Returns the visible text of a node, without Markdown syntax: "Setup with `bun`" becomes "Setup with bun". */

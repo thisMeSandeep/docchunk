@@ -27,11 +27,11 @@ export interface Block {
   end: number;
   /** Heading level from 1 to 6, for headings only. */
   level?: number;
-  /** Headings above this block, outermost first, as plain text. */
+  /** Headings above this block, outermost first, as plain text. A heading's path ends with itself. */
   headingPath: string[];
   /** Section number; it changes at every heading with level <= headingLevel. */
   sectionId: number;
-  /** Item ranges for lists, row ranges for tables, line ranges for code. */
+  /** Item ranges for lists, body-row ranges for tables (header excluded), code lines without fences. */
   parts?: Range[];
   /** Header row plus delimiter row, for tables only. */
   headerPart?: Range;
