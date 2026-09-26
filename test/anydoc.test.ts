@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { toMarkdown, toMarkdownBytes } from "@firecrawl/anydoc";
 import { describe, expect, it } from "vitest";
 
-const docxPath = "test/fixtures/java-vs-go-india-strategy.docx";
+const docxPath = "test/fixtures/conversion/java-vs-go.docx";
 const expectedTitle = "# Strategic Tech Stack Selection for Backend Career Transition";
 
 describe("anydoc", () => {

@@ -1,3 +1,4 @@
 # Keep text fixtures byte-for-byte as committed (line endings, BOM) on every OS, but still show text diffs.
 test/fixtures/**/*.md -text diff
 test/fixtures/**/*.txt -text diff
+test/fixtures/**/*.csv -text diff

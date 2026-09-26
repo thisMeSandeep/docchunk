@@ -1,5 +1,6 @@
 // chunkDocument: turns one document into chunks.
 import { DocchunkError } from "./errors";
+import { readContentSource } from "./input/read-source";
 import type { DocumentIR } from "./ir/ir-types";
 import { normalizeMarkdown } from "./ir/normalize-markdown";
 import { parseMarkdown } from "./ir/parse-markdown";
@@ -31,7 +32,7 @@ export async function chunkDocument(
 ): Promise<ChunkResult> {
   const startedAt = performance.now();
   const resolvedOptions = resolveOptions(options);
-  const contentSource = readContentSource(source);
+  const contentSource = readContentOnlySource(source);
   const markdown = normalizeMarkdown(contentSource.content);
   const ir = buildIR(markdown, contentSource.format, headingLevelFor(resolvedOptions));
   const documentId = resolvedOptions.documentId ?? hashText(markdown);
@@ -61,12 +62,12 @@ export async function chunkDocument(
   };
 }
 
-/** Returns the source as Markdown or text content. Throws for sources this phase cannot read yet. */
-function readContentSource(source: unknown): ContentSource {
+/** Returns the source as Markdown or text content. File and bytes sources are read from step 5.3 on. */
+function readContentOnlySource(source: unknown): ContentSource {
   if (typeof source !== "object" || source === null) {
     throw new DocchunkError(
       "INVALID_OPTIONS",
-      "The source must be an object such as { content, format }.",
+      "The source must be an object: { path }, { bytes }, or { content, format }.",
     );
   }
   const isFileSource = "path" in source || "bytes" in source;
@@ -76,18 +77,7 @@ function readContentSource(source: unknown): ContentSource {
       'Reading files and bytes is not supported yet. Pass { content, format: "markdown" | "text" }.',
     );
   }
-  const content = "content" in source ? source.content : undefined;
-  const format = "format" in source ? source.format : undefined;
-  if (typeof content !== "string") {
-    throw new DocchunkError("INVALID_OPTIONS", "The source's content must be a string.");
-  }
-  if (format !== "markdown" && format !== "text") {
-    throw new DocchunkError(
-      "UNSUPPORTED_FORMAT",
-      'The source\'s format must be "markdown" or "text".',
-    );
-  }
-  return { content, format };
+  return readContentSource(source);
 }
 
 /** Parses the normalized document into the IR that every strategy reads. */

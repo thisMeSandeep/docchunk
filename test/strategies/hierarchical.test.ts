@@ -104,6 +104,16 @@ describe("hierarchical by size", () => {
     expectLinksAgree(result);
   });
 
+  it("keeps children inside a parent whose range starts with whitespace (found by fast-check)", async () => {
+    // The last parent is a hard-cut piece " 🇮🇳 😀"; finalize trims its leading space, so its children must not include it.
+    const content = "```\nFamilies 👨‍👩‍👧‍👦 and flags 🇮🇳 😀";
+    const result = await chunkDocument(
+      { content, format: "markdown" },
+      { strategy: "parent-child", parentSize: 30, childSize: 12 },
+    );
+    expectLinksAgree(result);
+  });
+
   it("keeps every level within its size with headingPrefix on", async () => {
     const result = await chunkFixture(
       "large-table.md",

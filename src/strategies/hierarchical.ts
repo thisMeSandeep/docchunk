@@ -1,5 +1,5 @@
 // The hierarchical strategy: nested chunks at several sizes, or following the heading tree (PRD 6.2).
-import type { Block, DocumentIR } from "../ir/ir-types";
+import type { Block, DocumentIR, Range } from "../ir/ir-types";
 import {
   checkDecreasingSizes,
   checkIntegerBetween,
@@ -42,7 +42,8 @@ export function splitBySize(ir: DocumentIR, levels: number[], headingLevel: numb
     const parents = level === 0 ? [undefined] : parentIndexes;
     for (const parentIndex of parents) {
       const parent = parentIndex === undefined ? undefined : allChunks[parentIndex];
-      const blocks = parent === undefined ? ir.blocks : clipBlocks(ir.blocks, parent);
+      const blocks =
+        parent === undefined ? ir.blocks : clipBlocks(ir.blocks, trimmedRange(ir.markdown, parent));
       for (const chunk of structureAtSize(ir.markdown, blocks, size, headingLevel)) {
         allChunks.push(withLevel(chunk, level, parentIndex));
         nextParentIndexes.push(allChunks.length - 1);
@@ -63,13 +64,26 @@ function splitByHeading(ir: DocumentIR, headingLevel: number, leafSize: number):
     if (!isLargeLeaf) {
       continue;
     }
-    const blocks = clipBlocks(ir.blocks, section);
+    const blocks = clipBlocks(ir.blocks, trimmedRange(ir.markdown, section));
     const childLevel = (section.level ?? 0) + 1;
     for (const chunk of structureAtSize(ir.markdown, blocks, leafSize, headingLevel)) {
       allChunks.push(withLevel(chunk, childLevel, sectionIndex));
     }
   }
   return allChunks;
+}
+
+/** Returns the range without surrounding whitespace, as finalize will trim the parent. Children must fit inside that. */
+function trimmedRange(markdown: string, range: Range): Range {
+  let start = range.start;
+  let end = range.end;
+  while (start < end && /\s/.test(markdown.charAt(start))) {
+    start++;
+  }
+  while (end > start && /\s/.test(markdown.charAt(end - 1))) {
+    end--;
+  }
+  return { start, end };
 }
 
 /** Runs the structure strategy on some blocks at one size. */
