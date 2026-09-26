@@ -1,6 +1,7 @@
 // Property-based tests (PRD 11, item 2): invariants every strategy must keep, checked on generated documents.
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
+import { buildChunkTree } from "../src/build-chunk-tree";
 import {
   type Chunk,
   type ChunkOptions,
@@ -459,6 +460,7 @@ describe("hierarchical strategy properties", () => {
         const result = await checkCommonProperties(source, options);
         checkHierarchy(result);
         checkCoveragePerLevel(result);
+        checkTree(result);
         for (const [level, size] of options.levels.entries()) {
           const levelResult = {
             ...result,
@@ -481,6 +483,50 @@ describe("hierarchical strategy properties", () => {
       fc.asyncProperty(sourceArbitrary, optionsArbitrary, async (source, options) => {
         const result = await checkCommonProperties(source, options);
         checkHierarchy(result);
+        checkTree(result);
+      }),
+    );
+  });
+});
+
+/** Checks buildChunkTree places every chunk once, with each node's children matching the chunk's childIds. */
+function checkTree(result: ChunkResult): void {
+  let nodeCount = 0;
+  const pending = [...buildChunkTree(result.chunks)];
+  for (const root of pending) {
+    expect(root.chunk.parentId).toBeUndefined();
+  }
+  while (pending.length > 0) {
+    const node = pending.pop();
+    if (node === undefined) {
+      break;
+    }
+    nodeCount++;
+    expect(node.children.map((child) => child.chunk.id)).toEqual(node.chunk.childIds ?? []);
+    pending.push(...node.children);
+  }
+  expect(nodeCount).toBe(result.chunks.length);
+}
+
+describe("parent-child strategy properties", () => {
+  it("keeps every invariant: two linked levels within their sizes, matching the tree", async () => {
+    const optionsArbitrary = fc.integer({ min: 2, max: 600 }).chain((parentSize) =>
+      fc.record({
+        strategy: fc.constant("parent-child" as const),
+        parentSize: fc.constant(parentSize),
+        childSize: fc.integer({ min: 1, max: parentSize - 1 }),
+      }),
+    );
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, optionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        checkHierarchy(result);
+        checkCoveragePerLevel(result);
+        checkTree(result);
+        const parents = result.chunks.filter((chunk) => chunk.level === 0);
+        const children = result.chunks.filter((chunk) => chunk.level === 1);
+        checkSize({ ...result, chunks: parents }, options.parentSize);
+        checkSize({ ...result, chunks: children }, options.childSize);
       }),
     );
   });

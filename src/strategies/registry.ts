@@ -5,6 +5,7 @@ import { fixedOverlapStrategy } from "./fixed-overlap";
 import { headingStrategy } from "./heading";
 import { hierarchicalStrategy } from "./hierarchical";
 import { paragraphStrategy } from "./paragraph";
+import { parentChildStrategy } from "./parent-child";
 import { recursiveStrategy } from "./recursive";
 import { sentenceStrategy } from "./sentence";
 import { sentenceWindowStrategy } from "./sentence-window";
@@ -19,6 +20,7 @@ export const strategyRegistry: { [Name in StrategyName]: StrategyDefinition<Name
   paragraph: paragraphStrategy,
   heading: headingStrategy,
   "sentence-window": sentenceWindowStrategy,
+  "parent-child": parentChildStrategy,
   hierarchical: hierarchicalStrategy,
   fixed: fixedStrategy,
   "fixed-overlap": fixedOverlapStrategy,

@@ -89,6 +89,13 @@ export interface StrategyOptionsByName {
     /** Sentence units on each side of the chunk's sentence that go into its contextText. Default 3. */
     windowSize?: number;
   };
+  /** Two levels: large parent chunks, each split into small child chunks. Embed children, send parents to the model. */
+  "parent-child": {
+    /** Maximum characters per parent chunk. Must be larger than `childSize`. Default 4000. */
+    parentSize?: number;
+    /** Maximum characters per child chunk. Default 800. */
+    childSize?: number;
+  };
   /** Nested chunks at several sizes, or following the heading tree, linked by parentId and childIds. */
   hierarchical: {
     /** "size": one level per entry in `levels`; "heading": one level per heading depth. Default "size". */

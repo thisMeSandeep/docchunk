@@ -37,7 +37,10 @@ export function hasSizeLimit(options: ResolvedOptions): boolean {
   if ("size" in strategyOptions) {
     return strategyOptions.size !== noSizeLimit;
   }
-  // hierarchical by "size" limits every level; by "heading" leaves sections unlimited.
+  // parent-child and hierarchical by "size" limit every level; by "heading" leaves sections unlimited.
+  if ("parentSize" in strategyOptions) {
+    return true;
+  }
   if ("by" in strategyOptions) {
     return strategyOptions.by === "size";
   }
