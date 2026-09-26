@@ -59,7 +59,7 @@
 ### 2.2 Tooling
 
 - **Bun** for development: package manager (`bun install`, lockfile `bun.lock`), running scripts (`bun run <script>`), and running TypeScript files directly during development (`bun run src/some-file.ts`).
-- Language: TypeScript (strict), target ES2023, Node ≥ 22.
+- Language: TypeScript (strict), target ES2023, Node ≥ 22.12 (the CJS build needs `require()` of ESM packages; see `docs/DECISIONS.md` 6).
 - Build: `tsup` (ESM + CJS + `.d.ts`); entries `src/index.ts` and `src/cli.ts` (`bin`). The published package contains compiled JavaScript and `.d.ts` files, never raw `.ts`. Do not replace `tsup` with `bun build`, because the package must ship `.d.ts` files.
 - Tests: `vitest` + `fast-check`. Vitest is the one test framework, because the same tests must run under both Node and Bun (CI, PRD section 11.1). Do not use `bun:test` imports.
 - `package.json` scripts:
