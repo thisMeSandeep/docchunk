@@ -55,6 +55,24 @@ export interface StrategyOptionsByName {
     /** "word" moves a cut back to whitespace within the last 10% of the chunk; "char" cuts at exactly `size`. Default "word". */
     boundary?: "word" | "char";
   };
+  /** Like fixed, but consecutive chunks share `overlapChars` characters. */
+  "fixed-overlap": {
+    /** Maximum characters per chunk, including the overlap. Default 1500. */
+    size?: number;
+    /** Characters each chunk repeats from the end of the previous one. Must be less than `size`. Default 200. */
+    overlapChars?: number;
+    /** "word" moves a cut back to whitespace within the last 10% of the chunk; "char" cuts at exactly `size`. Default "word". */
+    boundary?: "word" | "char";
+  };
+  /** A window of `size` characters that moves forward `step` characters at a time. */
+  "sliding-window": {
+    /** Characters in each window. Default 1500. */
+    size?: number;
+    /** Characters the window moves forward each time. At most `size`. Default 750. */
+    step?: number;
+    /** "word" moves a cut back to whitespace within the last 10% of the chunk; "char" cuts at exactly `size`. Default "word". */
+    boundary?: "word" | "char";
+  };
 }
 
 /** Name of a chunking strategy. */

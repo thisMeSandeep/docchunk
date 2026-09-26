@@ -83,3 +83,40 @@ describe("cutAtSize with emoji", () => {
     expect(cutWhole("😀x", 1, "char")).toEqual(["😀", "x"]);
   });
 });
+
+describe("cutAtSize with overlap", () => {
+  /** Cuts the whole text with overlap and returns the text of each piece. */
+  function cutWithOverlap(text: string, size: number, overlapChars: number): string[] {
+    const pieces = cutAtSize(text, { start: 0, end: text.length }, size, "char", overlapChars);
+    return pieceTexts(text, pieces);
+  }
+
+  it("repeats overlapChars characters at the start of each next piece", () => {
+    expect(cutWithOverlap("abcdefghij", 4, 2)).toEqual(["abcd", "cdef", "efgh", "ghij"]);
+  });
+
+  it("stops once a piece reaches the end, without an extra piece inside the last one", () => {
+    expect(cutWithOverlap("abcdef", 4, 2)).toEqual(["abcd", "cdef"]);
+  });
+
+  it("still moves forward when a word cut makes a piece shorter than the overlap", () => {
+    const text = `${"a".repeat(8)} bbbbbbbbbb`;
+    const pieces = cutAtSize(text, { start: 0, end: text.length }, 10, "word", 9);
+    let previousStart = -1;
+    for (const piece of pieces) {
+      expect(piece.start).toBeGreaterThan(previousStart);
+      previousStart = piece.start;
+    }
+    expect(pieces.at(-1)?.end).toBe(text.length);
+  });
+
+  it("never starts a piece between the two halves of an emoji", () => {
+    const text = "ab😀cdef";
+    const pieces = cutAtSize(text, { start: 0, end: text.length }, 4, "char", 2);
+    for (const piece of pieces) {
+      const firstUnit = text.charCodeAt(piece.start);
+      const isLowSurrogate = firstUnit >= 0xdc00 && firstUnit <= 0xdfff;
+      expect(isLowSurrogate).toBe(false);
+    }
+  });
+});

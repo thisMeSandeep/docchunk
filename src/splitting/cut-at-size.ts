@@ -7,21 +7,44 @@ export type CutBoundary = "word" | "char";
 /** Share of the piece, at its end, searched for whitespace when cutting at a word boundary. */
 const wordSearchShare = 0.1;
 
-/** Returns consecutive pieces covering the range, each at most `size` characters. */
+/** Returns pieces covering the range, each at most `size` characters. Consecutive pieces share `overlapChars`. */
 export function cutAtSize(
   text: string,
   range: Range,
   size: number,
   boundary: CutBoundary,
+  overlapChars = 0,
 ): Range[] {
   const pieces: Range[] = [];
   let pieceStart = range.start;
   while (pieceStart < range.end) {
     const pieceEnd = findCut(text, pieceStart, range.end, size, boundary);
     pieces.push({ start: pieceStart, end: pieceEnd });
-    pieceStart = pieceEnd;
+    if (pieceEnd === range.end) {
+      break;
+    }
+    pieceStart = nextPieceStart(text, pieceStart, pieceEnd, overlapChars);
   }
   return pieces;
+}
+
+/** Returns where the next piece starts: `overlapChars` before this piece ends, but always after this piece starts. */
+function nextPieceStart(
+  text: string,
+  pieceStart: number,
+  pieceEnd: number,
+  overlapChars: number,
+): number {
+  let nextStart = pieceEnd - overlapChars;
+  // A word-boundary cut can make a piece shorter than the overlap; the next piece must still move forward.
+  if (nextStart <= pieceStart) {
+    nextStart = pieceStart + 1;
+  }
+  if (isInsideSurrogatePair(text, nextStart)) {
+    // Start before the emoji so it stays whole, unless that would not move forward.
+    nextStart = nextStart - 1 > pieceStart ? nextStart - 1 : nextStart + 1;
+  }
+  return nextStart;
 }
 
 /** Returns where the piece starting at `pieceStart` should end. */

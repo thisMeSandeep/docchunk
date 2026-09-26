@@ -31,7 +31,7 @@ describe("ChunkOptions", () => {
   });
 
   it("lists the registered strategy names", () => {
-    expectTypeOf<StrategyName>().toEqualTypeOf<"fixed">();
+    expectTypeOf<StrategyName>().toEqualTypeOf<"fixed" | "fixed-overlap" | "sliding-window">();
   });
 });
 

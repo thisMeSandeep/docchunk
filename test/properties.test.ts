@@ -52,6 +52,26 @@ const fixedOptionsArbitrary = fc.record({
   boundary: fc.constantFrom("word" as const, "char" as const),
 });
 
+/** Generates fixed-overlap options, with overlapChars always smaller than size. */
+const fixedOverlapOptionsArbitrary = fc.integer({ min: 1, max: 400 }).chain((size) =>
+  fc.record({
+    strategy: fc.constant("fixed-overlap" as const),
+    size: fc.constant(size),
+    overlapChars: fc.integer({ min: 0, max: size - 1 }),
+    boundary: fc.constantFrom("word" as const, "char" as const),
+  }),
+);
+
+/** Generates sliding-window options, with step always at most size. */
+const slidingWindowOptionsArbitrary = fc.integer({ min: 1, max: 400 }).chain((size) =>
+  fc.record({
+    strategy: fc.constant("sliding-window" as const),
+    size: fc.constant(size),
+    step: fc.integer({ min: 1, max: size }),
+    boundary: fc.constantFrom("word" as const, "char" as const),
+  }),
+);
+
 /** Checks 0 <= start < end <= markdown length for every chunk. */
 function checkRanges(result: ChunkResult): void {
   for (const chunk of result.chunks) {
@@ -132,6 +152,28 @@ describe("fixed strategy properties", () => {
   it("keeps every invariant on generated documents", async () => {
     await fc.assert(
       fc.asyncProperty(sourceArbitrary, fixedOptionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        checkSize(result, options.size);
+      }),
+    );
+  });
+});
+
+describe("fixed-overlap strategy properties", () => {
+  it("keeps every invariant on generated documents", async () => {
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, fixedOverlapOptionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        checkSize(result, options.size);
+      }),
+    );
+  });
+});
+
+describe("sliding-window strategy properties", () => {
+  it("keeps every invariant on generated documents", async () => {
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, slidingWindowOptionsArbitrary, async (source, options) => {
         const result = await checkCommonProperties(source, options);
         checkSize(result, options.size);
       }),

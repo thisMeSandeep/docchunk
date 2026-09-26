@@ -1,5 +1,6 @@
 // Checks that every registry entry's name matches its key (PRD 11, item 5).
 import { describe, expect, it } from "vitest";
+import { resolveOptions } from "../src/options/resolve-options";
 import { strategyRegistry } from "../src/strategies/registry";
 
 describe("strategyRegistry", () => {
@@ -10,12 +11,13 @@ describe("strategyRegistry", () => {
   });
 
   it("contains the strategies built so far", () => {
-    expect(Object.keys(strategyRegistry)).toEqual(["fixed"]);
+    expect(Object.keys(strategyRegistry)).toEqual(["fixed", "fixed-overlap", "sliding-window"]);
   });
 
   it("gives every strategy defaults that pass its own validation", () => {
-    for (const definition of Object.values(strategyRegistry)) {
-      expect(() => definition.validate(definition.defaults)).not.toThrow();
+    // resolveOptions runs the strategy's validate on the defaults when no other options are given.
+    for (const strategyName of Object.keys(strategyRegistry)) {
+      expect(() => resolveOptions({ strategy: strategyName })).not.toThrow();
     }
   });
 });
