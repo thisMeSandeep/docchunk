@@ -30,8 +30,16 @@ export async function chunkDocument(
   source: DocumentSource,
   options?: ChunkOptions,
 ): Promise<ChunkResult> {
-  const startedAt = performance.now();
   const resolvedOptions = resolveOptions(options);
+  return chunkWithResolvedOptions(source, resolvedOptions);
+}
+
+/** Chunks one document with options that were already checked. chunkDocuments uses it to check options once per batch. */
+export async function chunkWithResolvedOptions(
+  source: unknown,
+  resolvedOptions: ResolvedOptions,
+): Promise<ChunkResult> {
+  const startedAt = performance.now();
   const signal = resolvedOptions.signal;
   checkAborted(signal);
   const loaded = await loadDocument(source);
@@ -40,22 +48,7 @@ export async function chunkDocument(
   const markdown = normalizeMarkdown(loaded.text);
   const ir = buildIR(markdown, loaded.parseAs, headingLevelFor(resolvedOptions));
   const documentId = resolvedOptions.documentId ?? hashText(markdown);
-
-  const warnings: ChunkWarning[] = [...loaded.warnings];
-  const hasNoTextLayer = warnings.some((warning) => warning.code === "NO_TEXT_LAYER");
-  let chunks: Chunk[] = [];
-  // A PDF without a text layer gives no chunks (PRD 7.6); NO_TEXT_LAYER already explains why.
-  if (hasNoTextLayer) {
-    chunks = [];
-  } else if (markdown.trim() === "") {
-    warnings.push({ code: "EMPTY_DOCUMENT", message: "The document has no text to chunk." });
-  } else {
-    const rawChunks = splitDocument(ir, resolvedOptions);
-    checkAborted(signal);
-    const finalized = finalizeChunks(ir, rawChunks, resolvedOptions, documentId);
-    chunks = finalized.chunks;
-    warnings.push(...finalized.warnings);
-  }
+  const { chunks, warnings } = splitIntoChunks(ir, loaded.warnings, resolvedOptions, documentId);
 
   const document: DocumentInfo = {
     id: documentId,
@@ -68,6 +61,30 @@ export async function chunkDocument(
   }
   const durationMs = performance.now() - startedAt;
   return { chunks, document, stats: buildStats(chunks, durationMs), warnings };
+}
+
+/** Returns the chunks and all warnings. A PDF without a text layer or an empty document gives no chunks. */
+function splitIntoChunks(
+  ir: DocumentIR,
+  loadWarnings: ChunkWarning[],
+  resolvedOptions: ResolvedOptions,
+  documentId: string,
+): { chunks: Chunk[]; warnings: ChunkWarning[] } {
+  const warnings: ChunkWarning[] = [...loadWarnings];
+  // NO_TEXT_LAYER already explains why there are no chunks (PRD 7.6), so EMPTY_DOCUMENT is not added.
+  const hasNoTextLayer = warnings.some((warning) => warning.code === "NO_TEXT_LAYER");
+  if (hasNoTextLayer) {
+    return { chunks: [], warnings };
+  }
+  if (ir.markdown.trim() === "") {
+    warnings.push({ code: "EMPTY_DOCUMENT", message: "The document has no text to chunk." });
+    return { chunks: [], warnings };
+  }
+  const rawChunks = splitDocument(ir, resolvedOptions);
+  checkAborted(resolvedOptions.signal);
+  const finalized = finalizeChunks(ir, rawChunks, resolvedOptions, documentId);
+  warnings.push(...finalized.warnings);
+  return { chunks: finalized.chunks, warnings };
 }
 
 /** Parses the normalized document into the IR that every strategy reads. */
