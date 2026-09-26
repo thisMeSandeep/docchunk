@@ -1,0 +1,8 @@
+# This is not a heading in plain text
+
+Second paragraph with *stars* and _underscores_ that stay as they are.
+It continues on a second line.
+
+
+
+Third paragraph, after several blank lines.

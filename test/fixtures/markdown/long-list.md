@@ -1,0 +1,78 @@
+# Checklist
+
+The list below is larger than the default size.
+
+- Item 1: remember to check the stone before moving on
+- Item 2: remember to check the window before moving on
+- Item 3: remember to check the garden before moving on
+- Item 4: remember to check the lantern before moving on
+- Item 5: remember to check the harbor before moving on
+  - Nested detail under item 5
+  - Another nested detail under item 5
+- Item 6: remember to check the meadow before moving on
+- Item 7: remember to check the copper before moving on
+- Item 8: remember to check the signal before moving on
+- Item 9: remember to check the orbit before moving on
+- Item 10: remember to check the canvas before moving on
+- Item 11: remember to check the ember before moving on
+- Item 12: remember to check the river before moving on
+- Item 13: remember to check the stone before moving on
+- Item 14: remember to check the window before moving on
+- Item 15: remember to check the garden before moving on
+- Item 16: remember to check the lantern before moving on
+- Item 17: remember to check the harbor before moving on
+- Item 18: remember to check the meadow before moving on
+- Item 19: remember to check the copper before moving on
+- Item 20: remember to check the signal before moving on
+- Item 21: remember to check the orbit before moving on
+- Item 22: remember to check the canvas before moving on
+- Item 23: remember to check the ember before moving on
+- Item 24: remember to check the river before moving on
+- Item 25: remember to check the stone before moving on
+- Item 26: remember to check the window before moving on
+- Item 27: remember to check the garden before moving on
+- Item 28: remember to check the lantern before moving on
+- Item 29: remember to check the harbor before moving on
+- Item 30: remember to check the meadow before moving on
+- Item 31: remember to check the copper before moving on
+- Item 32: remember to check the signal before moving on
+- Item 33: remember to check the orbit before moving on
+- Item 34: remember to check the canvas before moving on
+- Item 35: remember to check the ember before moving on
+- Item 36: remember to check the river before moving on
+- Item 37: remember to check the stone before moving on
+- Item 38: remember to check the window before moving on
+- Item 39: remember to check the garden before moving on
+- Item 40: remember to check the lantern before moving on
+- Item 41: remember to check the harbor before moving on
+- Item 42: remember to check the meadow before moving on
+- Item 43: remember to check the copper before moving on
+- Item 44: remember to check the signal before moving on
+- Item 45: remember to check the orbit before moving on
+- Item 46: remember to check the canvas before moving on
+- Item 47: remember to check the ember before moving on
+- Item 48: remember to check the river before moving on
+- Item 49: remember to check the stone before moving on
+- Item 50: remember to check the window before moving on
+- Item 51: remember to check the garden before moving on
+- Item 52: remember to check the lantern before moving on
+- Item 53: remember to check the harbor before moving on
+- Item 54: remember to check the meadow before moving on
+- Item 55: remember to check the copper before moving on
+- Item 56: remember to check the signal before moving on
+- Item 57: remember to check the orbit before moving on
+- Item 58: remember to check the canvas before moving on
+- Item 59: remember to check the ember before moving on
+- Item 60: remember to check the river before moving on
+- Item 61: remember to check the stone before moving on
+- Item 62: remember to check the window before moving on
+- Item 63: remember to check the garden before moving on
+- Item 64: remember to check the lantern before moving on
+- Item 65: remember to check the harbor before moving on
+- Item 66: remember to check the meadow before moving on
+- Item 67: remember to check the copper before moving on
+- Item 68: remember to check the signal before moving on
+- Item 69: remember to check the orbit before moving on
+- Item 70: remember to check the canvas before moving on
+
+Text after the list.
