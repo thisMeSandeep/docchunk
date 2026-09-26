@@ -1,0 +1,149 @@
+// Public types: document sources, formats, and chunking results.
+import type { DocchunkError } from "./errors";
+
+/** A document format docchunk can read. */
+export type DocumentFormat =
+  | "pdf"
+  | "docx"
+  | "doc"
+  | "pptx"
+  | "ppt"
+  | "xlsx"
+  | "xls"
+  | "odt"
+  | "ods"
+  | "odp"
+  | "rtf"
+  | "epub"
+  | "csv"
+  | "markdown"
+  | "text";
+
+/** A document on disk. The format comes from the extension, or from the content. */
+export interface PathSource {
+  /** Path to the file. */
+  path: string;
+}
+
+/** A document already loaded into memory as bytes. */
+export interface BytesSource {
+  /** The file's bytes. */
+  bytes: Uint8Array;
+  /** Original file name, used to detect the format from its extension. */
+  filename?: string;
+  /** The format, when known. Skips detection. */
+  format?: DocumentFormat;
+}
+
+/** Markdown or plain text already in memory as a string. */
+export interface ContentSource {
+  /** The document text. */
+  content: string;
+  /** Whether `content` is Markdown or plain text. */
+  format: "markdown" | "text";
+}
+
+/** Where a document comes from: a file path, bytes, or a string. */
+export type DocumentSource = PathSource | BytesSource | ContentSource;
+
+/** One chunk of a document. */
+export interface Chunk {
+  /** Stable id: the same document, options, and range always give the same id. */
+  id: string;
+  /** The chunk text. */
+  text: string;
+  /** Surrounding sentences, for the sentence-window strategy only. */
+  contextText?: string;
+  /** Position in the chunk list, starting at 0. Sorted by start offset, then level. */
+  index: number;
+  /** Start offset in characters within `document.markdown`. */
+  start: number;
+  /** End offset in characters within `document.markdown` (exclusive). */
+  end: number;
+  /** Length of `text` in characters. */
+  charCount: number;
+  /** Headings above this chunk, outermost first, as plain text. */
+  headingPath: string[];
+  /** Block types this chunk touches, in order, without duplicates. */
+  blockTypes: string[];
+  /** Id of the chunk that contains this one (parent-child and hierarchical only). */
+  parentId?: string;
+  /** Ids of the chunks this one contains (parent-child and hierarchical only). */
+  childIds?: string[];
+  /** Nesting level, 0 for the largest chunks (parent-child and hierarchical only). */
+  level?: number;
+  /** Hash of `text`, to detect changed chunks. */
+  contentHash: string;
+  /** The `metadata` option, copied onto every chunk. */
+  metadata: Record<string, unknown>;
+}
+
+/** Information about the chunked document. */
+export interface DocumentInfo {
+  /** The `documentId` option, or a hash of the normalized Markdown. */
+  id: string;
+  /** The normalized Markdown that chunk offsets refer to. */
+  markdown: string;
+  /** Format of the original document. */
+  sourceFormat: DocumentFormat;
+  /** Path of the original file, when the source was a path. */
+  sourcePath?: string;
+  /** Length of `markdown` in characters. */
+  charCount: number;
+}
+
+/** Summary numbers about the chunks. */
+export interface ChunkStats {
+  /** Number of chunks. */
+  count: number;
+  /** Characters in the smallest chunk. */
+  minChars: number;
+  /** Characters in the largest chunk. */
+  maxChars: number;
+  /** Average characters per chunk. */
+  avgChars: number;
+  /** Time taken, in milliseconds. */
+  durationMs: number;
+}
+
+/** Why a warning was raised. */
+export type ChunkWarningCode =
+  | "NO_TEXT_LAYER"
+  | "EMPTY_DOCUMENT"
+  | "LARGE_CHUNK"
+  | "OVERSIZED_BLOCK";
+
+/** A problem that did not stop chunking. */
+export interface ChunkWarning {
+  /** Why the warning was raised. */
+  code: ChunkWarningCode;
+  /** Human-readable explanation. */
+  message: string;
+  /** Index of the chunk the warning is about, if any. */
+  chunkIndex?: number;
+}
+
+/** The result of chunking one document. */
+export interface ChunkResult {
+  /** The chunks, in order. */
+  chunks: Chunk[];
+  /** Information about the document. */
+  document: DocumentInfo;
+  /** Summary numbers about the chunks. */
+  stats: ChunkStats;
+  /** Problems that did not stop chunking. */
+  warnings: ChunkWarning[];
+}
+
+/** The result for one document in a batch: its chunks, or the error it failed with. */
+export type BatchItem =
+  | { ok: true; result: ChunkResult }
+  | { ok: false; error: DocchunkError; sourceIndex: number };
+
+/** A chunk with its child chunks, as built by `buildChunkTree`. */
+export interface ChunkTreeNode {
+  /** The chunk. */
+  chunk: Chunk;
+  /** Nodes for the chunks this one contains. */
+  children: ChunkTreeNode[];
+}

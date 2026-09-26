@@ -72,6 +72,7 @@
 | `lint` | `biome check .` | Lint and format check |
 | `build` | `tsup` | Build for publishing |
 | `bench` | `bun run bench/run.ts` | Benchmarks |
+| `check:network` | `bun run scripts/check-no-network.ts` | Fails if `src/` imports a network module or uses `fetch` |
 
 - Lint/format: `biome`
 - Benchmarks: `tinybench`
