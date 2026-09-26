@@ -34,21 +34,32 @@ export function tableRowParts(table: Table): Range[] {
   return parts;
 }
 
-/** Returns one range per line of code, without the opening and closing fence lines. */
-export function codeLineParts(code: Code, markdown: string): Range[] {
+/** The lines of a code block and its fence lines, if it has them. */
+export interface CodeParts {
+  lines: Range[];
+  openingFence: Range | undefined;
+  closingFence: Range | undefined;
+}
+
+/** Returns the code lines of a code block, separated from its opening and closing fence lines. */
+export function codeParts(code: Code, markdown: string): CodeParts {
   const codeRange = nodeRange(code);
   const lines = lineRanges(markdown, codeRange.start, codeRange.end);
   const firstLine = lines[0];
   if (firstLine === undefined || !isFenceLine(markdown, firstLine)) {
-    return lines;
+    return { lines, openingFence: undefined, closingFence: undefined };
   }
   const linesAfterOpeningFence = lines.slice(1);
   const lastLine = linesAfterOpeningFence.at(-1);
   // An unclosed fence runs to the end of the document and has no closing fence line.
   if (lastLine !== undefined && isFenceLine(markdown, lastLine)) {
-    return linesAfterOpeningFence.slice(0, -1);
+    return {
+      lines: linesAfterOpeningFence.slice(0, -1),
+      openingFence: firstLine,
+      closingFence: lastLine,
+    };
   }
-  return linesAfterOpeningFence;
+  return { lines: linesAfterOpeningFence, openingFence: firstLine, closingFence: undefined };
 }
 
 /** Returns true when the line is a code fence (``` or ~~~). */

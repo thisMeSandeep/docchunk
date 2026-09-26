@@ -4,71 +4,97 @@ import { measure } from "../output/measure";
 import type { RawChunk } from "../strategies/strategy-types";
 import { groupParts, groupsToRawChunks, oversizedPieces } from "./group-parts";
 
-/** Returns pieces of at most `size` characters. Fence lines are repeated on every piece and count toward size. */
-export function splitCode(markdown: string, code: Block, size: number): RawChunk[] {
-  const lines = code.parts ?? [];
-  const firstLine = lines[0];
-  const lastLine = lines.at(-1);
-  if (firstLine === undefined || lastLine === undefined) {
-    return groupsToRawChunks(markdown, groupParts([code], size), size);
-  }
-  // Indented code has no fence lines: its first line starts the block and its last line ends it.
-  const openingFence =
-    firstLine.start > code.start ? { start: code.start, end: firstLine.start - 1 } : undefined;
-  const closingFence =
-    lastLine.end < code.end ? { start: lastLine.end + 1, end: code.end } : undefined;
-  const lineBudget = size - costWithNewline(openingFence) - costWithNewline(closingFence);
-  if (lineBudget < 1) {
-    // The fences alone fill `size`, so they cannot be repeated. Split the block's lines as they are.
-    const allLines = [openingFence, ...lines, closingFence].filter((line) => line !== undefined);
-    return groupsToRawChunks(markdown, groupParts(allLines, size), size);
-  }
-  const pieces: RawChunk[] = [];
-  const fences: Fences = { opening: openingFence, closing: closingFence };
-  for (const group of groupParts(lines, lineBudget)) {
-    const isFirstGroup = group.start === firstLine.start;
-    const isLastGroup = group.end === lastLine.end;
-    if (group.isOversized) {
-      // A line too large for `size` cannot carry the fences, so a fence next to it becomes its own piece.
-      if (isFirstGroup && openingFence !== undefined) {
-        pieces.push({ start: openingFence.start, end: openingFence.end });
-      }
-      pieces.push(...oversizedPieces(markdown, group, size));
-      if (isLastGroup && closingFence !== undefined) {
-        pieces.push({ start: closingFence.start, end: closingFence.end });
-      }
-      continue;
-    }
-    pieces.push(fencedPiece(code, group, isFirstGroup, isLastGroup, fences));
-  }
-  return pieces;
-}
-
 /** The opening and closing fence lines of a code block, if it has them. */
 interface Fences {
   opening: Range | undefined;
   closing: Range | undefined;
 }
 
-/** Returns a piece of lines wrapped in the fences. The first and last pieces take a fence from the block itself. */
+/** Returns pieces of at most `size` characters. Fence lines are repeated on every piece and count toward size. */
+export function splitCode(markdown: string, code: Block, size: number): RawChunk[] {
+  const lines = code.parts ?? [];
+  if (lines.length === 0) {
+    return groupsToRawChunks(markdown, groupParts([code], size), size);
+  }
+  const fences: Fences = { opening: code.openingFence, closing: code.closingFence };
+  const lineBudget = size - costWithNewline(fences.opening) - costWithNewline(fences.closing);
+  if (lineBudget < 1) {
+    return splitWithoutRepeatingFences(markdown, code, lines, size);
+  }
+  const pieces: RawChunk[] = [];
+  for (const group of groupParts(lines, lineBudget)) {
+    // A fence is "in place" when the piece's own range can take it from the block, not as a prefix or suffix.
+    const isOpeningInPlace = isAtBlockStart(code, fences.opening, group);
+    const isClosingInPlace = isAtBlockEnd(code, fences.closing, group);
+    if (group.isOversized) {
+      // A line too large for `size` cannot carry the fences, so a fence next to it becomes its own piece.
+      if (isOpeningInPlace && fences.opening !== undefined) {
+        pieces.push({ start: fences.opening.start, end: fences.opening.end });
+      }
+      pieces.push(...oversizedPieces(markdown, group, size));
+      if (isClosingInPlace && fences.closing !== undefined) {
+        pieces.push({ start: fences.closing.start, end: fences.closing.end });
+      }
+      continue;
+    }
+    pieces.push(fencedPiece(code, group, isOpeningInPlace, isClosingInPlace, fences));
+  }
+  return pieces;
+}
+
+/** Returns true when the group starts the block: right after an opening fence inside the block, or at the block start. */
+function isAtBlockStart(code: Block, opening: Range | undefined, group: Range): boolean {
+  if (opening === undefined) {
+    return group.start === code.start;
+  }
+  return opening.start === code.start && group.start === opening.end + 1;
+}
+
+/** Returns true when the group ends the block: right before a closing fence inside the block, or at the block end. */
+function isAtBlockEnd(code: Block, closing: Range | undefined, group: Range): boolean {
+  if (closing === undefined) {
+    return group.end === code.end;
+  }
+  return closing.end === code.end && group.end + 1 === closing.start;
+}
+
+/** Returns a piece of lines wrapped in the fences. A fence in place is taken from the block itself. */
 function fencedPiece(
   code: Block,
   group: Range,
-  isFirstGroup: boolean,
-  isLastGroup: boolean,
+  isOpeningInPlace: boolean,
+  isClosingInPlace: boolean,
   fences: Fences,
 ): RawChunk {
   const piece: RawChunk = {
-    start: isFirstGroup ? code.start : group.start,
-    end: isLastGroup ? code.end : group.end,
+    start: isOpeningInPlace ? code.start : group.start,
+    end: isClosingInPlace ? code.end : group.end,
   };
-  if (!isFirstGroup && fences.opening !== undefined) {
+  if (!isOpeningInPlace && fences.opening !== undefined) {
     piece.prefix = fences.opening;
   }
-  if (!isLastGroup && fences.closing !== undefined) {
+  if (!isClosingInPlace && fences.closing !== undefined) {
     piece.suffix = fences.closing;
   }
   return piece;
+}
+
+/** Splits the lines as they are when the fences alone fill `size`. Fences inside the block's range are included. */
+function splitWithoutRepeatingFences(
+  markdown: string,
+  code: Block,
+  lines: Range[],
+  size: number,
+): RawChunk[] {
+  const allLines: Range[] = [];
+  if (code.openingFence !== undefined && code.openingFence.start >= code.start) {
+    allLines.push(code.openingFence);
+  }
+  allLines.push(...lines);
+  if (code.closingFence !== undefined && code.closingFence.end <= code.end) {
+    allLines.push(code.closingFence);
+  }
+  return groupsToRawChunks(markdown, groupParts(allLines, size), size);
 }
 
 /** Returns the size a fence line adds to a piece: its length plus the newline that joins it. */

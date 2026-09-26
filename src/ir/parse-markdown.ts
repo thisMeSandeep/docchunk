@@ -3,7 +3,13 @@ import type { Nodes, RootContent } from "mdast";
 import { fromMarkdown } from "mdast-util-from-markdown";
 import { gfmFromMarkdown } from "mdast-util-gfm";
 import { gfm } from "micromark-extension-gfm";
-import { codeLineParts, listItemParts, tableHeaderPart, tableRowParts } from "./block-parts";
+import {
+  type CodeParts,
+  codeParts,
+  listItemParts,
+  tableHeaderPart,
+  tableRowParts,
+} from "./block-parts";
 import type { Block, BlockType } from "./ir-types";
 import { nodeRange } from "./node-range";
 
@@ -84,7 +90,7 @@ function addTypeSpecificFields(block: Block, node: RootContent, markdown: string
     block.parts = tableRowParts(node);
   }
   if (node.type === "code") {
-    block.parts = codeLineParts(node, markdown);
+    addCodeParts(block, codeParts(node, markdown));
   }
 }
 
@@ -110,4 +116,15 @@ function plainText(node: Nodes): string {
     text += plainText(child);
   }
   return text;
+}
+
+/** Sets a code block's line parts and, when it has them, its fence lines. */
+function addCodeParts(block: Block, parts: CodeParts): void {
+  block.parts = parts.lines;
+  if (parts.openingFence !== undefined) {
+    block.openingFence = parts.openingFence;
+  }
+  if (parts.closingFence !== undefined) {
+    block.closingFence = parts.closingFence;
+  }
 }

@@ -21,6 +21,10 @@ export interface RawChunk {
   isOversized?: boolean;
   /** The surrounding range that becomes the chunk's contextText (sentence-window only). */
   context?: Range;
+  /** Nesting level, 0 for the largest chunks (hierarchical only). */
+  level?: number;
+  /** Position of the parent chunk in the list the strategy returns (hierarchical only). */
+  parentIndex?: number;
 }
 
 /** A raw chunk that knows its section, so post-processing never joins chunks from different sections. */

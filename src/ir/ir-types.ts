@@ -35,6 +35,10 @@ export interface Block {
   parts?: Range[];
   /** Header row plus delimiter row, for tables only. */
   headerPart?: Range;
+  /** The opening fence line (``` or ~~~), for fenced code only. */
+  openingFence?: Range;
+  /** The closing fence line, for fenced code that is closed. */
+  closingFence?: Range;
 }
 
 /** A piece of text that sentence-based strategies treat as one unit. */

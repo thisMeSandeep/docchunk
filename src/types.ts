@@ -89,6 +89,17 @@ export interface StrategyOptionsByName {
     /** Sentence units on each side of the chunk's sentence that go into its contextText. Default 3. */
     windowSize?: number;
   };
+  /** Nested chunks at several sizes, or following the heading tree, linked by parentId and childIds. */
+  hierarchical: {
+    /** "size": one level per entry in `levels`; "heading": one level per heading depth. Default "size". */
+    by?: "size" | "heading";
+    /** Maximum characters per chunk at each level, largest first, each smaller than the one before. Used with by "size". Default [6000, 1500, 400]. */
+    levels?: number[];
+    /** Headings at this level or higher (1 to 6) start a new section. Default 3. */
+    headingLevel?: number;
+    /** Maximum characters per chunk when a section without subsections is split. Used with by "heading". Default 1500. */
+    leafSize?: number;
+  };
   /** Cuts the Markdown every `size` characters, ignoring structure. */
   fixed: {
     /** Maximum characters per chunk. Default 1500. */

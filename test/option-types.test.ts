@@ -37,6 +37,7 @@ describe("ChunkOptions", () => {
       | "paragraph"
       | "heading"
       | "sentence-window"
+      | "hierarchical"
       | "fixed"
       | "fixed-overlap"
       | "recursive"

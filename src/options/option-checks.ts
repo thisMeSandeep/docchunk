@@ -38,6 +38,25 @@ export function checkIntegerBetween(
   }
 }
 
+/** Throws unless the value is a non-empty array of positive integers, each smaller than the one before. */
+export function checkDecreasingSizes(optionName: string, value: unknown): void {
+  let isValid = Array.isArray(value) && value.length > 0;
+  let previous = Number.POSITIVE_INFINITY;
+  for (const item of Array.isArray(value) ? value : []) {
+    const isPositiveInteger = Number.isInteger(item) && Number(item) > 0;
+    if (!isPositiveInteger || Number(item) >= previous) {
+      isValid = false;
+    }
+    previous = Number(item);
+  }
+  if (!isValid) {
+    throw new DocchunkError(
+      "INVALID_OPTIONS",
+      `Option "${optionName}" must be a non-empty array of positive integers, each smaller than the one before, got ${JSON.stringify(value)}.`,
+    );
+  }
+}
+
 /** Throws unless the value is an integer of 0 or more. */
 export function checkNonNegativeInteger(optionName: string, value: unknown): void {
   const isNonNegativeInteger = Number.isInteger(value) && Number(value) >= 0;

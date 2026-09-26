@@ -2,15 +2,11 @@
 import type { Block, DocumentIR, Range } from "../ir/ir-types";
 import { canonicalOptions } from "../options/canonical-options";
 import { headingPrefixText } from "../options/heading-prefix";
-import { noSizeLimit } from "../options/option-checks";
 import type { ResolvedOptions } from "../options/resolve-options";
 import type { RawChunk } from "../strategies/strategy-types";
 import type { Chunk, ChunkWarning } from "../types";
+import { chunkWarnings, hasSizeLimit } from "./chunk-warnings";
 import { hashText } from "./hash";
-
-/** Chunks larger than this get a LARGE_CHUNK warning when the strategy has no size limit (PRD 6.4). */
-const largeChunkChars = 8000;
-
 /** The finished chunks and the warnings raised while building them. */
 export interface FinalizedChunks {
   chunks: Chunk[];
@@ -24,51 +20,53 @@ export function finalizeChunks(
   options: ResolvedOptions,
   documentId: string,
 ): FinalizedChunks {
-  const keptChunks: RawChunk[] = [];
-  for (const rawChunk of rawChunks) {
+  const keptChunks: KeptChunk[] = [];
+  for (const [sourceIndex, rawChunk] of rawChunks.entries()) {
     const trimmedChunk = trimRawChunk(ir.markdown, rawChunk);
     if (trimmedChunk !== undefined && !isOnlyThematicBreaks(ir.blocks, trimmedChunk)) {
-      keptChunks.push(trimmedChunk);
+      keptChunks.push({ rawChunk: trimmedChunk, sourceIndex });
     }
   }
-  keptChunks.sort(compareRanges);
+  keptChunks.sort((first, second) => compareChunks(first.rawChunk, second.rawChunk));
 
   const idPrefix = `${documentId}\n${canonicalOptions(options)}`;
   const isSizeLimited = hasSizeLimit(options);
   const chunks: Chunk[] = [];
   const warnings: ChunkWarning[] = [];
-  for (const [index, rawChunk] of keptChunks.entries()) {
-    const chunk = buildChunk(ir, rawChunk, index, idPrefix, options);
+  const chunkBySourceIndex = new Map<number, Chunk>();
+  for (const [index, kept] of keptChunks.entries()) {
+    const chunk = buildChunk(ir, kept.rawChunk, index, idPrefix, options);
     chunks.push(chunk);
-    warnings.push(...chunkWarnings(chunk, rawChunk, isSizeLimited));
+    chunkBySourceIndex.set(kept.sourceIndex, chunk);
+    warnings.push(...chunkWarnings(chunk, kept.rawChunk, isSizeLimited));
   }
+  linkParentsAndChildren(keptChunks, chunkBySourceIndex);
   return { chunks, warnings };
 }
 
-/** Returns the warnings for one chunk: OVERSIZED_BLOCK for a hard cut, LARGE_CHUNK for a large chunk with no size limit. */
-function chunkWarnings(chunk: Chunk, rawChunk: RawChunk, isSizeLimited: boolean): ChunkWarning[] {
-  const warnings: ChunkWarning[] = [];
-  if (rawChunk.isOversized === true) {
-    warnings.push({
-      code: "OVERSIZED_BLOCK",
-      message: `Chunk ${chunk.index} is a hard cut of a row, item, line, or word longer than size.`,
-      chunkIndex: chunk.index,
-    });
-  }
-  if (!isSizeLimited && chunk.charCount > largeChunkChars) {
-    warnings.push({
-      code: "LARGE_CHUNK",
-      message: `Chunk ${chunk.index} has ${chunk.charCount} characters, more than ${largeChunkChars}. Set "size" to split it.`,
-      chunkIndex: chunk.index,
-    });
-  }
-  return warnings;
+/** A raw chunk that survived trimming, with its position in the strategy's list, which parentIndex refers to. */
+interface KeptChunk {
+  rawChunk: RawChunk;
+  sourceIndex: number;
 }
 
-/** Returns true when the strategy has a size limit, so LARGE_CHUNK warnings do not apply. */
-function hasSizeLimit(options: ResolvedOptions): boolean {
-  const strategyOptions = options.strategyOptions;
-  return "size" in strategyOptions && strategyOptions.size !== noSizeLimit;
+/** Sets parentId on each child and adds it to its parent's childIds, in chunk order (hierarchical only). */
+function linkParentsAndChildren(
+  keptChunks: KeptChunk[],
+  chunkBySourceIndex: Map<number, Chunk>,
+): void {
+  for (const kept of keptChunks) {
+    const parentIndex = kept.rawChunk.parentIndex;
+    if (parentIndex === undefined) {
+      continue;
+    }
+    const child = chunkBySourceIndex.get(kept.sourceIndex);
+    const parent = chunkBySourceIndex.get(parentIndex);
+    if (child !== undefined && parent !== undefined) {
+      child.parentId = parent.id;
+      parent.childIds?.push(child.id);
+    }
+  }
 }
 
 /** Builds one chunk from its trimmed raw chunk. */
@@ -83,8 +81,10 @@ function buildChunk(
   const headingPath = touchedBlocks[0]?.headingPath ?? [];
   const bodyText = chunkText(ir.markdown, rawChunk);
   const text = options.headingPrefix ? headingPrefixText(headingPath) + bodyText : bodyText;
+  // The level is part of the id, because a parent and its only child can cover the same range.
+  const levelPart = rawChunk.level === undefined ? "" : `\n${rawChunk.level}`;
   const chunk: Chunk = {
-    id: hashText(`${idPrefix}\n${rawChunk.start}\n${rawChunk.end}`),
+    id: hashText(`${idPrefix}\n${rawChunk.start}\n${rawChunk.end}${levelPart}`),
     text,
     index,
     start: rawChunk.start,
@@ -98,6 +98,10 @@ function buildChunk(
   };
   if (rawChunk.context !== undefined) {
     chunk.contextText = ir.markdown.slice(rawChunk.context.start, rawChunk.context.end);
+  }
+  if (rawChunk.level !== undefined) {
+    chunk.level = rawChunk.level;
+    chunk.childIds = [];
   }
   return chunk;
 }
@@ -199,10 +203,14 @@ function uniqueBlockTypes(blocks: Block[]): string[] {
   return types;
 }
 
-/** Orders ranges by start, then by end. */
-function compareRanges(first: Range, second: Range): number {
+/** Orders chunks by start, then by level (parents first), then by end (CLAUDE.md 2.3). */
+function compareChunks(first: RawChunk, second: RawChunk): number {
   if (first.start !== second.start) {
     return first.start - second.start;
+  }
+  const levelDifference = (first.level ?? 0) - (second.level ?? 0);
+  if (levelDifference !== 0) {
+    return levelDifference;
   }
   return first.end - second.end;
 }

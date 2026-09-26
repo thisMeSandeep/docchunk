@@ -414,3 +414,74 @@ describe("sentence-window strategy properties", () => {
     );
   });
 });
+
+/** Checks every child lies inside its parent, one level down, and parentId and childIds agree. */
+function checkHierarchy(result: ChunkResult): void {
+  const chunkById = new Map(result.chunks.map((chunk) => [chunk.id, chunk]));
+  for (const chunk of result.chunks) {
+    expect(chunk.level).toBeDefined();
+    for (const childId of chunk.childIds ?? []) {
+      expect(chunkById.get(childId)?.parentId).toBe(chunk.id);
+    }
+    if (chunk.parentId !== undefined) {
+      const parent = chunkById.get(chunk.parentId);
+      expect(parent?.childIds).toContain(chunk.id);
+      expect(parent?.level).toBe((chunk.level ?? 0) - 1);
+      expect(chunk.start).toBeGreaterThanOrEqual(parent?.start ?? Number.NaN);
+      expect(chunk.end).toBeLessThanOrEqual(parent?.end ?? Number.NaN);
+    }
+  }
+}
+
+/** Checks each level on its own covers every non-whitespace character (PRD 11: "checked per level"). */
+function checkCoveragePerLevel(result: ChunkResult): void {
+  const levels = new Set(result.chunks.map((chunk) => chunk.level ?? 0));
+  for (const level of levels) {
+    const chunksAtLevel = result.chunks.filter((chunk) => chunk.level === level);
+    checkCoverage({ ...result, chunks: chunksAtLevel }, false);
+  }
+}
+
+/** Generates 1 to 3 strictly decreasing sizes. */
+const levelsArbitrary = fc
+  .uniqueArray(fc.integer({ min: 1, max: 600 }), { minLength: 1, maxLength: 3 })
+  .map((sizes) => [...sizes].sort((first, second) => second - first));
+
+describe("hierarchical strategy properties", () => {
+  it("keeps every invariant by size: each level within its size, covering the document, linked", async () => {
+    const optionsArbitrary = fc.record({
+      strategy: fc.constant("hierarchical" as const),
+      levels: levelsArbitrary,
+      headingLevel: fc.integer({ min: 1, max: 6 }),
+    });
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, optionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        checkHierarchy(result);
+        checkCoveragePerLevel(result);
+        for (const [level, size] of options.levels.entries()) {
+          const levelResult = {
+            ...result,
+            chunks: result.chunks.filter((chunk) => chunk.level === level),
+          };
+          checkSize(levelResult, size);
+        }
+      }),
+    );
+  });
+
+  it("keeps every invariant by heading: linked sections, leaves split within leafSize", async () => {
+    const optionsArbitrary = fc.record({
+      strategy: fc.constant("hierarchical" as const),
+      by: fc.constant("heading" as const),
+      headingLevel: fc.integer({ min: 1, max: 6 }),
+      leafSize: fc.integer({ min: 1, max: 400 }),
+    });
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, optionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        checkHierarchy(result);
+      }),
+    );
+  });
+});
