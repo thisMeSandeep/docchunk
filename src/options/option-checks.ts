@@ -1,0 +1,25 @@
+// Checks for single option values. Each throws INVALID_OPTIONS with a message naming the option.
+import { DocchunkError } from "../errors";
+
+/** Throws unless the value is an integer greater than 0. */
+export function checkPositiveInteger(optionName: string, value: unknown): void {
+  const isPositiveInteger = Number.isInteger(value) && Number(value) > 0;
+  if (!isPositiveInteger) {
+    throw new DocchunkError(
+      "INVALID_OPTIONS",
+      `Option "${optionName}" must be a positive integer, got ${String(value)}.`,
+    );
+  }
+}
+
+/** Throws unless the value is one of the allowed values. */
+export function checkOneOf(optionName: string, value: unknown, allowedValues: string[]): void {
+  const isAllowed = typeof value === "string" && allowedValues.includes(value);
+  if (!isAllowed) {
+    const allowedList = allowedValues.map((allowedValue) => `"${allowedValue}"`).join(", ");
+    throw new DocchunkError(
+      "INVALID_OPTIONS",
+      `Option "${optionName}" must be one of ${allowedList}, got ${String(value)}.`,
+    );
+  }
+}
