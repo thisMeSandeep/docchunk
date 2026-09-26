@@ -1,6 +1,16 @@
 // Checks for single option values. Each throws INVALID_OPTIONS with a message naming the option.
 import { DocchunkError } from "../errors";
 
+/** The resolved `size` of strategies whose default is "no size limit". Every size check passes against it. */
+export const noSizeLimit = Number.POSITIVE_INFINITY;
+
+/** Throws unless the value is a positive integer, or the "no size limit" default. */
+export function checkSizeOrNoLimit(optionName: string, value: unknown): void {
+  if (value !== noSizeLimit) {
+    checkPositiveInteger(optionName, value);
+  }
+}
+
 /** Throws unless the value is an integer greater than 0. */
 export function checkPositiveInteger(optionName: string, value: unknown): void {
   const isPositiveInteger = Number.isInteger(value) && Number(value) > 0;

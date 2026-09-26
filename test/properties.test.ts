@@ -98,6 +98,25 @@ const structureOptionsArbitrary = fc.integer({ min: 1, max: 400 }).chain((size) 
   }),
 );
 
+/** Generates the options sentence and paragraph share: an optional size, with minSize and overlapChars inside it. */
+function packingOptionsArbitrary<Name extends "sentence" | "paragraph">(strategy: Name) {
+  return fc.option(fc.integer({ min: 1, max: 400 }), { nil: undefined }).chain((size) =>
+    fc.record({
+      strategy: fc.constant(strategy),
+      size: fc.constant(size),
+      minSize: fc.integer({ min: 1, max: size ?? 400 }),
+      overlapChars: fc.integer({ min: 0, max: (size ?? 401) - 1 }),
+    }),
+  );
+}
+
+/** Generates heading options: an optional size and a heading level. */
+const headingOptionsArbitrary = fc.record({
+  strategy: fc.constant("heading" as const),
+  size: fc.option(fc.integer({ min: 1, max: 400 }), { nil: undefined }),
+  headingLevel: fc.integer({ min: 1, max: 6 }),
+});
+
 /** Checks 0 <= start < end <= markdown length for every chunk. */
 function checkRanges(result: ChunkResult): void {
   for (const chunk of result.chunks) {
@@ -156,8 +175,8 @@ function checkIndexes(result: ChunkResult): void {
   }
 }
 
-/** Checks every non-whitespace character outside thematic breaks is inside at least one chunk. */
-function checkCoverage(result: ChunkResult): void {
+/** Checks every non-whitespace character is in a chunk, except thematic breaks and, if asked, headings. */
+function checkCoverage(result: ChunkResult, shouldIgnoreHeadings: boolean): void {
   const markdown = result.document.markdown;
   const isCovered = new Array<boolean>(markdown.length).fill(false);
   for (const chunk of result.chunks) {
@@ -165,7 +184,9 @@ function checkCoverage(result: ChunkResult): void {
   }
   if (result.document.sourceFormat === "markdown") {
     for (const block of parseMarkdown(markdown, 3)) {
-      if (block.type === "thematicBreak") {
+      const isIgnored =
+        block.type === "thematicBreak" || (shouldIgnoreHeadings && block.type === "heading");
+      if (isIgnored) {
         isCovered.fill(true, block.start, block.end);
       }
     }
@@ -183,16 +204,17 @@ function withoutDuration(result: ChunkResult): unknown {
   return { ...result, stats: { ...result.stats, durationMs: 0 } };
 }
 
-/** Runs the checks that apply to every strategy. */
+/** Runs the checks that apply to every strategy. The sentence strategies leave headings out by design. */
 async function checkCommonProperties(
   source: { content: string; format: "markdown" | "text" },
   options: ChunkOptions,
+  shouldIgnoreHeadings = false,
 ): Promise<ChunkResult> {
   const result = await chunkDocument(source, options);
   checkRanges(result);
   checkTextSlice(result);
   checkIndexes(result);
-  checkCoverage(result);
+  checkCoverage(result, shouldIgnoreHeadings);
   const secondRun = await chunkDocument(source, options);
   expect(withoutDuration(secondRun)).toEqual(withoutDuration(result));
   return result;
@@ -248,6 +270,56 @@ describe("structure strategy properties", () => {
       fc.asyncProperty(sourceArbitrary, structureOptionsArbitrary, async (source, options) => {
         const result = await checkCommonProperties(source, options);
         checkSize(result, options.size);
+        checkSections(result, options.headingLevel);
+      }),
+    );
+  });
+});
+
+describe("sentence strategy properties", () => {
+  it("keeps every invariant on generated documents, with and without a size", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        sourceArbitrary,
+        packingOptionsArbitrary("sentence"),
+        async (source, options) => {
+          const result = await checkCommonProperties(source, options, true);
+          if (options.size !== undefined) {
+            checkSize(result, options.size);
+          }
+          checkSections(result, 3);
+        },
+      ),
+    );
+  });
+});
+
+describe("paragraph strategy properties", () => {
+  it("keeps every invariant on generated documents, with and without a size", async () => {
+    await fc.assert(
+      fc.asyncProperty(
+        sourceArbitrary,
+        packingOptionsArbitrary("paragraph"),
+        async (source, options) => {
+          const result = await checkCommonProperties(source, options);
+          if (options.size !== undefined) {
+            checkSize(result, options.size);
+          }
+          checkSections(result, 3);
+        },
+      ),
+    );
+  });
+});
+
+describe("heading strategy properties", () => {
+  it("keeps every invariant on generated documents, with and without a size", async () => {
+    await fc.assert(
+      fc.asyncProperty(sourceArbitrary, headingOptionsArbitrary, async (source, options) => {
+        const result = await checkCommonProperties(source, options);
+        if (options.size !== undefined) {
+          checkSize(result, options.size);
+        }
         checkSections(result, options.headingLevel);
       }),
     );

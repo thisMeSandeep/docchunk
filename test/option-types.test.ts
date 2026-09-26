@@ -32,7 +32,14 @@ describe("ChunkOptions", () => {
 
   it("lists the registered strategy names", () => {
     expectTypeOf<StrategyName>().toEqualTypeOf<
-      "structure" | "fixed" | "fixed-overlap" | "recursive" | "sliding-window"
+      | "structure"
+      | "sentence"
+      | "paragraph"
+      | "heading"
+      | "fixed"
+      | "fixed-overlap"
+      | "recursive"
+      | "sliding-window"
     >();
   });
 

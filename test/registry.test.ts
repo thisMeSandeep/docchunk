@@ -13,6 +13,9 @@ describe("strategyRegistry", () => {
   it("contains the strategies built so far", () => {
     expect(Object.keys(strategyRegistry)).toEqual([
       "structure",
+      "sentence",
+      "paragraph",
+      "heading",
       "fixed",
       "fixed-overlap",
       "recursive",

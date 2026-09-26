@@ -59,6 +59,31 @@ export interface StrategyOptionsByName {
     /** Headings at this level or higher (1 to 6) start a new section. Default 3. */
     headingLevel?: number;
   };
+  /** One chunk per sentence; tables and code blocks count as one sentence. With `size`, packs consecutive sentences. */
+  sentence: {
+    /** Maximum characters per chunk. Default: no limit, one sentence per chunk. */
+    size?: number;
+    /** Chunks smaller than this are merged into a neighbor in the same section when the result fits `size`. Default 1 (no merging). */
+    minSize?: number;
+    /** Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. Default 0. */
+    overlapChars?: number;
+  };
+  /** One chunk per block, with a heading kept with the block after it. With `size`, packs consecutive blocks. */
+  paragraph: {
+    /** Maximum characters per chunk. Default: no limit, one block per chunk. */
+    size?: number;
+    /** Chunks smaller than this are merged into a neighbor in the same section when the result fits `size`. Default 1 (no merging). */
+    minSize?: number;
+    /** Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. Default 0. */
+    overlapChars?: number;
+  };
+  /** One chunk per section, split at headings up to `headingLevel`. With `size`, larger sections are split. */
+  heading: {
+    /** Maximum characters per chunk. Default: no limit, one section per chunk. */
+    size?: number;
+    /** Headings at this level or higher (1 to 6) start a new section. Default 3. */
+    headingLevel?: number;
+  };
   /** Cuts the Markdown every `size` characters, ignoring structure. */
   fixed: {
     /** Maximum characters per chunk. Default 1500. */
