@@ -37,6 +37,7 @@
     "@biomejs/biome": "2.5.14",
     "@types/mdast": "4.0.4",
     "@types/node": "22",
+    "fast-check": "4.10.2",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
     "vitest": "5.0.2"

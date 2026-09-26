@@ -1,4 +1,5 @@
 // Public API of docchunk.
+export { chunkDocument } from "./chunk-document";
 export { DocchunkError, type DocchunkErrorCode } from "./errors";
 export type {
   BatchItem,

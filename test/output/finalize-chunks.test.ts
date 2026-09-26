@@ -4,9 +4,9 @@ import { describe, expect, it } from "vitest";
 import type { DocumentIR } from "../../src/ir/ir-types";
 import { normalizeMarkdown } from "../../src/ir/normalize-markdown";
 import { parseMarkdown } from "../../src/ir/parse-markdown";
+import { resolveOptions } from "../../src/options/resolve-options";
 import { finalizeChunks } from "../../src/output/finalize-chunks";
 import { hashText } from "../../src/output/hash";
-import { resolveOptions } from "../../src/options/resolve-options";
 
 const fixedOptions = resolveOptions({ strategy: "fixed" });
 
