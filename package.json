@@ -35,12 +35,16 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
+    "@types/mdast": "4.0.4",
     "@types/node": "22",
     "tsup": "8.5.1",
     "typescript": "5.9.3",
     "vitest": "5.0.2"
   },
   "dependencies": {
-    "@firecrawl/anydoc": "0.2.4"
+    "@firecrawl/anydoc": "0.2.4",
+    "mdast-util-from-markdown": "2.0.3",
+    "mdast-util-gfm": "3.1.0",
+    "micromark-extension-gfm": "3.0.0"
   }
 }
