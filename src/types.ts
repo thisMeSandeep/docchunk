@@ -1,4 +1,4 @@
-// Public types: document sources, formats, and chunking results.
+// Public types: document sources, formats, options, and chunking results.
 import type { DocchunkError } from "./errors";
 
 /** A document format docchunk can read. */
@@ -45,6 +45,40 @@ export interface ContentSource {
 
 /** Where a document comes from: a file path, bytes, or a string. */
 export type DocumentSource = PathSource | BytesSource | ContentSource;
+
+/** Options for each strategy, keyed by strategy name. */
+export interface StrategyOptionsByName {
+  /** Cuts the Markdown every `size` characters, ignoring structure. */
+  fixed: {
+    /** Maximum characters per chunk. Default 1500. */
+    size?: number;
+    /** "word" moves a cut back to whitespace within the last 10% of the chunk; "char" cuts at exactly `size`. Default "word". */
+    boundary?: "word" | "char";
+  };
+}
+
+/** Name of a chunking strategy. */
+export type StrategyName = keyof StrategyOptionsByName;
+
+/** Options shared by every strategy. */
+export interface CommonOptions {
+  /** Copied onto every chunk's `metadata`. Does not change chunk ids. Default {}. */
+  metadata?: Record<string, unknown>;
+  /** Id for the document, used instead of a hash of its Markdown. Changes every chunk id. */
+  documentId?: string;
+  /** Prepends the heading path ("A > B > C" and a blank line) to each chunk's text. Counts toward `size`. Default false. */
+  headingPrefix?: boolean;
+  /** Stops chunking with an ABORTED error when the signal is aborted. */
+  signal?: AbortSignal;
+}
+
+/** Options for one strategy: its name plus only the options that strategy accepts. */
+type OptionsForStrategy = {
+  [Name in StrategyName]: { strategy: Name } & StrategyOptionsByName[Name];
+}[StrategyName];
+
+/** Options for chunkDocument: the strategy and its options, plus the options every strategy shares. */
+export type ChunkOptions = CommonOptions & OptionsForStrategy;
 
 /** One chunk of a document. */
 export interface Chunk {
