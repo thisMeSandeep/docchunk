@@ -1,5 +1,5 @@
 // Types every strategy implements, so the registry can look strategies up by name.
-import type { DocumentIR } from "../ir/ir-types";
+import type { DocumentIR, Range } from "../ir/ir-types";
 import type { StrategyName, StrategyOptionsByName } from "../types";
 
 /** A strategy's options after defaults are applied: every option has a value. */
@@ -7,12 +7,18 @@ export type ResolvedStrategyOptions = {
   [Name in StrategyName]: Required<StrategyOptionsByName[Name]>;
 };
 
-/** A chunk as a strategy returns it: only a range. finalize-chunks turns it into a Chunk. */
+/** A chunk as a strategy returns it: ranges only. finalize-chunks turns it into a Chunk. */
 export interface RawChunk {
   /** Start offset in the normalized Markdown. */
   start: number;
   /** End offset in the normalized Markdown (exclusive). */
   end: number;
+  /** Text added before the chunk, with a newline between: a repeated table header or opening code fence. */
+  prefix?: Range;
+  /** Text added after the chunk, with a newline between: a closing code fence. */
+  suffix?: Range;
+  /** True when the chunk is a hard-cut piece of a row, item, line, or word too large for `size`. */
+  isOversized?: boolean;
 }
 
 /** Everything the library needs to know about one strategy. */
