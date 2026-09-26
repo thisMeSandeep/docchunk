@@ -1,6 +1,5 @@
 // chunkDocument: turns one document into chunks.
-import { DocchunkError } from "./errors";
-import { readContentSource } from "./input/read-source";
+import { loadDocument } from "./input/load-document";
 import type { DocumentIR } from "./ir/ir-types";
 import { normalizeMarkdown } from "./ir/normalize-markdown";
 import { parseMarkdown } from "./ir/parse-markdown";
@@ -17,7 +16,7 @@ import type {
   ChunkOptions,
   ChunkResult,
   ChunkWarning,
-  ContentSource,
+  DocumentInfo,
   DocumentSource,
   StrategyName,
 } from "./types";
@@ -32,14 +31,18 @@ export async function chunkDocument(
 ): Promise<ChunkResult> {
   const startedAt = performance.now();
   const resolvedOptions = resolveOptions(options);
-  const contentSource = readContentOnlySource(source);
-  const markdown = normalizeMarkdown(contentSource.content);
-  const ir = buildIR(markdown, contentSource.format, headingLevelFor(resolvedOptions));
+  const loaded = await loadDocument(source);
+  const markdown = normalizeMarkdown(loaded.text);
+  const ir = buildIR(markdown, loaded.parseAs, headingLevelFor(resolvedOptions));
   const documentId = resolvedOptions.documentId ?? hashText(markdown);
 
-  const warnings: ChunkWarning[] = [];
+  const warnings: ChunkWarning[] = [...loaded.warnings];
+  const hasNoTextLayer = warnings.some((warning) => warning.code === "NO_TEXT_LAYER");
   let chunks: Chunk[] = [];
-  if (markdown.trim() === "") {
+  // A PDF without a text layer gives no chunks (PRD 7.6); NO_TEXT_LAYER already explains why.
+  if (hasNoTextLayer) {
+    chunks = [];
+  } else if (markdown.trim() === "") {
     warnings.push({ code: "EMPTY_DOCUMENT", message: "The document has no text to chunk." });
   } else {
     const rawChunks = splitDocument(ir, resolvedOptions);
@@ -48,36 +51,17 @@ export async function chunkDocument(
     warnings.push(...finalized.warnings);
   }
 
-  const durationMs = performance.now() - startedAt;
-  return {
-    chunks,
-    document: {
-      id: documentId,
-      markdown,
-      sourceFormat: contentSource.format,
-      charCount: markdown.length,
-    },
-    stats: buildStats(chunks, durationMs),
-    warnings,
+  const document: DocumentInfo = {
+    id: documentId,
+    markdown,
+    sourceFormat: loaded.sourceFormat,
+    charCount: markdown.length,
   };
-}
-
-/** Returns the source as Markdown or text content. File and bytes sources are read from step 5.3 on. */
-function readContentOnlySource(source: unknown): ContentSource {
-  if (typeof source !== "object" || source === null) {
-    throw new DocchunkError(
-      "INVALID_OPTIONS",
-      "The source must be an object: { path }, { bytes }, or { content, format }.",
-    );
+  if (loaded.sourcePath !== undefined) {
+    document.sourcePath = loaded.sourcePath;
   }
-  const isFileSource = "path" in source || "bytes" in source;
-  if (isFileSource) {
-    throw new DocchunkError(
-      "UNSUPPORTED_FORMAT",
-      'Reading files and bytes is not supported yet. Pass { content, format: "markdown" | "text" }.',
-    );
-  }
-  return readContentSource(source);
+  const durationMs = performance.now() - startedAt;
+  return { chunks, document, stats: buildStats(chunks, durationMs), warnings };
 }
 
 /** Parses the normalized document into the IR that every strategy reads. */

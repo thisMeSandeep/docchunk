@@ -110,10 +110,10 @@ describe("chunkDocument errors", () => {
     await expect(reject).rejects.toThrow('Option "size" must be a positive integer');
   });
 
-  it("rejects file and bytes sources until file input exists", async () => {
+  it("rejects a missing file with FILE_NOT_FOUND and unrecognizable bytes with UNSUPPORTED_FORMAT", async () => {
     const pathError = await chunkError({ path: "report.pdf" });
     const bytesError = await chunkError({ bytes: new Uint8Array() });
-    expect(pathError.code).toBe("UNSUPPORTED_FORMAT");
+    expect(pathError.code).toBe("FILE_NOT_FOUND");
     expect(bytesError.code).toBe("UNSUPPORTED_FORMAT");
   });
 
