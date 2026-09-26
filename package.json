@@ -30,12 +30,14 @@
     "typecheck": "tsc --noEmit",
     "lint": "biome check .",
     "build": "tsup",
-    "bench": "bun run bench/run.ts"
+    "bench": "bun run bench/run.ts",
+    "check:network": "bun run scripts/check-no-network.ts"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
     "@types/node": "22",
     "tsup": "8.5.1",
-    "typescript": "5.9.3"
+    "typescript": "5.9.3",
+    "vitest": "5.0.2"
   }
 }
