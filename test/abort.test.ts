@@ -1,7 +1,7 @@
-// Checks the signal option: ABORTED before reading, after converting, and between hierarchical levels.
+// Checks the signal option: ABORTED before reading, after converting, between hierarchical levels, and in batches.
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { chunkDocument, DocchunkError } from "../src/index";
+import { type ContentSource, chunkDocument, chunkDocuments, DocchunkError } from "../src/index";
 import { normalizeMarkdown } from "../src/ir/normalize-markdown";
 import { parseMarkdown } from "../src/ir/parse-markdown";
 import { hierarchicalStrategy } from "../src/strategies/hierarchical";
@@ -84,5 +84,21 @@ describe("signal in the hierarchical strategy", () => {
   it("runs to the end when the signal is never aborted", () => {
     const withSignal = hierarchicalStrategy.split(ir, bySize, new AbortController().signal);
     expect(withSignal).toEqual(hierarchicalStrategy.split(ir, bySize));
+  });
+});
+
+describe("signal in chunkDocuments", () => {
+  it("stops a batch of content strings when a callback aborts the signal during the batch", async () => {
+    const controller = new AbortController();
+    const sources: ContentSource[] = Array.from({ length: 5 }, () => ({
+      content: "Some text.",
+      format: "text",
+    }));
+    // Queued before the batch starts, so it runs at the batch's first turn of the event loop.
+    setImmediate(() => controller.abort());
+    const error = await rejection(
+      chunkDocuments(sources, { signal: controller.signal, concurrency: 1 }),
+    );
+    expect(error.code).toBe("ABORTED");
   });
 });

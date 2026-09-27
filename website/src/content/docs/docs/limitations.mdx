@@ -9,7 +9,7 @@ Doc-chunk does one job: it turns documents into chunks, on your machine. This pa
 
 ### No OCR
 
-Doc-chunk reads the text layer of a PDF. It doesn't recognize text in images. If any page of a PDF is scanned or contains only images, the whole PDF gives no chunks and a [`NO_TEXT_LAYER`](../reference/warnings/#no_text_layer) warning.
+Doc-chunk reads the text layer of a PDF. It doesn't recognize text in images. Pages that have text work as usual, and any images on them are ignored. But if a page has no text layer, because it's scanned or is only an image, the converter rejects the whole PDF: you get no chunks, even from the other pages, and a [`NO_TEXT_LAYER`](../reference/warnings/#no_text_layer) warning. The same happens with a page that is mostly covered by an image.
 
 **Instead:** run scanned documents through an OCR tool first, then pass the text to Doc-chunk as `content`.
 
@@ -79,4 +79,4 @@ The 11 strategies are built in. You can't register your own yet.
 
 ## Cancelling
 
-A [`signal`](../guides/chunk-document/#signal) is checked between the steps of chunking, so a step that has started, such as converting a large PDF, runs to the end first. In `chunkDocuments`, a timeout can't stop a batch made only of `content` strings, because the batch never gives the JavaScript thread a break for the timer to fire. See [Cancel a batch](../guides/chunk-documents/#cancel-a-batch).
+A [`signal`](../guides/chunk-document/#signal) is checked between the steps of chunking, so a step that has started, such as converting a large PDF, runs to the end first. In `chunkDocuments`, the signal is also checked before each document. See [Cancel a batch](../guides/chunk-documents/#cancel-a-batch).

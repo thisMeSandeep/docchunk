@@ -67,6 +67,39 @@ describe("structure strategy packing", () => {
   });
 });
 
+describe("structure strategy headings before a large block", () => {
+  it("keeps a heading with the first piece of a paragraph larger than size", async () => {
+    const content = `# Title\n\n${"One sentence here. ".repeat(100)}`;
+    const texts = await chunkTexts(content);
+    expect(texts[0]?.startsWith("# Title\n\nOne sentence here.")).toBe(true);
+    expect(texts).not.toContain("# Title");
+    for (const text of texts) {
+      expect(text.length).toBeLessThanOrEqual(1500);
+    }
+  });
+
+  it("keeps a heading with the first piece of a table larger than size", async () => {
+    const rows = Array.from({ length: 12 }, (_, index) => `| Plan ${index} | $${index} |`);
+    const content = `## Plans\n\n| Plan | Price |\n| --- | --- |\n${rows.join("\n")}`;
+    const texts = await chunkTexts(content, { size: 120, minSize: 10 });
+    expect(texts[0]?.startsWith("## Plans\n\n| Plan | Price |\n| --- | --- |\n| Plan 0 |")).toBe(
+      true,
+    );
+    for (const text of texts) {
+      expect(text.length).toBeLessThanOrEqual(120);
+      expect(text).toContain("| Plan | Price |\n| --- | --- |");
+    }
+  });
+
+  it("still splits a heading longer than size on its own", async () => {
+    const content = `# ${"Long heading ".repeat(4)}\n\n${"Body text. ".repeat(10)}`;
+    const texts = await chunkTexts(content, { size: 40, minSize: 10 });
+    for (const text of texts) {
+      expect(text.length).toBeLessThanOrEqual(40);
+    }
+  });
+});
+
 describe("structure strategy small chunks", () => {
   it("merges a small chunk into the previous chunk when the result fits", async () => {
     const first = `${"a".repeat(40)}.`;

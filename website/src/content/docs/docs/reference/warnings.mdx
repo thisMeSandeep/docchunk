@@ -20,7 +20,7 @@ interface ChunkWarning {
 | Code | Chunks | `chunkIndex` | When |
 |---|---|---|---|
 | [`EMPTY_DOCUMENT`](#empty_document) | None | No | The document has no text. |
-| [`NO_TEXT_LAYER`](#no_text_layer) | None | No | A PDF has pages without a text layer, or almost no text. |
+| [`NO_TEXT_LAYER`](#no_text_layer) | None | No | A PDF has a page without a text layer, or almost no text. |
 | [`OVERSIZED_BLOCK`](#oversized_block) | Normal | Yes | A row, item, line, or word longer than `size` was cut. |
 | [`LARGE_CHUNK`](#large_chunk) | Normal | Yes | A strategy with no size limit made a chunk of more than 8,000 characters. |
 
@@ -34,7 +34,7 @@ Message: `The document has no text to chunk.`
 
 ### `NO_TEXT_LAYER`
 
-A PDF has at least one page that is scanned or contains only images, or the whole PDF has fewer than 100 characters of text. The result has no chunks, even if other pages have text. `EMPTY_DOCUMENT` is not added as well.
+A PDF has at least one page without a text layer, because it's scanned or is only an image, or a page mostly covered by an image, or fewer than 100 characters of text in total. The result has no chunks, even if other pages have text. `EMPTY_DOCUMENT` is not added as well. Images on pages that also have text don't cause this warning: they're ignored.
 
 Messages:
 

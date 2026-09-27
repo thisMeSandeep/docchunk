@@ -133,7 +133,7 @@ interface StrategyOptionsByName {
   structure: {
     /** Maximum characters per chunk. Default 1500. */
     size?: number;
-    /** Chunks smaller than this are merged into a neighbor in the same section when the result fits `size`. Default 200. */
+    /** Chunks smaller than this are merged into a neighbor in the same section when the result fits `size`. Default 200, or `size` if that is smaller. */
     minSize?: number;
     /** Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. Must be less than `size`. Default 0. */
     overlapChars?: number;

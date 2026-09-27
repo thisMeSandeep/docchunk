@@ -187,15 +187,6 @@ const { chunks } = await chunkDocument({ path: "handbook.pdf" }, { size: 1000 })
 
 For English prose, a limit of about three characters per token keeps chunks within your embedding model's limit. For example, 1,500 characters for a model that accepts 512 tokens. Use less for code and for languages that don't use the Latin alphabet, which need more tokens per character.
 
-If you set `size` below 200, set `minSize` too: its default is 200, and it can't be larger than `size`.
-
-```ts
-const { chunks } = await chunkDocument(
-  { path: "faq.md" },
-  { size: 150, minSize: 50 },
-);
-```
-
 ## TypeScript: `chunks[0]` may be undefined
 
 If your `tsconfig.json` enables `noUncheckedIndexedAccess`, TypeScript types `chunks[0]` as `Chunk | undefined`, because the array can be empty. For example, a document with no text returns no chunks.

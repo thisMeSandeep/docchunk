@@ -138,7 +138,7 @@ console.log(result.document.markdown);
 
 ### Scanned PDFs
 
-Doc-chunk doesn't do OCR. If any page of a PDF is scanned or contains only images, the whole PDF gives no chunks, and the result has a `NO_TEXT_LAYER` warning that lists the pages. The same happens when a PDF has fewer than 100 characters of text in total. If you need to index scanned documents, run them through an OCR tool first and pass the text to Doc-chunk as `content`.
+Doc-chunk doesn't do OCR. PDFs with text work as usual, and images on their pages are ignored. But if any page has no text layer, because it's scanned or is only an image, the whole PDF gives no chunks, and the result has a `NO_TEXT_LAYER` warning that lists the pages. The same happens when a page is mostly covered by an image, or when a PDF has fewer than 100 characters of text in total. If you need to index scanned documents, run them through an OCR tool first and pass the text to Doc-chunk as `content`.
 
 ## Choosing a strategy
 

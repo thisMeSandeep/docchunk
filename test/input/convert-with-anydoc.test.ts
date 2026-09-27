@@ -87,6 +87,31 @@ describe("convertWithAnydoc on PDFs without enough text", () => {
     expect(conversion.markdown).toContain("Page 1");
     expect(conversion.warnings.map((warning) => warning.code)).toEqual(["NO_TEXT_LAYER"]);
   });
+
+  it("warns NO_TEXT_LAYER, instead of throwing, for a PDF whose page is mostly an image", async () => {
+    const conversion = await convertWithAnydoc(
+      fixtureBytes("image-based.pdf"),
+      undefined,
+      undefined,
+    );
+    expect(conversion).toEqual({
+      markdown: "",
+      sourceFormat: "pdf",
+      warnings: [
+        { code: "NO_TEXT_LAYER", message: "This PDF appears to be scanned; OCR is not supported." },
+      ],
+    });
+  });
+
+  it("gives no Markdown for a whole PDF when one of its pages is scanned (anydoc rejects the file)", async () => {
+    const conversion = await convertWithAnydoc(
+      fixtureBytes("text-and-scanned-page.pdf"),
+      undefined,
+      undefined,
+    );
+    expect(conversion.markdown).toBe("");
+    expect(conversion.warnings[0]?.message).toContain("Pages without a text layer: 2 of 2.");
+  });
 });
 
 describe("convertWithAnydoc errors", () => {

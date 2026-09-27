@@ -35,6 +35,7 @@ function resolveStrategyOptions<Name extends StrategyName>(
   const strategyOptionNames = Object.keys(definition.defaults);
   checkUnknownOptions(optionValues, strategyName, strategyOptionNames);
   const strategyOptions = fillDefaults(definition.defaults, optionValues);
+  fitDefaultMinSize(strategyOptions, optionValues);
   definition.validate(strategyOptions);
   return strategyOptions;
 }
@@ -51,4 +52,16 @@ function fillDefaults<Options extends object>(
   }
   // The caller's values are not typed yet; the strategy's validate function checks them right after.
   return filled as Options;
+}
+
+/** Lowers a default minSize to `size` when the caller set a smaller size but no minSize (DECISIONS 34). */
+function fitDefaultMinSize(strategyOptions: object, optionValues: Map<string, unknown>): void {
+  if (optionValues.get("minSize") !== undefined) {
+    return;
+  }
+  const minSize: unknown = Reflect.get(strategyOptions, "minSize");
+  const size: unknown = Reflect.get(strategyOptions, "size");
+  if (typeof minSize === "number" && typeof size === "number" && minSize > size) {
+    Reflect.set(strategyOptions, "minSize", size);
+  }
 }

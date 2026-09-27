@@ -59,7 +59,7 @@ Pass `strategy` and that strategy's options as the second argument. Start with `
 
 | Goal | Strategy | Options (defaults) |
 |---|---|---|
-| General-purpose chunks | `structure` | `size` (1500), `minSize` (200), `overlapChars` (0), `headingLevel` (3) |
+| General-purpose chunks | `structure` | `size` (1500), `minSize` (200, or `size` if smaller), `overlapChars` (0), `headingLevel` (3) |
 | One chunk per section | `heading` | `size` (no limit), `headingLevel` (3) |
 | One chunk per paragraph, list, or table | `paragraph` | `size` (no limit), `minSize` (1), `overlapChars` (0) |
 | One chunk per sentence | `sentence` | `size` (no limit), `minSize` (1), `overlapChars` (0) |
@@ -171,10 +171,9 @@ Warnings: `EMPTY_DOCUMENT` (no text, no chunks), `NO_TEXT_LAYER` (scanned PDF, n
 ## Pitfalls
 
 - Sizes are in characters, not tokens. For English prose, use about 3 characters per token: `size: 1500` for a 512-token embedding model. Use less for code and non-Latin scripts.
-- `structure` has `minSize: 200` by default, and `minSize` can't be larger than `size`. With `size` below 200, also set `minSize`.
 - Options are specific to the strategy. An option the chosen strategy doesn't accept throws `INVALID_OPTIONS`, and TypeScript flags it.
 - Markdown, text, and CSV passed as `bytes` need a `filename` with the extension, or a `format`. Otherwise `UNSUPPORTED_FORMAT` is thrown.
-- No OCR. A PDF with any scanned page returns no chunks and a `NO_TEXT_LAYER` warning. Always check `result.warnings`.
+- No OCR. Images on pages with text are ignored, but a PDF with any page that has no text layer (scanned, or only an image) returns no chunks and a `NO_TEXT_LAYER` warning. Always check `result.warnings`.
 - With `noUncheckedIndexedAccess`, `chunks[0]` has type `Chunk | undefined`. Use `for...of`, or check for `undefined`.
 - Don't pass `documentId` to `chunkDocuments`: every document would get the same id, and chunk ids would collide. For per-document ids, call `chunkDocument` for each document.
 - Without `documentId`, two files with the same content get the same chunk ids, and any edit changes every chunk id. Pass a stable `documentId`, such as the file path, when storing chunks from many documents.

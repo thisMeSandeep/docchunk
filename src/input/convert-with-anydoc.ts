@@ -98,7 +98,7 @@ function handleConversionError(
   documentName: string,
 ): Conversion {
   const code: unknown = error instanceof Error ? Reflect.get(error, "code") : undefined;
-  if (code === "needsOcr") {
+  if (code === "needsOcr" || isImageBasedPdf(error, code, sourceFormat)) {
     const warning: ChunkWarning = { code: "NO_TEXT_LAYER", message: scannedPagesMessage(error) };
     return { markdown: "", sourceFormat, warnings: [warning] };
   }
@@ -110,6 +110,15 @@ function handleConversionError(
     {
       cause: error,
     },
+  );
+}
+
+/** Returns true when anydoc rejects a PDF whose pages are mostly images: it reports those as unsupported, not needsOcr. */
+function isImageBasedPdf(error: unknown, code: unknown, sourceFormat: DocumentFormat): boolean {
+  const message = error instanceof Error ? error.message : "";
+  // anydoc 0.2.4 has no separate code for this case, so its message is the only way to tell.
+  return (
+    code === "unsupported" && sourceFormat === "pdf" && message.includes("no extractable text")
   );
 }
 

@@ -7,7 +7,7 @@ description: "Supported formats, file extensions, and how the format is detected
 
 | Format | `format` value | Extensions | Converted | Notes |
 |---|---|---|---|---|
-| PDF | `"pdf"` | `.pdf` | Yes | Text-based PDFs only. A PDF with any scanned page gives a [`NO_TEXT_LAYER`](../warnings/#no_text_layer) warning and no chunks. |
+| PDF | `"pdf"` | `.pdf` | Yes | Text-based PDFs. Images are ignored. A PDF with any page that has no text layer, such as a scanned page, gives a [`NO_TEXT_LAYER`](../warnings/#no_text_layer) warning and no chunks. |
 | Word | `"docx"`, `"doc"` | `.docx`, `.doc` | Yes | |
 | PowerPoint | `"pptx"`, `"ppt"` | `.pptx`, `.ppt` | Yes | |
 | Excel | `"xlsx"`, `"xls"` | `.xlsx`, `.xls` | Yes | Each sheet becomes a Markdown table. |

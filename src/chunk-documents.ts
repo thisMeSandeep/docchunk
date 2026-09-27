@@ -34,7 +34,13 @@ export async function chunkDocuments(
   /** Takes the next source from the queue until none are left. Several workers run at once. */
   const runWorker = async (): Promise<void> => {
     while (nextSourceIndex < sources.length) {
+      // Without this, a batch of content strings never lets timers run, so a timeout could not abort it.
+      await yieldToEventLoop();
       checkAborted(resolvedOptions.signal);
+      // Another worker may have taken the last source while this one waited.
+      if (nextSourceIndex >= sources.length) {
+        break;
+      }
       const sourceIndex = nextSourceIndex;
       nextSourceIndex++;
       items[sourceIndex] = await chunkOneSource(sources[sourceIndex], sourceIndex, resolvedOptions);
@@ -77,4 +83,11 @@ function asDocchunkError(error: unknown, sourceIndex: number): DocchunkError {
     `Unexpected error while chunking source ${sourceIndex}: ${detail}`,
     { cause: error },
   );
+}
+
+/** Returns a promise that resolves once pending timers and I/O callbacks have had a turn. */
+function yieldToEventLoop(): Promise<void> {
+  return new Promise((resolve) => {
+    setImmediate(resolve);
+  });
 }

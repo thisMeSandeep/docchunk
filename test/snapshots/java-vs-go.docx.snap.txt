@@ -44,8 +44,8 @@ document 7a7969519d56a679df91 docx 40057 chars
 41 33289-33786 497 id=2de1635c31 text=701e05b78c path=3c1d11b1 blocks=heading,list
 42 33788-34268 480 id=e406f2c7bb text=ea4c8e8f2a path=6eae90e4 blocks=heading,list
 43 34270-34852 582 id=3d5abd3d8f text=4a3d6a8994 path=f212e429 blocks=heading,list
-44 34854-36195 1341 id=65d059bcad text=c88ccc78ea path=e25d5e2e blocks=heading,paragraph
-45 36197-37543 1346 id=6e52587021 text=aa32af9e2c path=dfeb8c8e blocks=paragraph
+44 34854-36177 1323 id=5f57a89ca7 text=0b99d83805 path=e25d5e2e blocks=heading,paragraph
+45 36179-37543 1364 id=c533cdff9e text=7bc208f601 path=dfeb8c8e blocks=heading,paragraph
 46 37544-38913 1369 id=72d9d668d9 text=deb38cfe8a path=dfeb8c8e blocks=paragraph
 47 38914-40056 1142 id=9703ce7f47 text=e495a7af9c path=dfeb8c8e blocks=paragraph
 
@@ -573,9 +573,9 @@ document 7a7969519d56a679df91 docx 40057 chars
 34 12078-12319 241 level=1 parent=33 id=28329c6092 text=f728178df1 path=5f1549a3 blocks=heading,paragraph
 35 12321-12917 596 level=1 parent=33 id=52e3976000 text=7e1cf5bebc path=5f1549a3 blocks=paragraph
 36 12919-14203 1284 level=0 id=eacb852c87 text=c17c96d9db path=288c955a blocks=heading,list
-37 12919-12975 56 level=1 parent=36 id=8a786bcb15 text=0d9ee7770d path=288c955a blocks=heading
-38 12977-13773 796 level=1 parent=36 id=e2327263c6 text=5fd3b96b50 path=288c955a blocks=list
-39 13774-14203 429 level=1 parent=36 id=1820fced28 text=4a5ce09dee path=288c955a blocks=list
+37 12919-13456 537 level=1 parent=36 id=a0d97a6ef5 text=4df343283e path=288c955a blocks=heading,list
+38 13457-13956 499 level=1 parent=36 id=67469c5a10 text=d1ae05c5ac path=288c955a blocks=list
+39 13957-14203 246 level=1 parent=36 id=85343d99c5 text=92fd1bed48 path=288c955a blocks=list
 40 14205-16351 2146 level=0 id=6fa8db06da text=b06bb047a3 path=91b71060 blocks=heading,paragraph,list
 41 14205-14583 378 level=1 parent=40 id=158450eb7a text=7c749142b4 path=91b71060 blocks=heading,paragraph
 42 14585-15384 799 level=1 parent=40 id=dfcb3b28a9 text=2088aa3108 path=91b71060 blocks=paragraph
@@ -587,8 +587,8 @@ document 7a7969519d56a679df91 docx 40057 chars
 48 17282-17622 428 level=1 parent=45 id=469a63aa45 text=d506b3decf path=4a99f57f blocks=table
 49 17624-19497 1873 level=0 id=7d42f972db text=975251d859 path=3d5bb9b0 blocks=heading,paragraph
 50 17624-18417 793 level=1 parent=49 id=fda06cedfd text=e3a8d2a7a3 path=3d5bb9b0 blocks=heading,paragraph
-51 18429-19229 800 level=1 parent=49 id=4f4675fd09 text=5dd537fd12 path=3d5bb9b0 blocks=paragraph
-52 19230-19497 267 level=1 parent=49 id=6d493ba11a text=bd574c3569 path=3d5bb9b0 blocks=paragraph
+51 18429-19180 751 level=1 parent=49 id=5cda47d382 text=cd557aa0ed path=3d5bb9b0 blocks=paragraph
+52 19181-19497 316 level=1 parent=49 id=f06697da1c text=92addeb5bc path=3d5bb9b0 blocks=paragraph
 53 19499-20346 847 level=0 id=1f6215e503 text=671e0fe080 path=834cbe75 blocks=heading,paragraph
 54 19499-20052 553 level=1 parent=53 id=a16d1ee19d text=2f0736b1e5 path=834cbe75 blocks=heading,paragraph
 55 20054-20346 292 level=1 parent=53 id=d967cb46e1 text=751640ba21 path=834cbe75 blocks=paragraph
@@ -607,8 +607,8 @@ document 7a7969519d56a679df91 docx 40057 chars
 68 23662-26789 3127 level=0 id=4431bb7b82 text=b2bd7e6402 path=bf2b02be blocks=heading,paragraph,list
 69 23662-24071 409 level=1 parent=68 id=5b577df247 text=c3d71a7f58 path=bf2b02be blocks=heading,paragraph
 70 24073-24847 774 level=1 parent=68 id=e646b4af1a text=97385e216d path=b068e858 blocks=heading,list
-71 24849-24928 79 level=1 parent=68 id=40a7300ef7 text=711aded7a2 path=eeb0becc blocks=heading
-72 24930-25709 779 level=1 parent=68 id=6d6c5371f5 text=7ff527c337 path=eeb0becc blocks=list
+71 24849-25336 487 level=1 parent=68 id=de3fb6b6cc text=9e1735cb3b path=eeb0becc blocks=heading,list
+72 25337-25709 372 level=1 parent=68 id=5d924ff1c1 text=d569f1b3c9 path=eeb0becc blocks=list
 73 25711-26398 687 level=1 parent=68 id=d5f0045eff text=9871eadd5c path=f75ca202 blocks=heading,list
 74 26399-26789 390 level=1 parent=68 id=cf5b6b203a text=687f40b71b path=f75ca202 blocks=list
 75 26791-27897 1106 level=0 id=af642b64eb text=71acce49aa path=511d1cc1 blocks=heading,paragraph
@@ -663,6 +663,7 @@ warning OVERSIZED_BLOCK chunk=79 Chunk 79 is a hard cut of a row, item, line, or
 warning OVERSIZED_BLOCK chunk=80 Chunk 80 is a hard cut of a row, item, line, or word longer than size.
 warning OVERSIZED_BLOCK chunk=100 Chunk 100 is a hard cut of a row, item, line, or word longer than size.
 warning OVERSIZED_BLOCK chunk=101 Chunk 101 is a hard cut of a row, item, line, or word longer than size.
+warning OVERSIZED_BLOCK chunk=157 Chunk 157 is a hard cut of a row, item, line, or word longer than size.
 0 0-137 137 level=0 id=ec4830d637 text=e3e338bb4d path=34371f3a blocks=heading
 1 0-137 137 level=1 parent=0 id=cc5d98b005 text=e3e338bb4d path=34371f3a blocks=heading
 2 0-137 137 level=2 parent=1 id=d385315b62 text=e3e338bb4d path=34371f3a blocks=heading
@@ -776,18 +777,18 @@ warning OVERSIZED_BLOCK chunk=101 Chunk 101 is a hard cut of a row, item, line, 
 110 17624-19497 1873 level=0 id=5086553a82 text=975251d859 path=3d5bb9b0 blocks=heading,paragraph
 111 17624-19075 1451 level=1 parent=110 id=8149734b37 text=4ca8f032b6 path=3d5bb9b0 blocks=heading,paragraph
 112 17624-17953 329 level=2 parent=111 id=b890908404 text=30677e33cb path=3d5bb9b0 blocks=heading,paragraph
-113 17954-18350 396 level=2 parent=111 id=c77f7a8565 text=56f5f22308 path=3d5bb9b0 blocks=paragraph
-114 18351-18688 337 level=2 parent=111 id=5f8b714e49 text=89c38332e4 path=3d5bb9b0 blocks=paragraph
-115 18689-19075 386 level=2 parent=111 id=122377e743 text=fc475f01dc path=3d5bb9b0 blocks=paragraph
-116 19080-19497 417 level=1 parent=110 id=8a4a31becf text=584c281924 path=3d5bb9b0 blocks=paragraph
-117 19080-19416 336 level=2 parent=116 id=2f27948287 text=5fba975b81 path=3d5bb9b0 blocks=paragraph
-118 19417-19497 80 level=2 parent=116 id=ed77a7625b text=265cd1d5ea path=3d5bb9b0 blocks=paragraph
-119 19499-20346 847 level=0 id=afa1de7ed4 text=671e0fe080 path=834cbe75 blocks=heading,paragraph
-120 19499-20346 847 level=1 parent=119 id=9f71afcc1f text=671e0fe080 path=834cbe75 blocks=heading,paragraph
-121 19499-19548 49 level=2 parent=120 id=70dcd8fc2a text=ef40a35a9d path=834cbe75 blocks=heading
-122 19550-19923 373 level=2 parent=120 id=f7c925310a text=788c21a006 path=834cbe75 blocks=paragraph
-123 19924-20052 128 level=2 parent=120 id=81fbe4e23d text=a54f1f2cbb path=834cbe75 blocks=paragraph
-124 20054-20346 292 level=2 parent=120 id=b4daf389a2 text=751640ba21 path=834cbe75 blocks=paragraph
+113 17954-18308 354 level=2 parent=111 id=6d0d993ab0 text=4b1fb5bf84 path=3d5bb9b0 blocks=paragraph
+114 18309-18651 342 level=2 parent=111 id=1bde872903 text=0d496fd4fb path=3d5bb9b0 blocks=paragraph
+115 18667-19007 340 level=2 parent=111 id=b4d52a45ed text=1b51b40f54 path=3d5bb9b0 blocks=paragraph
+116 19008-19075 67 level=2 parent=111 id=48a31ec4e8 text=0af98c39a4 path=3d5bb9b0 blocks=paragraph
+117 19080-19497 417 level=1 parent=110 id=8a4a31becf text=584c281924 path=3d5bb9b0 blocks=paragraph
+118 19080-19416 336 level=2 parent=117 id=2f27948287 text=5fba975b81 path=3d5bb9b0 blocks=paragraph
+119 19417-19497 80 level=2 parent=117 id=ed77a7625b text=265cd1d5ea path=3d5bb9b0 blocks=paragraph
+120 19499-20346 847 level=0 id=afa1de7ed4 text=671e0fe080 path=834cbe75 blocks=heading,paragraph
+121 19499-20346 847 level=1 parent=120 id=9f71afcc1f text=671e0fe080 path=834cbe75 blocks=heading,paragraph
+122 19499-19693 194 level=2 parent=121 id=8bafd1afce text=e762d0c94f path=834cbe75 blocks=heading,paragraph
+123 19694-20052 358 level=2 parent=121 id=11db16ac05 text=284dcf14f9 path=834cbe75 blocks=paragraph
+124 20054-20346 292 level=2 parent=121 id=b4daf389a2 text=751640ba21 path=834cbe75 blocks=paragraph
 125 20348-21332 984 level=0 id=e7893ab9b1 text=eef590c252 path=214bf6e2 blocks=heading,paragraph,list
 126 20348-21332 984 level=1 parent=125 id=cbf4a37c2a text=eef590c252 path=214bf6e2 blocks=heading,paragraph,list
 127 20348-20656 308 level=2 parent=126 id=99aedca342 text=191639eed3 path=214bf6e2 blocks=heading,paragraph
@@ -796,8 +797,8 @@ warning OVERSIZED_BLOCK chunk=101 Chunk 101 is a hard cut of a row, item, line, 
 130 21078-21332 254 level=2 parent=126 id=43b8e24d54 text=75c784794d path=214bf6e2 blocks=list
 131 21334-21745 411 level=0 id=fa8328d4d5 text=d4131a6a3a path=2d4919ef blocks=heading,paragraph
 132 21334-21745 411 level=1 parent=131 id=cc28214ee4 text=d4131a6a3a path=2d4919ef blocks=heading,paragraph
-133 21334-21372 38 level=2 parent=132 id=4cd9b19fb5 text=6968ebe64a path=2d4919ef blocks=heading
-134 21374-21745 371 level=2 parent=132 id=64061e5d8b text=4e10fb573a path=2d4919ef blocks=paragraph
+133 21334-21580 246 level=2 parent=132 id=4bf05e29b5 text=e029f3f3a2 path=2d4919ef blocks=heading,paragraph
+134 21581-21745 164 level=2 parent=132 id=4d38b6829c text=818fc7f1a7 path=2d4919ef blocks=paragraph
 135 21747-22544 797 level=0 id=8e0d826a80 text=81f9a53d22 path=fc0a1650 blocks=heading,paragraph,list
 136 21747-22544 797 level=1 parent=135 id=522784a700 text=81f9a53d22 path=fc0a1650 blocks=heading,paragraph,list
 137 21747-21913 166 level=2 parent=136 id=0c39ddb730 text=f88cdf55f7 path=fc0a1650 blocks=heading,paragraph
@@ -813,101 +814,98 @@ warning OVERSIZED_BLOCK chunk=101 Chunk 101 is a hard cut of a row, item, line, 
 147 23302-23660 358 level=2 parent=144 id=e41c48627e text=101fac0bca path=31c9bd8b blocks=list
 148 23662-26789 3127 level=0 id=20e100568b text=b2bd7e6402 path=bf2b02be blocks=heading,paragraph,list
 149 23662-24847 1185 level=1 parent=148 id=905a49fafb text=8ca53f6746 path=bf2b02be blocks=heading,paragraph,list
-150 23662-23705 43 level=2 parent=149 id=d9ccddd182 text=bccca8609d path=bf2b02be blocks=heading
-151 23707-24071 364 level=2 parent=149 id=1c38e8907a text=1e443c2a97 path=bf2b02be blocks=paragraph
-152 24073-24407 334 level=2 parent=149 id=f0efd13ebf text=6fac281aed path=b068e858 blocks=heading,list
-153 24408-24677 269 level=2 parent=149 id=8391d916ea text=fe91df569f path=b068e858 blocks=list
-154 24678-24847 169 level=2 parent=149 id=b7b9690736 text=64bc8c04bc path=b068e858 blocks=list
-155 24849-25709 860 level=1 parent=148 id=c19ce2c47d text=1bb11fec99 path=eeb0becc blocks=heading,list
-156 24849-25145 296 level=2 parent=155 id=b4b066179e text=6baf0af270 path=eeb0becc blocks=heading,list
-157 25146-25336 190 level=2 parent=155 id=614d91b6b2 text=8a60d70cd2 path=eeb0becc blocks=list
-158 25337-25709 372 level=2 parent=155 id=a557718955 text=d569f1b3c9 path=eeb0becc blocks=list
-159 25711-26789 1078 level=1 parent=148 id=ac0a70f8a6 text=ec89a3bc6d path=f75ca202 blocks=heading,list
-160 25711-26021 310 level=2 parent=159 id=cf3fe404e7 text=b72c8e7253 path=f75ca202 blocks=heading,list
-161 26022-26398 376 level=2 parent=159 id=93d8f32397 text=48796fa50f path=f75ca202 blocks=list
-162 26399-26789 390 level=2 parent=159 id=3b4a350266 text=687f40b71b path=f75ca202 blocks=list
-163 26791-27897 1106 level=0 id=d6527f5381 text=71acce49aa path=511d1cc1 blocks=heading,paragraph
-164 26791-27897 1106 level=1 parent=163 id=aff7618978 text=71acce49aa path=511d1cc1 blocks=heading,paragraph
-165 26791-26948 157 level=2 parent=164 id=b50e5048f3 text=d78cdb88c9 path=511d1cc1 blocks=heading,paragraph
-166 26950-27311 361 level=2 parent=164 id=1c68e6d50c text=1896705247 path=511d1cc1 blocks=paragraph
-167 27312-27601 289 level=2 parent=164 id=3bf37f5135 text=87280b316e path=511d1cc1 blocks=paragraph
-168 27602-27897 295 level=2 parent=164 id=bf740a9ed8 text=7a5d1286cb path=511d1cc1 blocks=paragraph
-169 27899-28335 436 level=0 id=744d10d2f2 text=5721645c74 path=dbb96ee4 blocks=heading,paragraph
-170 27899-28335 436 level=1 parent=169 id=42f4aabf12 text=5721645c74 path=dbb96ee4 blocks=heading,paragraph
-171 27899-27933 34 level=2 parent=170 id=43576db367 text=23ceb988c3 path=dbb96ee4 blocks=heading
-172 27935-28335 400 level=2 parent=170 id=f01b2b6a96 text=8313ffcbac path=dbb96ee4 blocks=paragraph
-173 28337-29561 1224 level=0 id=7c5ebb1f9e text=5332c830ae path=e8a7fc62 blocks=heading,paragraph
-174 28337-29561 1224 level=1 parent=173 id=992fb33b5d text=5332c830ae path=e8a7fc62 blocks=heading,paragraph
-175 28337-28637 300 level=2 parent=174 id=b7f07028c0 text=3296094c72 path=e8a7fc62 blocks=heading,paragraph
-176 28639-28752 113 level=2 parent=174 id=d0337c365e text=0170d14ac9 path=e8a7fc62 blocks=paragraph
-177 28754-29139 385 level=2 parent=174 id=11c3b25dc2 text=0451a8f1b7 path=e8a7fc62 blocks=paragraph
-178 29140-29500 360 level=2 parent=174 id=ba47681d6a text=eabbcd4365 path=e8a7fc62 blocks=paragraph
-179 29501-29561 60 level=2 parent=174 id=90f7dd566f text=a019c35c3e path=e8a7fc62 blocks=paragraph
-180 29563-30176 613 level=0 id=2a36e8179e text=58aae900ac path=e7424676 blocks=heading,list
-181 29563-30176 613 level=1 parent=180 id=4778f8dd90 text=58aae900ac path=e7424676 blocks=heading,list
-182 29563-29635 72 level=2 parent=181 id=3acec2d9a2 text=862d003720 path=e7424676 blocks=heading
-183 29637-30014 377 level=2 parent=181 id=6bc7beea89 text=493c6683a5 path=e7424676 blocks=list
-184 30015-30176 161 level=2 parent=181 id=db1d6433ac text=88cce7dc48 path=e7424676 blocks=list
-185 30178-30738 560 level=0 id=34a7dda506 text=f57adc8e33 path=da210cc9 blocks=heading,list
-186 30178-30738 560 level=1 parent=185 id=21ed0ab931 text=f57adc8e33 path=da210cc9 blocks=heading,list
-187 30178-30252 74 level=2 parent=186 id=744cbef430 text=eec916884e path=da210cc9 blocks=heading
-188 30254-30587 333 level=2 parent=186 id=9b38ab22bf text=210726484a path=da210cc9 blocks=list
-189 30588-30738 150 level=2 parent=186 id=3caaa025ff text=9fd620e6e1 path=da210cc9 blocks=list
-190 30740-31311 571 level=0 id=45df2fcec1 text=b30e4e5617 path=fb13570e blocks=heading,list
-191 30740-31311 571 level=1 parent=190 id=971322f117 text=b30e4e5617 path=fb13570e blocks=heading,list
-192 30740-31090 350 level=2 parent=191 id=b62ea64282 text=f0a3cf4a85 path=fb13570e blocks=heading,list
-193 31091-31311 220 level=2 parent=191 id=c6e0fc380e text=b4e617aa1a path=fb13570e blocks=list
-194 31313-31806 493 level=0 id=faf692e398 text=92707444d9 path=b2970362 blocks=heading,list
-195 31313-31806 493 level=1 parent=194 id=c428ebcf2c text=92707444d9 path=b2970362 blocks=heading,list
-196 31313-31659 346 level=2 parent=195 id=4ab6e4ff36 text=b87bc57afc path=b2970362 blocks=heading,list
-197 31660-31806 146 level=2 parent=195 id=f693d9b386 text=a126a3b079 path=b2970362 blocks=list
-198 31808-32281 473 level=0 id=e4ed8d9e8d text=0007833165 path=e7b42a5c blocks=heading,list
-199 31808-32281 473 level=1 parent=198 id=eca436a66c text=0007833165 path=e7b42a5c blocks=heading,list
-200 31808-31880 72 level=2 parent=199 id=7e94e828b7 text=1026950577 path=e7b42a5c blocks=heading
-201 31882-32281 399 level=2 parent=199 id=957919f330 text=a4076f6f11 path=e7b42a5c blocks=list
-202 32283-32743 460 level=0 id=e9e3d5e5e6 text=c2d82633ec path=985d1d55 blocks=heading,list
-203 32283-32743 460 level=1 parent=202 id=fc44b70ed5 text=c2d82633ec path=985d1d55 blocks=heading,list
-204 32283-32354 71 level=2 parent=203 id=a2ecb10523 text=94654f5fd1 path=985d1d55 blocks=heading
-205 32356-32743 387 level=2 parent=203 id=02a3905770 text=7a3666d5bb path=985d1d55 blocks=list
-206 32745-33287 542 level=0 id=8100581901 text=a346dc27c2 path=6b311bac blocks=heading,list
-207 32745-33287 542 level=1 parent=206 id=c01232b1b0 text=a346dc27c2 path=6b311bac blocks=heading,list
-208 32745-33117 372 level=2 parent=207 id=7e982a04be text=92b0f81a28 path=6b311bac blocks=heading,list
-209 33118-33287 169 level=2 parent=207 id=628600acd5 text=6fa0ac870f path=6b311bac blocks=list
-210 33289-33786 497 level=0 id=f39c954875 text=701e05b78c path=3c1d11b1 blocks=heading,list
-211 33289-33786 497 level=1 parent=210 id=c21998a41b text=701e05b78c path=3c1d11b1 blocks=heading,list
-212 33289-33649 360 level=2 parent=211 id=7b1adcaeef text=fc587941a6 path=3c1d11b1 blocks=heading,list
-213 33650-33786 136 level=2 parent=211 id=3a33116390 text=9a2ce391eb path=3c1d11b1 blocks=list
-214 33788-34268 480 level=0 id=ba3c05b102 text=ea4c8e8f2a path=6eae90e4 blocks=heading,list
-215 33788-34268 480 level=1 parent=214 id=0d04859e8c text=ea4c8e8f2a path=6eae90e4 blocks=heading,list
-216 33788-34092 304 level=2 parent=215 id=d8dbe04753 text=eafc64a441 path=6eae90e4 blocks=heading,list
-217 34093-34268 175 level=2 parent=215 id=347fd58e04 text=8749574341 path=6eae90e4 blocks=list
-218 34270-34852 582 level=0 id=648abd35e5 text=4a3d6a8994 path=f212e429 blocks=heading,list
-219 34270-34852 582 level=1 parent=218 id=41d679a246 text=4a3d6a8994 path=f212e429 blocks=heading,list
-220 34270-34669 399 level=2 parent=219 id=c6116f6398 text=3dae8075f2 path=f212e429 blocks=heading,list
-221 34670-34852 182 level=2 parent=219 id=9654aa06d4 text=68598430d2 path=f212e429 blocks=list
-222 34854-40056 5202 level=0 id=faceae6427 text=07d4f61129 path=e25d5e2e blocks=heading,paragraph
-223 34854-36195 1341 level=1 parent=222 id=0948502e47 text=c88ccc78ea path=e25d5e2e blocks=heading,paragraph
-224 34854-35122 268 level=2 parent=223 id=046c91df75 text=19e0d98a4a path=e25d5e2e blocks=heading,paragraph
-225 35124-35524 400 level=2 parent=223 id=f48573f824 text=8c44f49d91 path=e25d5e2e blocks=paragraph
-226 35525-35719 194 level=2 parent=223 id=958ad01088 text=926c54f9ea path=e25d5e2e blocks=paragraph
-227 35721-36006 285 level=2 parent=223 id=4c1ea5e2ee text=601667c8b8 path=e25d5e2e blocks=paragraph
-228 36007-36195 188 level=2 parent=223 id=4ee6121807 text=9b049c7ed3 path=e25d5e2e blocks=paragraph,heading
-229 36197-37543 1346 level=1 parent=222 id=79cc28103b text=aa32af9e2c path=dfeb8c8e blocks=paragraph
-230 36197-36513 316 level=2 parent=229 id=c55aaa51b8 text=3f77221aa7 path=dfeb8c8e blocks=paragraph
-231 36514-36835 321 level=2 parent=229 id=696e410032 text=9aed329f1d path=dfeb8c8e blocks=paragraph
-232 36836-37077 241 level=2 parent=229 id=3b9457fd25 text=4d7f4910c8 path=dfeb8c8e blocks=paragraph
-233 37078-37383 305 level=2 parent=229 id=285ce6b7b4 text=803e09b270 path=dfeb8c8e blocks=paragraph
-234 37384-37543 159 level=2 parent=229 id=1d9cfa497e text=5f5b5f5a99 path=dfeb8c8e blocks=paragraph
-235 37544-38913 1369 level=1 parent=222 id=456d90f7c7 text=deb38cfe8a path=dfeb8c8e blocks=paragraph
-236 37544-37920 376 level=2 parent=235 id=6f3d0fa750 text=1019f2e1f7 path=dfeb8c8e blocks=paragraph
-237 37921-38239 318 level=2 parent=235 id=e0bf95231f text=9e6c4b8414 path=dfeb8c8e blocks=paragraph
-238 38240-38538 298 level=2 parent=235 id=1d8ee37f1e text=4c36131bd4 path=dfeb8c8e blocks=paragraph
-239 38539-38913 374 level=2 parent=235 id=e47402c3dc text=fd606831b2 path=dfeb8c8e blocks=paragraph
-240 38914-40056 1142 level=1 parent=222 id=1e815c2ab3 text=e495a7af9c path=dfeb8c8e blocks=paragraph
-241 38914-39199 285 level=2 parent=240 id=75679532d3 text=3f9cd955af path=dfeb8c8e blocks=paragraph
-242 39200-39524 324 level=2 parent=240 id=33f7ba9b1b text=c03056da4a path=dfeb8c8e blocks=paragraph
-243 39525-39815 290 level=2 parent=240 id=e9e4ab3c1c text=89bc98a6d8 path=dfeb8c8e blocks=paragraph
-244 39816-40056 240 level=2 parent=240 id=908986240e text=e2b22874d3 path=dfeb8c8e blocks=paragraph
+150 23662-24061 399 level=2 parent=149 id=1e761a09b9 text=135aa96060 path=bf2b02be blocks=heading,paragraph
+151 24062-24407 345 level=2 parent=149 id=99ce997e39 text=9b48f644df path=bf2b02be blocks=paragraph,heading,list
+152 24408-24677 269 level=2 parent=149 id=8391d916ea text=fe91df569f path=b068e858 blocks=list
+153 24678-24847 169 level=2 parent=149 id=b7b9690736 text=64bc8c04bc path=b068e858 blocks=list
+154 24849-25709 860 level=1 parent=148 id=c19ce2c47d text=1bb11fec99 path=eeb0becc blocks=heading,list
+155 24849-25145 296 level=2 parent=154 id=b4b066179e text=6baf0af270 path=eeb0becc blocks=heading,list
+156 25146-25336 190 level=2 parent=154 id=614d91b6b2 text=8a60d70cd2 path=eeb0becc blocks=list
+157 25337-25709 372 level=2 parent=154 id=a557718955 text=d569f1b3c9 path=eeb0becc blocks=list
+158 25711-26789 1078 level=1 parent=148 id=ac0a70f8a6 text=ec89a3bc6d path=f75ca202 blocks=heading,list
+159 25711-26021 310 level=2 parent=158 id=cf3fe404e7 text=b72c8e7253 path=f75ca202 blocks=heading,list
+160 26022-26398 376 level=2 parent=158 id=93d8f32397 text=48796fa50f path=f75ca202 blocks=list
+161 26399-26789 390 level=2 parent=158 id=3b4a350266 text=687f40b71b path=f75ca202 blocks=list
+162 26791-27897 1106 level=0 id=d6527f5381 text=71acce49aa path=511d1cc1 blocks=heading,paragraph
+163 26791-27897 1106 level=1 parent=162 id=aff7618978 text=71acce49aa path=511d1cc1 blocks=heading,paragraph
+164 26791-26948 157 level=2 parent=163 id=b50e5048f3 text=d78cdb88c9 path=511d1cc1 blocks=heading,paragraph
+165 26950-27311 361 level=2 parent=163 id=1c68e6d50c text=1896705247 path=511d1cc1 blocks=paragraph
+166 27312-27601 289 level=2 parent=163 id=3bf37f5135 text=87280b316e path=511d1cc1 blocks=paragraph
+167 27602-27897 295 level=2 parent=163 id=bf740a9ed8 text=7a5d1286cb path=511d1cc1 blocks=paragraph
+168 27899-28335 436 level=0 id=744d10d2f2 text=5721645c74 path=dbb96ee4 blocks=heading,paragraph
+169 27899-28335 436 level=1 parent=168 id=42f4aabf12 text=5721645c74 path=dbb96ee4 blocks=heading,paragraph
+170 27899-28210 311 level=2 parent=169 id=d2dc98975e text=c184321574 path=dbb96ee4 blocks=heading,paragraph
+171 28211-28335 124 level=2 parent=169 id=8274320f81 text=bffece601d path=dbb96ee4 blocks=paragraph
+172 28337-29561 1224 level=0 id=7c5ebb1f9e text=5332c830ae path=e8a7fc62 blocks=heading,paragraph
+173 28337-29561 1224 level=1 parent=172 id=992fb33b5d text=5332c830ae path=e8a7fc62 blocks=heading,paragraph
+174 28337-28637 300 level=2 parent=173 id=b7f07028c0 text=3296094c72 path=e8a7fc62 blocks=heading,paragraph
+175 28639-28752 113 level=2 parent=173 id=d0337c365e text=0170d14ac9 path=e8a7fc62 blocks=paragraph
+176 28754-29139 385 level=2 parent=173 id=11c3b25dc2 text=0451a8f1b7 path=e8a7fc62 blocks=paragraph
+177 29140-29500 360 level=2 parent=173 id=ba47681d6a text=eabbcd4365 path=e8a7fc62 blocks=paragraph
+178 29501-29561 60 level=2 parent=173 id=90f7dd566f text=a019c35c3e path=e8a7fc62 blocks=paragraph
+179 29563-30176 613 level=0 id=2a36e8179e text=58aae900ac path=e7424676 blocks=heading,list
+180 29563-30176 613 level=1 parent=179 id=4778f8dd90 text=58aae900ac path=e7424676 blocks=heading,list
+181 29563-29862 299 level=2 parent=180 id=b333892435 text=11f1436538 path=e7424676 blocks=heading,list
+182 29863-30176 313 level=2 parent=180 id=aec6f026c1 text=7e5394d18b path=e7424676 blocks=list
+183 30178-30738 560 level=0 id=34a7dda506 text=f57adc8e33 path=da210cc9 blocks=heading,list
+184 30178-30738 560 level=1 parent=183 id=21ed0ab931 text=f57adc8e33 path=da210cc9 blocks=heading,list
+185 30178-30432 254 level=2 parent=184 id=368c6f5eed text=f69fce5623 path=da210cc9 blocks=heading,list
+186 30433-30738 305 level=2 parent=184 id=04a6b2dd91 text=6826f08e0d path=da210cc9 blocks=list
+187 30740-31311 571 level=0 id=45df2fcec1 text=b30e4e5617 path=fb13570e blocks=heading,list
+188 30740-31311 571 level=1 parent=187 id=971322f117 text=b30e4e5617 path=fb13570e blocks=heading,list
+189 30740-31090 350 level=2 parent=188 id=b62ea64282 text=f0a3cf4a85 path=fb13570e blocks=heading,list
+190 31091-31311 220 level=2 parent=188 id=c6e0fc380e text=b4e617aa1a path=fb13570e blocks=list
+191 31313-31806 493 level=0 id=faf692e398 text=92707444d9 path=b2970362 blocks=heading,list
+192 31313-31806 493 level=1 parent=191 id=c428ebcf2c text=92707444d9 path=b2970362 blocks=heading,list
+193 31313-31659 346 level=2 parent=192 id=4ab6e4ff36 text=b87bc57afc path=b2970362 blocks=heading,list
+194 31660-31806 146 level=2 parent=192 id=f693d9b386 text=a126a3b079 path=b2970362 blocks=list
+195 31808-32281 473 level=0 id=e4ed8d9e8d text=0007833165 path=e7b42a5c blocks=heading,list
+196 31808-32281 473 level=1 parent=195 id=eca436a66c text=0007833165 path=e7b42a5c blocks=heading,list
+197 31808-32127 319 level=2 parent=196 id=a25df87359 text=6a7a87ad20 path=e7b42a5c blocks=heading,list
+198 32128-32281 153 level=2 parent=196 id=04e922ebde text=b6ae5d71f0 path=e7b42a5c blocks=list
+199 32283-32743 460 level=0 id=e9e3d5e5e6 text=c2d82633ec path=985d1d55 blocks=heading,list
+200 32283-32743 460 level=1 parent=199 id=fc44b70ed5 text=c2d82633ec path=985d1d55 blocks=heading,list
+201 32283-32571 288 level=2 parent=200 id=24bc36f9b1 text=1a0009bf67 path=985d1d55 blocks=heading,list
+202 32572-32743 171 level=2 parent=200 id=fd614b70b3 text=07d0553816 path=985d1d55 blocks=list
+203 32745-33287 542 level=0 id=8100581901 text=a346dc27c2 path=6b311bac blocks=heading,list
+204 32745-33287 542 level=1 parent=203 id=c01232b1b0 text=a346dc27c2 path=6b311bac blocks=heading,list
+205 32745-33117 372 level=2 parent=204 id=7e982a04be text=92b0f81a28 path=6b311bac blocks=heading,list
+206 33118-33287 169 level=2 parent=204 id=628600acd5 text=6fa0ac870f path=6b311bac blocks=list
+207 33289-33786 497 level=0 id=f39c954875 text=701e05b78c path=3c1d11b1 blocks=heading,list
+208 33289-33786 497 level=1 parent=207 id=c21998a41b text=701e05b78c path=3c1d11b1 blocks=heading,list
+209 33289-33649 360 level=2 parent=208 id=7b1adcaeef text=fc587941a6 path=3c1d11b1 blocks=heading,list
+210 33650-33786 136 level=2 parent=208 id=3a33116390 text=9a2ce391eb path=3c1d11b1 blocks=list
+211 33788-34268 480 level=0 id=ba3c05b102 text=ea4c8e8f2a path=6eae90e4 blocks=heading,list
+212 33788-34268 480 level=1 parent=211 id=0d04859e8c text=ea4c8e8f2a path=6eae90e4 blocks=heading,list
+213 33788-34092 304 level=2 parent=212 id=d8dbe04753 text=eafc64a441 path=6eae90e4 blocks=heading,list
+214 34093-34268 175 level=2 parent=212 id=347fd58e04 text=8749574341 path=6eae90e4 blocks=list
+215 34270-34852 582 level=0 id=648abd35e5 text=4a3d6a8994 path=f212e429 blocks=heading,list
+216 34270-34852 582 level=1 parent=215 id=41d679a246 text=4a3d6a8994 path=f212e429 blocks=heading,list
+217 34270-34669 399 level=2 parent=216 id=c6116f6398 text=3dae8075f2 path=f212e429 blocks=heading,list
+218 34670-34852 182 level=2 parent=216 id=9654aa06d4 text=68598430d2 path=f212e429 blocks=list
+219 34854-40056 5202 level=0 id=faceae6427 text=07d4f61129 path=e25d5e2e blocks=heading,paragraph
+220 34854-36177 1323 level=1 parent=219 id=b5adee9f41 text=0b99d83805 path=e25d5e2e blocks=heading,paragraph
+221 34854-35122 268 level=2 parent=220 id=046c91df75 text=19e0d98a4a path=e25d5e2e blocks=heading,paragraph
+222 35124-35524 400 level=2 parent=220 id=f48573f824 text=8c44f49d91 path=e25d5e2e blocks=paragraph
+223 35525-35719 194 level=2 parent=220 id=958ad01088 text=926c54f9ea path=e25d5e2e blocks=paragraph
+224 35721-36006 285 level=2 parent=220 id=4c1ea5e2ee text=601667c8b8 path=e25d5e2e blocks=paragraph
+225 36007-36177 170 level=2 parent=220 id=4e85fc2780 text=788df4185b path=e25d5e2e blocks=paragraph
+226 36179-37543 1364 level=1 parent=219 id=5354ea3c6c text=7bc208f601 path=dfeb8c8e blocks=heading,paragraph
+227 36179-36513 334 level=2 parent=226 id=41f9f3ce2c text=dc4b4da974 path=dfeb8c8e blocks=heading,paragraph
+228 36514-36835 321 level=2 parent=226 id=696e410032 text=9aed329f1d path=dfeb8c8e blocks=paragraph
+229 36836-37077 241 level=2 parent=226 id=3b9457fd25 text=4d7f4910c8 path=dfeb8c8e blocks=paragraph
+230 37078-37383 305 level=2 parent=226 id=285ce6b7b4 text=803e09b270 path=dfeb8c8e blocks=paragraph
+231 37384-37543 159 level=2 parent=226 id=1d9cfa497e text=5f5b5f5a99 path=dfeb8c8e blocks=paragraph
+232 37544-38913 1369 level=1 parent=219 id=456d90f7c7 text=deb38cfe8a path=dfeb8c8e blocks=paragraph
+233 37544-37920 376 level=2 parent=232 id=6f3d0fa750 text=1019f2e1f7 path=dfeb8c8e blocks=paragraph
+234 37921-38239 318 level=2 parent=232 id=e0bf95231f text=9e6c4b8414 path=dfeb8c8e blocks=paragraph
+235 38240-38538 298 level=2 parent=232 id=1d8ee37f1e text=4c36131bd4 path=dfeb8c8e blocks=paragraph
+236 38539-38913 374 level=2 parent=232 id=e47402c3dc text=fd606831b2 path=dfeb8c8e blocks=paragraph
+237 38914-40056 1142 level=1 parent=219 id=1e815c2ab3 text=e495a7af9c path=dfeb8c8e blocks=paragraph
+238 38914-39199 285 level=2 parent=237 id=75679532d3 text=3f9cd955af path=dfeb8c8e blocks=paragraph
+239 39200-39524 324 level=2 parent=237 id=33f7ba9b1b text=c03056da4a path=dfeb8c8e blocks=paragraph
+240 39525-39815 290 level=2 parent=237 id=e9e4ab3c1c text=89bc98a6d8 path=dfeb8c8e blocks=paragraph
+241 39816-40056 240 level=2 parent=237 id=908986240e text=e2b22874d3 path=dfeb8c8e blocks=paragraph
 
 == hierarchical by heading
 document 7a7969519d56a679df91 docx 40057 chars
@@ -959,8 +957,8 @@ warning LARGE_CHUNK chunk=0 Chunk 0 has 40056 characters, more than 8000. Set "s
 44 33788-34268 480 level=2 parent=35 id=7bce01d6cd text=ea4c8e8f2a path=6eae90e4 blocks=heading,list
 45 34270-34852 582 level=2 parent=35 id=a1bddf6f86 text=4a3d6a8994 path=f212e429 blocks=heading,list
 46 34854-40056 5202 level=1 parent=0 id=7097781307 text=07d4f61129 path=e25d5e2e blocks=heading,paragraph
-47 34854-36195 1341 level=2 parent=46 id=dc1ad1950e text=c88ccc78ea path=e25d5e2e blocks=heading,paragraph
-48 36197-37543 1346 level=2 parent=46 id=0686920fc3 text=aa32af9e2c path=dfeb8c8e blocks=paragraph
+47 34854-36177 1323 level=2 parent=46 id=b2c4b90921 text=0b99d83805 path=e25d5e2e blocks=heading,paragraph
+48 36179-37543 1364 level=2 parent=46 id=97e0b99440 text=7bc208f601 path=dfeb8c8e blocks=heading,paragraph
 49 37544-38913 1369 level=2 parent=46 id=7bf16e1b5b text=deb38cfe8a path=dfeb8c8e blocks=paragraph
 50 38914-40056 1142 level=2 parent=46 id=38333da7fb text=e495a7af9c path=dfeb8c8e blocks=paragraph
 

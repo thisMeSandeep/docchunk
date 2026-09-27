@@ -134,16 +134,17 @@ Shipping costs are not refunded.
 | Option | Type | Default | Description |
 |---|---|---|---|
 | `size` | `number` | `1500` | Maximum characters per chunk. A positive integer. |
-| `minSize` | `number` | `200` | Chunks smaller than this are merged into a neighbor in the same section, when the result fits in `size`. A positive integer, at most `size`. |
+| `minSize` | `number` | `200`, or `size` if smaller | Chunks smaller than this are merged into a neighbor in the same section, when the result fits in `size`. A positive integer, at most `size`. |
 | `overlapChars` | `number` | `0` | Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. An integer from 0, less than `size`. |
 | `headingLevel` | `number` | `3` | Headings at this level or higher start a new section. An integer from 1 to 6. |
 
 ## Good to know
 
 - **Small sections stay small.** Sections are never merged, even when two would fit in one chunk. A document with many short sections gives many small chunks. To get fewer, larger chunks, lower `headingLevel`, for example to `2` or `1`, so that fewer headings start a section.
-- **Set `minSize` with a small `size`.** `minSize` can't be larger than `size`, and its default is 200. For a `size` below 200, set `minSize` too.
+- **`minSize` follows a small `size`.** When you set a `size` below 200 and no `minSize`, `minSize` becomes equal to `size`. A `minSize` you set yourself can't be larger than `size`.
 - **Overlap can be shorter than `overlapChars`.** Overlap uses whole sentences, stays within the section, and never makes a chunk larger than `size`. If the last sentence of the previous chunk is longer than `overlapChars`, the chunk has no overlap.
-- **A heading can end up alone.** A heading followed directly by another section heading, or by a block that fills a whole chunk, becomes a chunk of its own.
+- **A heading stays with its content.** When a heading is followed by a block too large for one chunk, the heading starts the first piece of that block. The block is then split at `size` minus the heading's length, so every piece still fits.
+- **A heading with no content of its own is a chunk.** A heading followed directly by another section heading, such as a title right before the first `##`, becomes a chunk that contains only the title.
 
 ## Related strategies
 

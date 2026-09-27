@@ -107,11 +107,7 @@ try {
 }
 ```
 
-The signal is checked before each document, and between the steps of each document. A step that has already started, such as converting a PDF, finishes first.
-
-:::note
-Timers, including `AbortSignal.timeout`, only fire while the JavaScript thread is free. A batch of file paths gives the thread a break every time it reads a file, so a timeout stops it. A batch made only of `content` strings keeps the thread busy until the end, so a timeout can't stop it partway through.
-:::
+The signal is checked before each document, and between the steps of each document. A step that has already started, such as converting a PDF, finishes first. Before each document, the batch also lets pending timers run, so `AbortSignal.timeout` works even when every source is a string in memory.
 
 ## Chunk every file in a folder
 

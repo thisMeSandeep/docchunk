@@ -30,6 +30,21 @@ describe("resolveOptions", () => {
     expect(resolveOptions({})).toEqual(expected);
   });
 
+  it("lowers the default minSize to size when size is smaller and minSize is not given", () => {
+    expect(resolveOptions({ size: 150 }).strategyOptions).toEqual({
+      size: 150,
+      minSize: 150,
+      overlapChars: 0,
+      headingLevel: 3,
+    });
+  });
+
+  it("still rejects a minSize the caller sets larger than size", () => {
+    const error = resolveError({ size: 150, minSize: 300 });
+    expect(error.code).toBe("INVALID_OPTIONS");
+    expect(error.message).toBe('Option "minSize" must be at most "size" (150), got 300.');
+  });
+
   it("applies structure options given without a strategy name", () => {
     const resolved = resolveOptions({ size: 800, minSize: 100 });
     expect(resolved.strategy).toBe("structure");

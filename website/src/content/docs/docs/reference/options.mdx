@@ -24,7 +24,7 @@ These work with every strategy.
 | Strategy | Option | Type | Default | Rules |
 |---|---|---|---|---|
 | [`structure`](../../strategies/structure/) | `size` | `number` | `1500` | Positive integer. |
-| | `minSize` | `number` | `200` | Positive integer, at most `size`. |
+| | `minSize` | `number` | `200`, or `size` if smaller | Positive integer, at most `size`. |
 | | `overlapChars` | `number` | `0` | Integer from 0, less than `size`. |
 | | `headingLevel` | `number` | `3` | Integer from 1 to 6. |
 | [`heading`](../../strategies/heading/) | `size` | `number` | No limit | Positive integer. |
@@ -58,7 +58,7 @@ Each strategy page explains what its options do.
 
 ### Options that depend on each other
 
-- **`minSize` and `size`.** `minSize` can't be larger than `size`. For `structure`, the default `minSize` is 200, so a `size` below 200 needs a `minSize` too.
+- **`minSize` and `size`.** `minSize` can't be larger than `size`. For `structure`, when you set a `size` below 200 and no `minSize`, the default `minSize` becomes equal to `size`.
 - **`overlapChars` and `size`.** `overlapChars` must be less than `size`.
 - **`childSize` and `parentSize`.** `childSize` must be less than `parentSize`.
 - **`step` and `size`.** `step` can't be larger than `size`.

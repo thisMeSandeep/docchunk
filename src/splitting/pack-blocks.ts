@@ -1,6 +1,6 @@
 // Packs whole blocks into chunks of at most `size`, never across a section. Shared by structure, paragraph, and heading.
 import type { Block, Range } from "../ir/ir-types";
-import { measureRawChunk } from "../output/measure";
+import { measure, measureRawChunk } from "../output/measure";
 import type { SectionChunk } from "../strategies/strategy-types";
 import { splitOversizedBlock } from "./split-oversized-block";
 
@@ -71,10 +71,34 @@ function canJoin(current: SectionChunk, unit: BlockUnit, size: number): boolean 
   return measureRawChunk(joined) <= size;
 }
 
-/** Splits a unit larger than `size`: blocks that fit become chunks, larger blocks go through the oversize cascade. */
+/** Splits a unit larger than `size`. Its headings join the first piece of the block after them, so they never end up alone. */
 function splitUnit(markdown: string, unit: BlockUnit, size: number): SectionChunk[] {
+  const contentBlock = unit.blocks.at(-1);
+  const hasHeadings = unit.blocks.length > 1;
+  if (!hasHeadings || contentBlock === undefined || contentBlock.type === "heading") {
+    return splitBlocks(markdown, unit.blocks, size);
+  }
+  // The headings and the blank lines after them take this much of the first piece.
+  const roomForContent = size - measure(unit.start, contentBlock.start);
+  if (roomForContent < 1) {
+    return splitBlocks(markdown, unit.blocks, size);
+  }
+  const pieces = splitOversizedBlock(markdown, contentBlock, roomForContent);
+  const firstPiece = pieces[0];
+  if (firstPiece === undefined || firstPiece.prefix !== undefined) {
+    return splitBlocks(markdown, unit.blocks, size);
+  }
+  const chunks: SectionChunk[] = [{ ...firstPiece, start: unit.start, sectionId: unit.sectionId }];
+  for (const piece of pieces.slice(1)) {
+    chunks.push({ ...piece, sectionId: unit.sectionId });
+  }
+  return chunks;
+}
+
+/** Splits blocks one by one: blocks that fit become chunks, larger blocks go through the oversize cascade. */
+function splitBlocks(markdown: string, blocks: Block[], size: number): SectionChunk[] {
   const chunks: SectionChunk[] = [];
-  for (const block of unit.blocks) {
+  for (const block of blocks) {
     const blockChunk = sectionChunkOf(createUnit([block]));
     if (measureRawChunk(blockChunk) <= size) {
       chunks.push(blockChunk);
