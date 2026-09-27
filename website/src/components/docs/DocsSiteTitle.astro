@@ -1,0 +1,44 @@
+---
+// The site title in the docs header: the Doc-chunk logo, which links home, then "/ Docs".
+import logo from "../../assets/logo-dark.svg";
+import { docsHref, homeHref } from "../site-links";
+---
+
+<div class="docs-site-title">
+	<a href={homeHref} class="docs-site-logo">
+		<img src={logo.src} width={logo.width} height={logo.height} alt="Doc-chunk" />
+	</a>
+	<span class="docs-site-separator" aria-hidden="true">/</span>
+	<a href={docsHref} class="docs-site-section">Docs</a>
+</div>
+
+<style>
+	.docs-site-title {
+		display: flex;
+		align-items: center;
+		gap: 0.875rem;
+		min-width: 0;
+		white-space: nowrap;
+	}
+
+	.docs-site-logo {
+		display: flex;
+	}
+
+	.docs-site-logo img {
+		height: 1.125rem;
+		width: auto;
+	}
+
+	.docs-site-separator {
+		color: var(--sl-color-gray-4);
+		font-size: var(--sl-text-lg);
+	}
+
+	.docs-site-section {
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-base);
+		font-weight: 500;
+		text-decoration: none;
+	}
+</style>

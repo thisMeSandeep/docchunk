@@ -1,0 +1,72 @@
+---
+// The page heading: the sidebar group as a small label, the title, and the page description as a lead.
+import type { StarlightRouteData } from "@astrojs/starlight/route-data";
+
+type SidebarEntry = StarlightRouteData["sidebar"][number];
+
+/** Returns true if the current page is one of these entries, at any depth. */
+function hasCurrentPage(entries: SidebarEntry[]): boolean {
+	for (const entry of entries) {
+		if (entry.type === "link" && entry.isCurrent) {
+			return true;
+		}
+		if (entry.type === "group" && hasCurrentPage(entry.entries)) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/** Returns the label of the top-level sidebar group that holds the current page, if any. */
+function findCurrentGroupLabel(entries: SidebarEntry[]): string | undefined {
+	for (const entry of entries) {
+		if (entry.type === "group" && hasCurrentPage(entry.entries)) {
+			return entry.label;
+		}
+	}
+	return undefined;
+}
+
+const { entry, sidebar } = Astro.locals.starlightRoute;
+const groupLabel = findCurrentGroupLabel(sidebar);
+const description = entry.data.description;
+// Starlight's "Overview" link in the table of contents points at this id.
+const pageTitleId = "_top";
+---
+
+<div class="docs-page-title">
+	{groupLabel && <p class="docs-page-group">{groupLabel}</p>}
+	<h1 id={pageTitleId}>{entry.data.title}</h1>
+	{description && <p class="docs-page-lead">{description}</p>}
+</div>
+
+<style>
+	.docs-page-title {
+		padding-bottom: 2rem;
+		margin-bottom: 0.5rem;
+		border-bottom: 1px solid var(--sl-color-hairline-light);
+	}
+
+	.docs-page-group {
+		margin: 0 0 0.5rem;
+		color: var(--sl-color-text-accent);
+		font-size: var(--sl-text-base);
+		font-weight: 500;
+	}
+
+	h1 {
+		margin: 0;
+		color: var(--sl-color-white);
+		font-size: var(--sl-text-h1);
+		font-weight: 650;
+		line-height: 1.15;
+		letter-spacing: -0.025em;
+	}
+
+	.docs-page-lead {
+		margin: 1rem 0 0;
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-xl);
+		line-height: 1.5;
+	}
+</style>
