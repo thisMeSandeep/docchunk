@@ -2,3 +2,57 @@
 title: chunkDocument
 description: "Chunks one document and returns its chunks, stats, and warnings."
 ---
+
+Chunks one document.
+
+```ts
+function chunkDocument(source: DocumentSource, options?: ChunkOptions): Promise<ChunkResult>;
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|---|---|---|
+| `source` | [`DocumentSource`](../types/#documentsource) | The document: `{ path }`, `{ bytes, filename?, format? }`, or `{ content, format }`. |
+| `options` | [`ChunkOptions`](../types/#chunkoptions) | Optional. The strategy, its options, and the [common options](../options/#common-options). Without options, the `structure` strategy is used with its defaults. |
+
+## Returns
+
+A promise of a [`ChunkResult`](../types/#chunkresult):
+
+| Field | Type | Description |
+|---|---|---|
+| `chunks` | [`Chunk[]`](../types/#chunk) | The chunks, in document order. |
+| `document` | [`DocumentInfo`](../types/#documentinfo) | The document's id, format, path, and Markdown. |
+| `stats` | [`ChunkStats`](../types/#chunkstats) | Chunk count, sizes, and time taken. |
+| `warnings` | [`ChunkWarning[]`](../types/#chunkwarning) | Problems that didn't stop chunking. See [Warnings](../warnings/). |
+
+## Throws
+
+A [`DocchunkError`](../docchunk-error/) with one of these codes:
+
+| Code | When |
+|---|---|
+| `INVALID_OPTIONS` | An option or the source is invalid. |
+| `UNSUPPORTED_FORMAT` | The format isn't supported, or can't be detected. |
+| `FILE_NOT_FOUND` | The file at `path` can't be read. |
+| `CONVERSION_FAILED` | The file couldn't be converted to Markdown. |
+| `ABORTED` | `options.signal` was aborted. |
+
+See [Error codes](../error-codes/) for every case.
+
+## Example
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks, warnings } = await chunkDocument(
+  { path: "handbook.pdf" },
+  { strategy: "structure", size: 1000 },
+);
+```
+
+## See also
+
+- [Chunk a document](../../guides/chunk-document/): a guide to sources, formats, the result, and errors.
+- [Strategies](../../strategies/): the strategies and their options.

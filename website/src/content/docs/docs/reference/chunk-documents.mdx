@@ -2,3 +2,67 @@
 title: chunkDocuments
 description: "Chunks many documents with shared options and a concurrency limit."
 ---
+
+Chunks a list of documents with the same options. A document that fails doesn't stop the others.
+
+```ts
+function chunkDocuments(sources: DocumentSource[], options?: BatchOptions): Promise<BatchItem[]>;
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|---|---|---|
+| `sources` | [`DocumentSource[]`](../types/#documentsource) | The documents, in any of the shapes `chunkDocument` accepts. |
+| `options` | [`BatchOptions`](../types/#batchoptions) | Optional. The same options as `chunkDocument`, applied to every document, plus `concurrency`. |
+
+### `concurrency`
+
+| Type | Default | Description |
+|---|---|---|
+| `number` | `4` | Documents chunked at the same time. A positive integer. |
+
+## Returns
+
+A promise of a [`BatchItem[]`](../types/#batchitem), with one item per source, in the same order as `sources`:
+
+| Item | Meaning |
+|---|---|
+| `{ ok: true, result: ChunkResult }` | The document was chunked. `result` is what `chunkDocument` returns. |
+| `{ ok: false, error: DocchunkError, sourceIndex: number }` | The document failed. `sourceIndex` is its position in `sources`. |
+
+An empty `sources` array returns an empty array.
+
+## Throws
+
+A [`DocchunkError`](../docchunk-error/), instead of returning items, in these cases:
+
+| Code | When |
+|---|---|
+| `INVALID_OPTIONS` | `sources` isn't an array, or an option is invalid. Options are checked once, before any document is read. |
+| `ABORTED` | `options.signal` was aborted. Results of documents that already finished are not returned. |
+
+Errors from single documents, such as `FILE_NOT_FOUND`, don't throw. They're returned as items with `ok: false`.
+
+## Example
+
+```ts
+import { chunkDocuments } from "docchunk";
+
+const results = await chunkDocuments(
+  [{ path: "a.docx" }, { path: "b.pdf" }, { path: "notes.md" }],
+  { concurrency: 2, metadata: { team: "legal" } },
+);
+
+for (const item of results) {
+  if (item.ok) {
+    console.log(item.result.document.sourcePath, item.result.chunks.length);
+  } else {
+    console.log(`Source ${item.sourceIndex} failed: ${item.error.message}`);
+  }
+}
+```
+
+## See also
+
+- [Chunk many documents](../../guides/chunk-documents/): a guide to batches, concurrency, cancelling, and memory.

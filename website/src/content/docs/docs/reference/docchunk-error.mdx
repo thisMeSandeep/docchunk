@@ -2,3 +2,50 @@
 title: DocchunkError
 description: "The error Doc-chunk throws, with a code for each kind of failure."
 ---
+
+Every error Doc-chunk throws is a `DocchunkError`. It extends the built-in `Error` with a `code` that tells you what went wrong.
+
+```ts
+class DocchunkError extends Error {
+  readonly code: DocchunkErrorCode;
+  constructor(code: DocchunkErrorCode, message: string, options?: ErrorOptions);
+}
+```
+
+## Properties
+
+| Property | Type | Description |
+|---|---|---|
+| `code` | [`DocchunkErrorCode`](../types/#docchunkerrorcode) | What went wrong: `"INVALID_OPTIONS"`, `"UNSUPPORTED_FORMAT"`, `"CONVERSION_FAILED"`, `"FILE_NOT_FOUND"`, or `"ABORTED"`. |
+| `message` | `string` | A description that names the option, file, or format at fault. |
+| `name` | `string` | Always `"DocchunkError"`. |
+| `cause` | `unknown` | The underlying error, when there is one: the file system error for `FILE_NOT_FOUND`, anydoc's error for `CONVERSION_FAILED`, or the signal's `reason` for `ABORTED`. |
+
+[Error codes](../error-codes/) lists every code and when it's used.
+
+## Handling errors
+
+Check the class with `instanceof`, then branch on `code`. The codes are stable, so you can rely on them in your code. The messages may change between versions.
+
+```ts
+import { chunkDocument, DocchunkError } from "docchunk";
+
+try {
+  const result = await chunkDocument({ path: "report.pdf" });
+} catch (error) {
+  if (!(error instanceof DocchunkError)) {
+    throw error;
+  }
+  if (error.code === "FILE_NOT_FOUND") {
+    console.log("No such file");
+  } else if (error.code === "UNSUPPORTED_FORMAT") {
+    console.log("Doc-chunk can't read this file type");
+  } else {
+    console.log(error.code, error.message);
+  }
+}
+```
+
+In [`chunkDocuments`](../chunk-documents/), errors for single documents are returned in the result items instead of thrown. Each failed item's `error` is a `DocchunkError`.
+
+You don't need to create a `DocchunkError` yourself. The constructor is public so that the class can be used with `instanceof`.

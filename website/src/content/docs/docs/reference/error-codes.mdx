@@ -2,3 +2,113 @@
 title: Error codes
 description: "Every error code: when it is thrown and how to handle it."
 ---
+
+When Doc-chunk can't produce a result, it throws a [`DocchunkError`](../docchunk-error/). Its `code` is one of the five below. The messages shown are examples: the parts in angle brackets change with the input.
+
+| Code | Meaning |
+|---|---|
+| [`INVALID_OPTIONS`](#invalid_options) | An option or the source is invalid. |
+| [`UNSUPPORTED_FORMAT`](#unsupported_format) | The format isn't supported, or can't be detected. |
+| [`FILE_NOT_FOUND`](#file_not_found) | A file path can't be read. |
+| [`CONVERSION_FAILED`](#conversion_failed) | A file couldn't be converted to Markdown. |
+| [`ABORTED`](#aborted) | The `signal` was aborted. |
+
+## `INVALID_OPTIONS`
+
+An option has the wrong type or value, an option isn't accepted by the chosen strategy, or the source isn't one of the accepted shapes. Options are checked before the document is read, except for the `headingPrefix` size check, which needs the document's headings.
+
+Options:
+
+```txt
+Options must be an object, got <value>.
+Option "strategy" must be one of "structure", "heading", …, got <value>.
+Unknown option "<name>" for strategy "<strategy>".
+Option "<name>" must be a positive integer, got <value>.
+Option "<name>" must be an integer of 0 or more, got <value>.
+Option "<name>" must be an integer from 1 to 6, got <value>.
+Option "<name>" must be less than "<other>" (<limit>), got <value>.
+Option "<name>" must be at most "<other>" (<limit>), got <value>.
+Option "<name>" must be one of "<a>", "<b>", got <value>.
+Option "levels" must be a non-empty array of positive integers, each smaller than the one before, got <value>.
+Option "separators" must be an array of non-empty strings, got <value>.
+Option "metadata" must be an object, got <value>.
+Option "documentId" must be a non-empty string, got <value>.
+Option "headingPrefix" must be true or false, got <value>.
+Option "signal" must be an AbortSignal, got <value>.
+Option "headingPrefix" needs up to <n> characters for heading paths, which leaves no room within "<name>" (<size>).
+```
+
+Sources:
+
+```txt
+The source must be an object: { path }, { bytes }, or { content, format }.
+The source's path must be a non-empty string.
+The source's bytes must be a Uint8Array.
+The source's filename must be a string.
+The source's content must be a string.
+The sources must be an array.
+```
+
+The last one comes from `chunkDocuments`, as does `Option "concurrency" must be a positive integer`.
+
+**What to do:** fix the option or source named in the message. In TypeScript, most of these are caught by the compiler.
+
+## `UNSUPPORTED_FORMAT`
+
+The format can't be read.
+
+```txt
+Format "<value>" is not supported. Supported formats: pdf, docx, doc, pptx, ppt, xlsx, xls, odt, ods, odp, rtf, epub, csv, markdown, text.
+The source's format must be "markdown" or "text".
+The document's format could not be detected from its content or file name. Pass `format` to name it.
+Could not convert <file>: <detail> (unsupported)
+```
+
+- The first: the `format` of a bytes source isn't a supported format.
+- The second: a `content` source has a `format` other than `"markdown"` or `"text"`.
+- The third: the source has no usable file name or `format`, and its content doesn't match a known format. This is the usual error for Markdown, text, or CSV passed as bytes without a `filename`.
+- The fourth: the converter recognized the file but can't convert this variant of the format.
+
+**What to do:** pass `format`, or a `filename` with the right extension. See [Formats](../formats/).
+
+## `FILE_NOT_FOUND`
+
+A `path` source couldn't be read.
+
+```txt
+File not found: <path>
+Path is a folder, not a file: <path>
+File could not be read (<system code>): <path>
+```
+
+The third form covers other file system errors, such as `EACCES` for missing permissions. `error.cause` holds the original file system error.
+
+**What to do:** check the path. Relative paths are resolved against the current working directory.
+
+## `CONVERSION_FAILED`
+
+A file couldn't be converted to Markdown.
+
+```txt
+Could not convert <file>: <detail> (<converter code>)
+The anydoc converter could not be loaded. Its native binary may be missing for this platform.
+Unexpected error while chunking source <index>: <detail>
+```
+
+- The first: the converter failed on this file. The code in brackets is the converter's: `malformed` or `missingPart` for a damaged file, `encrypted` for a password-protected one, and `resourceLimit` for a file that crosses one of the converter's safety limits, such as its decompression limit. The converter's error is in `error.cause`.
+- The second: the converter's native binary isn't available. Binaries exist for macOS, Linux, and Windows x64. Markdown and text files never need the converter.
+- The third: only in `chunkDocuments`. An unexpected error inside Doc-chunk is wrapped with this code, so every failed item has a code. The original error is in `error.cause`.
+
+**What to do:** check that the file opens in its usual application. For password-protected files, remove the password first.
+
+## `ABORTED`
+
+The `signal` option was aborted.
+
+```txt
+Chunking was aborted.
+```
+
+`error.cause` holds the signal's `reason`. For `AbortSignal.timeout`, that's a `TimeoutError`.
+
+**What to do:** nothing, if you aborted on purpose. See [`signal`](../../guides/chunk-document/#signal) for when the signal is checked.

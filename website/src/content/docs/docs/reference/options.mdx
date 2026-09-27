@@ -2,3 +2,72 @@
 title: Options
 description: "Every option of every strategy, with its type, default, and rules."
 ---
+
+Options are the second argument of [`chunkDocument`](../chunk-document/) and [`chunkDocuments`](../chunk-documents/). Every option is optional. An option that the chosen strategy doesn't accept throws an `INVALID_OPTIONS` error, and so does a value that breaks the rules below.
+
+All sizes are in characters.
+
+## Common options
+
+These work with every strategy.
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `strategy` | `string` | `"structure"` | The [strategy](../../strategies/) to use. One of `"structure"`, `"heading"`, `"paragraph"`, `"sentence"`, `"sentence-window"`, `"parent-child"`, `"hierarchical"`, `"recursive"`, `"fixed"`, `"fixed-overlap"`, `"sliding-window"`. |
+| `metadata` | `object` | `{}` | Copied onto every chunk's `metadata`. Doesn't change chunk ids. Must be an object, not an array. |
+| `documentId` | `string` | Hash of the document | Used as `document.id` and in every chunk id. A non-empty string. |
+| `headingPrefix` | `boolean` | `false` | Adds the heading path (`A > B > C` and a blank line) to the start of each chunk's text. Counts toward the size limit. |
+| `signal` | `AbortSignal` | None | Stops chunking with an `ABORTED` error when aborted. |
+
+## Strategy options
+
+| Strategy | Option | Type | Default | Rules |
+|---|---|---|---|---|
+| [`structure`](../../strategies/structure/) | `size` | `number` | `1500` | Positive integer. |
+| | `minSize` | `number` | `200` | Positive integer, at most `size`. |
+| | `overlapChars` | `number` | `0` | Integer from 0, less than `size`. |
+| | `headingLevel` | `number` | `3` | Integer from 1 to 6. |
+| [`heading`](../../strategies/heading/) | `size` | `number` | No limit | Positive integer. |
+| | `headingLevel` | `number` | `3` | Integer from 1 to 6. |
+| [`paragraph`](../../strategies/paragraph/) | `size` | `number` | No limit | Positive integer. |
+| | `minSize` | `number` | `1` | Positive integer, at most `size`. |
+| | `overlapChars` | `number` | `0` | Integer from 0, less than `size`. |
+| [`sentence`](../../strategies/sentence/) | `size` | `number` | No limit | Positive integer. |
+| | `minSize` | `number` | `1` | Positive integer, at most `size`. |
+| | `overlapChars` | `number` | `0` | Integer from 0, less than `size`. |
+| [`sentence-window`](../../strategies/sentence-window/) | `windowSize` | `number` | `3` | Integer from 0. |
+| [`parent-child`](../../strategies/parent-child/) | `parentSize` | `number` | `4000` | Positive integer. |
+| | `childSize` | `number` | `800` | Positive integer, less than `parentSize`. |
+| [`hierarchical`](../../strategies/hierarchical/) | `by` | `"size"` or `"heading"` | `"size"` | One of the two values. |
+| | `levels` | `number[]` | `[6000, 1500, 400]` | Non-empty array of positive integers, each smaller than the one before. |
+| | `headingLevel` | `number` | `3` | Integer from 1 to 6. |
+| | `leafSize` | `number` | `1500` | Positive integer. |
+| [`recursive`](../../strategies/recursive/) | `size` | `number` | `1500` | Positive integer. |
+| | `overlapChars` | `number` | `0` | Integer from 0, less than `size`. |
+| | `separators` | `string[]` | `["\n# ", "\n## ", "\n### ", "\n#### ", "\n\n", "\n"]` | Array of non-empty strings. |
+| [`fixed`](../../strategies/fixed/) | `size` | `number` | `1500` | Positive integer. |
+| | `boundary` | `"word"` or `"char"` | `"word"` | One of the two values. |
+| [`fixed-overlap`](../../strategies/fixed-overlap/) | `size` | `number` | `1500` | Positive integer. |
+| | `overlapChars` | `number` | `200` | Integer from 0, less than `size`. |
+| | `boundary` | `"word"` or `"char"` | `"word"` | One of the two values. |
+| [`sliding-window`](../../strategies/sliding-window/) | `size` | `number` | `1500` | Positive integer. |
+| | `step` | `number` | `750` | Positive integer, at most `size`. |
+| | `boundary` | `"word"` or `"char"` | `"word"` | One of the two values. |
+
+Each strategy page explains what its options do.
+
+### Options that depend on each other
+
+- **`minSize` and `size`.** `minSize` can't be larger than `size`. For `structure`, the default `minSize` is 200, so a `size` below 200 needs a `minSize` too.
+- **`overlapChars` and `size`.** `overlapChars` must be less than `size`.
+- **`childSize` and `parentSize`.** `childSize` must be less than `parentSize`.
+- **`step` and `size`.** `step` can't be larger than `size`.
+- **`headingPrefix` and the sizes.** With `headingPrefix`, each size option is reduced by the length of the longest heading path in the document, so that prefixed chunks still fit. If that leaves no room, chunking fails with `INVALID_OPTIONS` after the document is read.
+
+## Batch options
+
+[`chunkDocuments`](../chunk-documents/) accepts every option above, plus:
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `concurrency` | `number` | `4` | Documents chunked at the same time. A positive integer. |

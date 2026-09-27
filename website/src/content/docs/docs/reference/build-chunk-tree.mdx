@@ -2,3 +2,68 @@
 title: buildChunkTree
 description: "Rebuilds the nested parent and child structure from a flat list of chunks."
 ---
+
+Turns a flat list of chunks into a tree, using each chunk's `parentId`. Use it with the chunks from [`parent-child`](../../strategies/parent-child/) or [`hierarchical`](../../strategies/hierarchical/).
+
+```ts
+function buildChunkTree(chunks: Chunk[]): ChunkTreeNode[];
+```
+
+## Parameters
+
+| Parameter | Type | Description |
+|---|---|---|
+| `chunks` | [`Chunk[]`](../types/#chunk) | Chunks from one result, or any subset of them. |
+
+## Returns
+
+The root nodes of the tree, as [`ChunkTreeNode[]`](../types/#chunktreenode). Each node has:
+
+| Field | Type | Description |
+|---|---|---|
+| `chunk` | `Chunk` | The chunk. |
+| `children` | `ChunkTreeNode[]` | Nodes for the chunks whose `parentId` is this chunk's `id`. |
+
+A chunk is a root when it has no `parentId`, or when its parent isn't in the list. Roots and children keep the order they have in `chunks`.
+
+`buildChunkTree` doesn't throw.
+
+## Example
+
+```ts
+import { buildChunkTree, chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "parent-child", parentSize: 300, childSize: 100 },
+);
+
+const tree = buildChunkTree(chunks);
+
+for (const node of tree) {
+  console.log(node.chunk.headingPath.join(" > "));
+  for (const child of node.children) {
+    console.log(`  ${child.chunk.charCount} chars`);
+  }
+}
+```
+
+```txt
+Returns policy
+  71 chars
+  53 chars
+Returns policy > Start a return
+  89 chars
+  36 chars
+Returns policy > Refunds
+  95 chars
+  32 chars
+  82 chars
+```
+
+`returns-policy.md` is the example file used on the [strategy pages](../../strategies/#the-example-document).
+
+## Good to know
+
+- **Filtering changes the roots.** If you remove the parents before calling `buildChunkTree`, for example to keep only the children, every remaining chunk becomes a root with no children.
+- **Flat strategies give a flat tree.** Chunks from strategies other than `parent-child` and `hierarchical` have no `parentId`, so every chunk is a root.

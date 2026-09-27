@@ -407,7 +407,7 @@ When `chunkDocument` can't produce a result, it throws a `DocchunkError`. The er
 | `CONVERSION_FAILED` | anydoc couldn't convert the file, for example because it's damaged, or because anydoc isn't available on this platform. |
 | `ABORTED` | The `signal` was aborted. |
 
-Options are checked before the document is read, so an `INVALID_OPTIONS` error comes back immediately.
+Options are checked before the document is read, so an `INVALID_OPTIONS` error comes back immediately. The one exception is `headingPrefix`: if a document's heading paths are so long that no text would fit within `size`, the error comes after the document is read.
 
 ```ts
 import { chunkDocument, DocchunkError } from "docchunk";

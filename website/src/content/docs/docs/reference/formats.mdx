@@ -2,3 +2,47 @@
 title: Formats
 description: "Supported formats, file extensions, and how the format is detected."
 ---
+
+## Supported formats
+
+| Format | `format` value | Extensions | Converted | Notes |
+|---|---|---|---|---|
+| PDF | `"pdf"` | `.pdf` | Yes | Text-based PDFs only. A PDF with any scanned page gives a [`NO_TEXT_LAYER`](../warnings/#no_text_layer) warning and no chunks. |
+| Word | `"docx"`, `"doc"` | `.docx`, `.doc` | Yes | |
+| PowerPoint | `"pptx"`, `"ppt"` | `.pptx`, `.ppt` | Yes | |
+| Excel | `"xlsx"`, `"xls"` | `.xlsx`, `.xls` | Yes | Each sheet becomes a Markdown table. |
+| OpenDocument | `"odt"`, `"ods"`, `"odp"` | `.odt`, `.ods`, `.odp` | Yes | |
+| RTF | `"rtf"` | `.rtf` | Yes | |
+| EPUB | `"epub"` | `.epub` | Yes | |
+| CSV | `"csv"` | `.csv` | Yes | Becomes a Markdown table. Needs a `.csv` file name or `format: "csv"`. |
+| Markdown | `"markdown"` | `.md`, `.markdown` | No | Parsed as GitHub-Flavored Markdown. |
+| Plain text | `"text"` | `.txt` | No | Split into paragraphs at blank lines. `#`, `*`, and other Markdown characters stay as text. |
+
+The `format` value is what you pass in a source, and what `document.sourceFormat` contains.
+
+## Detection
+
+For a `path` or `bytes` source, the format is the first of these that gives an answer:
+
+1. The source's `format`.
+2. A file name ending in `.md`, `.markdown`, `.txt`, or `.csv`: from `path`, or from `filename` for bytes.
+3. The file's content. PDF, Office, OpenDocument, EPUB, and RTF files are recognized by their content, so a missing or wrong extension doesn't matter.
+4. The file's extension, for the other formats.
+
+If none gives an answer, Doc-chunk throws an [`UNSUPPORTED_FORMAT`](../error-codes/#unsupported_format) error. Markdown, text, and CSV have no recognizable content, so as bytes they need a `filename` or a `format`.
+
+A `content` source always has a `format` of `"markdown"` or `"text"`, so there is no detection.
+
+## Conversion
+
+Every format except Markdown and plain text is converted to Markdown by [`@firecrawl/anydoc`](https://github.com/firecrawl/anydoc), which runs locally:
+
+- Headings, lists, tables, and footnotes come out in the same Markdown form whatever the format, so every strategy works the same way on all of them.
+- Embedded images are replaced by their alt text, if they have any. Images linked by URL stay as Markdown images.
+- Password-protected, damaged, and extremely large files fail with a [`CONVERSION_FAILED`](../error-codes/#conversion_failed) error.
+- anydoc uses native binaries, available for macOS, Linux (glibc and musl), and Windows x64. On other platforms, such as Windows on ARM, only Markdown and plain text can be chunked.
+- anydoc is loaded the first time a document needs converting, so Markdown and text never load it.
+
+Doc-chunk never uses anydoc's hosted OCR option, so documents are never sent over the network.
+
+The converted Markdown is `document.markdown` in the result, and chunk positions refer to it.

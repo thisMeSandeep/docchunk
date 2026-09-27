@@ -2,3 +2,75 @@
 title: Warnings
 description: "Every warning code: when it happens and what to do about it."
 ---
+
+Warnings describe problems that didn't stop chunking. They're returned in the result's `warnings` array. Doc-chunk never logs them.
+
+```ts
+interface ChunkWarning {
+  code: ChunkWarningCode;
+  message: string;
+  chunkIndex?: number;
+}
+```
+
+`chunkIndex` is set when the warning is about one chunk, and is that chunk's `index`.
+
+## Codes
+
+| Code | Chunks | `chunkIndex` | When |
+|---|---|---|---|
+| [`EMPTY_DOCUMENT`](#empty_document) | None | No | The document has no text. |
+| [`NO_TEXT_LAYER`](#no_text_layer) | None | No | A PDF has pages without a text layer, or almost no text. |
+| [`OVERSIZED_BLOCK`](#oversized_block) | Normal | Yes | A row, item, line, or word longer than `size` was cut. |
+| [`LARGE_CHUNK`](#large_chunk) | Normal | Yes | A strategy with no size limit made a chunk of more than 8,000 characters. |
+
+### `EMPTY_DOCUMENT`
+
+The document is empty, or contains only whitespace. The result has no chunks.
+
+Message: `The document has no text to chunk.`
+
+**What to do:** check the source. A Word or PowerPoint file that contains only images also converts to Markdown with little or no text.
+
+### `NO_TEXT_LAYER`
+
+A PDF has at least one page that is scanned or contains only images, or the whole PDF has fewer than 100 characters of text. The result has no chunks, even if other pages have text. `EMPTY_DOCUMENT` is not added as well.
+
+Messages:
+
+```txt
+This PDF appears to be scanned; OCR is not supported.
+This PDF appears to be scanned; OCR is not supported. Pages without a text layer: 3, 4 of 12.
+```
+
+The second form lists the pages, when the converter reports them.
+
+**What to do:** Doc-chunk doesn't do OCR. Run the PDF through an OCR tool, then chunk the text it produces.
+
+### `OVERSIZED_BLOCK`
+
+A single table row, list item, code line, or word was longer than `size`, so it was cut at the size limit instead of at a boundary. The chunk at `chunkIndex` contains one of the pieces.
+
+Message: `Chunk 4 is a hard cut of a row, item, line, or word longer than size.`
+
+**What to do:** usually nothing. This happens with long URLs, base64 data, or minified code. If the pieces are too small to be useful, raise `size`.
+
+### `LARGE_CHUNK`
+
+A strategy without a size limit made a chunk of more than 8,000 characters. This applies to `heading`, `paragraph`, `sentence`, and `sentence-window` without `size`, and to `hierarchical` with `by: "heading"`. Strategies with a size limit never add it.
+
+Message: `Chunk 2 has 12480 characters, more than 8000. Set "size" to split it.`
+
+**What to do:** set `size` to split large sections, paragraphs, or blocks. Most embedding models accept far less than 8,000 characters.
+
+## Check warnings
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks, warnings } = await chunkDocument({ path: "report.pdf" });
+
+for (const warning of warnings) {
+  console.warn(`${warning.code}: ${warning.message}`);
+}
+```
