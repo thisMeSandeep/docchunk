@@ -1,4 +1,225 @@
 ---
 title: How it works
-description: "The pipeline from file to chunks, and the ideas the other pages rely on."
+description: "The steps from file to chunks, and the ideas the other pages rely on."
 ---
+
+This page explains what happens when you call `chunkDocument`, and the ideas the rest of the documentation refers to: sections, heading paths, sizes, and ids.
+
+## From file to chunks
+
+```txt
+source → detect format → convert to Markdown → normalize → parse into blocks → split → finalize
+```
+
+1. **Read the source.** A source is a file path, bytes in memory, or a string. See [Chunk a document](../guides/chunk-document/#sources).
+2. **Detect the format.** Doc-chunk uses the `format` you pass, if any. Otherwise it looks at the file name for `.md`, `.markdown`, `.txt`, and `.csv`, and then at the file's content.
+3. **Convert to Markdown.** PDF, Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, and CSV files are converted to Markdown by [anydoc](https://github.com/firecrawl/anydoc), on your machine. Markdown and plain text are used as they are.
+4. **Normalize.** Windows (`\r\n`) and old Mac (`\r`) line endings become `\n`, and a byte order mark at the start is removed. The result is returned as `document.markdown`.
+5. **Parse into blocks.** The Markdown is parsed once into a list of top-level blocks: headings, paragraphs, lists, tables, code blocks, block quotes, and a few rarer kinds. Plain text is not parsed as Markdown. It is split into paragraphs at blank lines, and characters like `#` and `*` stay as text.
+6. **Split.** The [strategy](../strategies/) chooses where each chunk starts and ends.
+7. **Finalize.** Doc-chunk builds each chunk's text, id, and content hash, then the stats and warnings.
+
+Parsing happens once per document. Strategies work on the parsed blocks and their positions, so they never parse the text again.
+
+## Positions refer to `document.markdown`
+
+Each chunk's `start` and `end` are character positions in `document.markdown`, not in the original file. For a PDF or Word file, `document.markdown` is the converted Markdown.
+
+For most chunks, `text` is exactly `document.markdown.slice(start, end)`. There are two exceptions:
+
+- With the `headingPrefix` option, the heading path is added before the text.
+- When a large table or code block is split, each piece repeats the table header or the code fence, which lie outside its range. See [Blocks larger than the size limit](#blocks-larger-than-the-size-limit).
+
+## Sections and heading paths
+
+Headings divide a document into sections. The `headingLevel` option sets which headings start a new section: headings at that level or higher do, and deeper headings stay inside the section they are in. The default is 3, so `#`, `##`, and `###` start sections, and `####` to `######` do not.
+
+The `structure` strategy never puts two sections in one chunk. Take this document, chunked with the default options:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const markdown = `# Guide
+
+Intro text.
+
+## Setup
+
+Install it.
+
+### Linux
+
+Use the package manager.
+
+#### Ubuntu
+
+Run apt.`;
+
+const { chunks } = await chunkDocument({ content: markdown, format: "markdown" });
+
+for (const chunk of chunks) {
+  console.log(chunk.headingPath);
+}
+```
+
+It gives three chunks, one per section. The `####` heading doesn't start a section, so *Ubuntu* stays in the *Linux* chunk:
+
+```txt
+[ 'Guide' ]
+[ 'Guide', 'Setup' ]
+[ 'Guide', 'Setup', 'Linux' ]
+```
+
+With `{ headingLevel: 2 }`, the `###` heading no longer starts a section either, so *Linux* and *Ubuntu* join the *Setup* chunk:
+
+```txt
+[ 'Guide' ]
+[ 'Guide', 'Setup' ]
+```
+
+Each list is a chunk's `headingPath`: the headings above the start of the chunk, outermost first. Heading text is plain text, with Markdown formatting such as `**` or links removed. Plain text documents have no headings, so their chunks have an empty `headingPath`.
+
+### Adding the heading path to the text
+
+An embedding of "Install it." carries no hint that it's about setting up a guide. The `headingPrefix` option adds the heading path to the start of each chunk's text, joined with `>` and followed by a blank line. With the same document:
+
+```ts
+const { chunks } = await chunkDocument(
+  { content: markdown, format: "markdown" },
+  { headingPrefix: true },
+);
+console.log(chunks[1]?.text);
+```
+
+```txt
+Guide > Setup
+
+## Setup
+
+Install it.
+```
+
+The prefix counts toward the size limit. Doc-chunk reserves room for the longest heading path in the document, so prefixed chunks still fit within `size`.
+
+## Sizes are in characters
+
+Every size option (`size`, `minSize`, `overlapChars`, `parentSize`, `childSize`, and the others) is a number of characters. A chunk's size is the length of its `text`, including:
+
+- Markdown syntax, such as `## `, `**`, table pipes, and code fences.
+- Text repeated from the previous chunk, when you use `overlapChars`.
+- The heading path, when you use `headingPrefix`.
+
+Doc-chunk doesn't count tokens. For English prose, a size of about three times your embedding model's token limit keeps chunks under it: 1,500 characters for a model that accepts 512 tokens. Code and languages that don't use the Latin alphabet use more tokens per character, so use a smaller size for them.
+
+Some strategies have no size limit by default: `heading` gives one chunk per section, and `paragraph` and `sentence` give one chunk per paragraph or sentence. If one of those chunks is longer than 8,000 characters, the result includes a `LARGE_CHUNK` warning. Set `size` to split long sections.
+
+## Blocks larger than the size limit
+
+The `structure` strategy packs whole blocks into chunks. When a single block is larger than `size`, it is split along its own structure:
+
+| Block | Split by |
+|---|---|
+| Table | Rows. Each piece repeats the header row. |
+| List | Items. |
+| Code block | Lines. Each piece repeats the opening and closing fence. |
+| Paragraph and other prose | Sentences, then words. |
+
+For example, this table is 142 characters long, and `size` is 100:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const table = `| Plan | Price | Storage |
+| --- | --- | --- |
+| Free | $0 | 5 GB |
+| Personal | $4 | 100 GB |
+| Team | $12 | 1 TB |
+| Business | $25 | 5 TB |`;
+
+const { chunks } = await chunkDocument(
+  { content: table, format: "markdown" },
+  { size: 100, minSize: 50 },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+It is split into two chunks, and each one is a complete table with the header:
+
+```txt
+| Plan | Price | Storage |
+| --- | --- | --- |
+| Free | $0 | 5 GB |
+| Personal | $4 | 100 GB |
+---
+| Plan | Price | Storage |
+| --- | --- | --- |
+| Team | $12 | 1 TB |
+| Business | $25 | 5 TB |
+---
+```
+
+If a single row, item, line, or word is still larger than `size`, Doc-chunk cuts it at the size limit and adds an `OVERSIZED_BLOCK` warning that points to the chunk.
+
+The `heading`, `paragraph`, `sentence`, `parent-child`, and `hierarchical` strategies split large blocks the same way when they have a size limit. The `fixed`, `fixed-overlap`, and `sliding-window` strategies ignore structure and cut the text at the size limit.
+
+## Sentences
+
+The `sentence` and `sentence-window` strategies, and overlap in `structure`, `paragraph`, and `sentence`, work with whole sentences. Doc-chunk finds sentence boundaries with the JavaScript `Intl.Segmenter` API. A table or a code block counts as a single sentence, so it is never cut in the middle.
+
+`Intl.Segmenter` sometimes ends a sentence after an abbreviation such as "Dr." or "e.g.".
+
+## Ids and content hashes
+
+Each chunk has two hashes:
+
+- `id` identifies the chunk. It is built from the document's id, the options that affect chunking, the chunk's `start` and `end`, and its level. The `metadata` and `signal` options don't affect it.
+- `contentHash` is a hash of the chunk's `text` alone.
+
+Both are the first 20 hexadecimal characters of a SHA-256 hash. They don't depend on the runtime or the machine: the same document and options give the same values on Node.js and on Bun.
+
+The document's id is a hash of `document.markdown`, so any edit to the document changes every chunk `id`. If you pass your own `documentId`, such as a file path or a database key, a chunk keeps its id as long as its `start` and `end` don't change. An edit changes the positions of the chunks after it, so their ids change too. `contentHash` only changes when the chunk's text changes, wherever it is in the document.
+
+| After you change | `id` | `contentHash` |
+|---|---|---|
+| Nothing | Same | Same |
+| Only `metadata` | Same | Same |
+| The strategy or a size option | Changes | Changes if the text changes |
+| The document, without `documentId` | Changes for every chunk | Changes only for chunks whose text changed |
+| The document, with `documentId` | Changes for chunks whose position moved | Changes only for chunks whose text changed |
+
+To re-index a document, compare each chunk's `contentHash` with the one you stored, and embed only the chunks that differ. [Chunk a document](../guides/chunk-document/#ids-and-re-indexing) shows a full example.
+
+## Levels, parents, and children
+
+Most strategies return a flat list of chunks that don't overlap. Two strategies return chunks at several sizes, where a large chunk contains smaller ones:
+
+- `parent-child` returns two levels: large parent chunks, and small child chunks inside them.
+- `hierarchical` returns as many levels as you ask for, or one level per heading depth.
+
+These chunks have three more fields:
+
+| Field | Meaning |
+|---|---|
+| `level` | `0` for the largest chunks, `1` for the chunks inside them, and so on. |
+| `parentId` | The `id` of the chunk that contains this one. Not set at level 0. |
+| `childIds` | The `id`s of the chunks this one contains. |
+
+All levels are returned in one list, sorted by position in the document and then by level, so a parent always comes before the chunks inside it. A common pattern is to embed only the children, and send a matching child's parent to the model:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument({ path: "policy.pdf" }, { strategy: "parent-child" });
+
+const children = chunks.filter((chunk) => chunk.level === 1);
+const chunksById = new Map(chunks.map((chunk) => [chunk.id, chunk]));
+
+// After a search returns a child chunk:
+// const parent = chunksById.get(child.parentId);
+```
+
+To work with the chunks as a tree instead, pass them to [`buildChunkTree`](../reference/build-chunk-tree/).

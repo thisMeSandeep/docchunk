@@ -2,3 +2,213 @@
 title: Quickstart
 description: "Install Doc-chunk and turn your first document into chunks in a few minutes."
 ---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+This page takes you from installing Doc-chunk to reading your first chunks.
+
+## Requirements
+
+- Node.js 22.12 or later, or Bun 1.x.
+- An ES module or CommonJS project. Both work.
+
+## Install
+
+<Tabs syncKey="package-manager">
+<TabItem label="npm">
+```sh
+npm install docchunk
+```
+</TabItem>
+<TabItem label="pnpm">
+```sh
+pnpm add docchunk
+```
+</TabItem>
+<TabItem label="yarn">
+```sh
+yarn add docchunk
+```
+</TabItem>
+<TabItem label="bun">
+```sh
+bun add docchunk
+```
+</TabItem>
+</Tabs>
+
+TypeScript types are included. You don't need a separate `@types` package.
+
+## Chunk a file
+
+Pass a file path to `chunkDocument`:
+
+```ts title="index.ts"
+import { chunkDocument } from "docchunk";
+
+const result = await chunkDocument({ path: "handbook.pdf" });
+
+console.log(`${result.stats.count} chunks`);
+console.log(result.chunks[0]?.text);
+```
+
+`chunkDocument` reads the file, detects its format, converts it to Markdown, and splits it with the default strategy, `structure`. The result has four fields:
+
+| Field | Contents |
+|---|---|
+| `chunks` | The chunks, in document order. |
+| `document` | The document's id, format, and the Markdown the chunks were cut from. |
+| `stats` | The number of chunks, their smallest, largest, and average size, and the time taken. |
+| `warnings` | Problems that didn't stop chunking, such as a scanned PDF with no text. |
+
+The same call works for `.docx`, `.pptx`, `.xlsx`, `.md`, `.txt`, and the other [supported formats](../reference/formats/).
+
+In a CommonJS project, load the library with `require`. Everything else is the same.
+
+```js
+const { chunkDocument } = require("docchunk");
+```
+
+## Chunk Markdown from a string
+
+If your text is already in memory, pass it as `content` with its `format`, either `"markdown"` or `"text"`:
+
+```ts title="index.ts"
+import { chunkDocument } from "docchunk";
+
+const markdown = `# Returns policy
+
+You can return most items within 30 days of delivery.
+
+## Start a return
+
+Sign in, open **Orders**, and choose the item you want to return.
+
+## Refunds
+
+We refund the original payment method within 5 business days.`;
+
+const { chunks } = await chunkDocument({ content: markdown, format: "markdown" });
+
+for (const chunk of chunks) {
+  console.log(chunk.headingPath.join(" > "));
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+Output:
+
+```txt
+Returns policy
+# Returns policy
+
+You can return most items within 30 days of delivery.
+---
+Returns policy > Start a return
+## Start a return
+
+Sign in, open **Orders**, and choose the item you want to return.
+---
+Returns policy > Refunds
+## Refunds
+
+We refund the original payment method within 5 business days.
+---
+```
+
+Each section became its own chunk. The `structure` strategy never puts two sections in one chunk, even when they would fit, so a chunk is always about one topic.
+
+## Read a chunk
+
+Here is the second chunk from the example above, printed with `console.log(JSON.stringify(chunks[1], null, 2))`:
+
+```json
+{
+  "id": "cf2dc8b73713ce568741",
+  "text": "## Start a return\n\nSign in, open **Orders**, and choose the item you want to return.",
+  "index": 1,
+  "start": 73,
+  "end": 157,
+  "charCount": 84,
+  "headingPath": [
+    "Returns policy",
+    "Start a return"
+  ],
+  "blockTypes": [
+    "heading",
+    "paragraph"
+  ],
+  "contentHash": "264d608f5e01b4272d5a",
+  "metadata": {}
+}
+```
+
+The fields you'll use first:
+
+- `text` is what you embed and send to the model.
+- `headingPath` is the list of headings above the chunk. Store it with the embedding, or add it to the text with the [`headingPrefix`](../guides/chunk-document/#options-every-strategy-accepts) option.
+- `id` is stable: the same document and options always give the same id. Use it as the key in your vector database.
+- `contentHash` is a hash of `text`. When you re-index, compare it with the stored hash to find the chunks that changed.
+
+`start` and `end` are positions in `document.markdown`, the Markdown the chunk was cut from. [Chunk a document](../guides/chunk-document/#the-result) describes every field.
+
+## Choose a strategy
+
+The default strategy, `structure`, works well for most documents. To use another one, pass `strategy` in the options:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument({ path: "manual.docx" }, { strategy: "heading" });
+```
+
+Some common choices:
+
+| If you want | Use |
+|---|---|
+| Good general-purpose chunks | `structure` (the default) |
+| One chunk per section of a manual or guide | `heading` |
+| Small chunks for search, each linked to a larger chunk for the model | `parent-child` |
+| One sentence per chunk, with the sentences around it as context | `sentence-window` |
+
+See [Strategies](../strategies/) for all 11, and help choosing.
+
+### Set the chunk size
+
+Sizes are in characters, not tokens. The default `size` for `structure` is 1,500 characters:
+
+```ts
+const { chunks } = await chunkDocument({ path: "handbook.pdf" }, { size: 1000 });
+```
+
+For English prose, a limit of about three characters per token keeps chunks within your embedding model's limit. For example, 1,500 characters for a model that accepts 512 tokens. Use less for code and for languages that don't use the Latin alphabet, which need more tokens per character.
+
+If you set `size` below 200, set `minSize` too: its default is 200, and it can't be larger than `size`.
+
+```ts
+const { chunks } = await chunkDocument({ path: "faq.md" }, { size: 150, minSize: 50 });
+```
+
+## TypeScript: `chunks[0]` may be undefined
+
+If your `tsconfig.json` enables `noUncheckedIndexedAccess`, TypeScript types `chunks[0]` as `Chunk | undefined`, because the array can be empty. For example, a document with no text returns no chunks.
+
+Loop over the chunks, or check the value before you use it:
+
+```ts
+for (const chunk of chunks) {
+  console.log(chunk.text);
+}
+
+const first = chunks[0];
+if (first !== undefined) {
+  console.log(first.text);
+}
+```
+
+## Next steps
+
+- [How it works](../how-it-works/) explains heading paths, sizes, and ids.
+- [Chunk a document](../guides/chunk-document/) covers sources, formats, options, warnings, and errors.
+- [Chunk many documents](../guides/chunk-documents/) shows how to process a folder of files.

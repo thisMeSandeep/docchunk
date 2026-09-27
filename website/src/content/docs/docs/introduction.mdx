@@ -1,4 +1,58 @@
 ---
 title: Introduction
-description: "What Doc-chunk is, what makes it different, and when to use something else."
+description: "What Doc-chunk is, the problems it solves, and when to use something else."
 ---
+
+Doc-chunk is a TypeScript library that splits documents into chunks for retrieval-augmented generation (RAG). You pass it a PDF, an Office file, Markdown, or plain text, and it returns chunks with their text, the headings they belong to, and stable ids. Everything runs on your machine.
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument({ path: "handbook.pdf" });
+```
+
+## The problem
+
+A RAG system answers a question by finding the most relevant passages in your documents and passing them to a language model. Whole documents are too long to embed or to send to the model, so they are split into chunks first. The quality of those chunks decides what the search can find, and so what the model can answer.
+
+Getting good chunks takes more work than it first appears.
+
+**Each format needs its own parser.** PDFs, Word files, slides, and spreadsheets each need a different tool, and each tool returns text in a different shape. Some of the easiest options are hosted APIs, which means sending your documents to someone else's server.
+
+**Simple splitters ignore structure.** Cutting text every 1,000 characters splits sentences in half, separates table rows from their header, breaks code blocks, and joins the end of one section to the start of the next. A chunk like that is a poor match for any question.
+
+**Chunks lose their context.** A chunk that says "Refunds take 5 business days" is much more useful when you know it came from *Returns policy > Refunds*. Most splitters drop the headings.
+
+**Ids that change force a full re-index.** If chunk ids are random, or change whenever anything in the file changes, you have to embed every chunk again after a one-line edit. Embedding costs time and money.
+
+**Different retrieval setups need different chunks.** Small chunks match questions precisely, and large chunks give the model enough context to answer. Many setups need both, linked to each other.
+
+## What Doc-chunk does
+
+Doc-chunk converts every supported format to Markdown, parses it once into blocks (headings, paragraphs, lists, tables, code), and splits it with the strategy you choose.
+
+- **One function for every format.** PDF, Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, CSV, Markdown, and plain text all go through `chunkDocument` and return the same result.
+- **Splitting that follows the document's structure.** The default strategy keeps paragraphs, lists, tables, and code blocks whole, and never puts two sections in one chunk. A table that is too large is split by rows, with the header repeated in each piece.
+- **Heading paths.** Every chunk lists the headings above it, such as `["Returns policy", "Refunds"]`, so you can store them as metadata or add them to the text before embedding.
+- **Stable ids.** The same document and options always give the same chunk ids, on Node.js and on Bun. Each chunk also has a hash of its text, so you can tell which chunks changed and re-embed only those.
+- **11 strategies.** From fixed-size cuts to sentence windows and parent-child chunks, all through the same function and with the same output.
+- **Fully local.** No server, no API key, no network requests, and no telemetry.
+
+PDFs and Office files are converted by [anydoc](https://github.com/firecrawl/anydoc), which runs locally. Markdown and text files are read as they are.
+
+## When to use something else
+
+Doc-chunk is not a good fit in these cases:
+
+- **Scanned documents.** Doc-chunk does not do OCR. A PDF without a text layer returns no chunks and a `NO_TEXT_LAYER` warning. Run OCR first, then pass the text to Doc-chunk.
+- **Sizes in tokens.** Sizes are counted in characters. If a chunk must never go over your embedding model's token limit, leave some margin (see [Sizes are in characters](../how-it-works/#sizes-are-in-characters)) or count tokens after chunking.
+- **Browsers, Deno, and edge runtimes.** Doc-chunk runs on Node.js 22.12 or later, and on Bun.
+- **HTML pages.** HTML is not a supported input. Convert pages to Markdown first.
+- **Semantic chunking.** Doc-chunk splits by structure and size. It does not use embeddings to find topic changes, and it never calls a model.
+
+The full list is on the [Limitations](../limitations/) page.
+
+## Next steps
+
+- [Quickstart](../quickstart/): install Doc-chunk and chunk your first document.
+- [How it works](../how-it-works/): the steps from file to chunks, and the ideas the rest of the docs rely on.
