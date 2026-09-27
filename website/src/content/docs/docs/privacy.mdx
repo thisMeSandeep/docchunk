@@ -2,3 +2,37 @@
 title: Privacy
 description: "What fully local means, and how the tests enforce it."
 ---
+
+Doc-chunk is fully local: your documents never leave your machine. This page explains what that means in practice, and how the project checks it.
+
+## What fully local means
+
+- **No network requests.** The library doesn't import any network module, and doesn't call `fetch`.
+- **No API keys or accounts.** There is no service to sign up for.
+- **Local conversion.** PDFs and Office files are converted by a native binary that runs in your process.
+- **No telemetry.** Doc-chunk doesn't collect usage data or send error reports.
+- **No update checks.** Doc-chunk never checks for new versions.
+
+## Conversion and OCR
+
+Conversion is done by [`@firecrawl/anydoc`](https://github.com/firecrawl/anydoc), which runs on your machine. anydoc has an optional hosted OCR mode that sends scanned documents to Firecrawl's servers. It's off unless a caller turns it on with an option.
+
+Doc-chunk calls anydoc without any options, so the hosted OCR mode is never used. When a PDF has scanned pages, you get a `NO_TEXT_LAYER` warning and no chunks, instead of the document being sent anywhere.
+
+Markdown and plain text never reach anydoc at all: the converter isn't even loaded for them.
+
+## How it's enforced
+
+Three checks run on every commit, in continuous integration, on Node.js 22, Node.js 24, and Bun:
+
+1. **A source check.** A script scans every file in `src/` and fails if any imports `node:net`, `node:http`, `node:https`, or `node:tls`, or mentions `fetch`.
+2. **Tests without a network.** Every test runs with the network APIs blocked: `fetch`, `XMLHttpRequest`, `WebSocket`, and the connection functions of `node:net`, `node:http`, `node:https`, and `node:tls`. Any attempt to use them throws and fails the test. The conversion tests, which convert real PDF, Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, and CSV files, pass under these conditions.
+3. **A loading test.** A test checks that chunking Markdown and plain text never loads anydoc.
+
+These checks cover JavaScript. They can't see inside anydoc's native binary. According to anydoc's documentation, it only uses the network in hosted OCR mode, which Doc-chunk never turns on.
+
+## What you can check yourself
+
+- The library has four runtime dependencies: `@firecrawl/anydoc`, and three packages that parse Markdown (`mdast-util-from-markdown`, `mdast-util-gfm`, and `micromark-extension-gfm`).
+- To see the checks, look at `scripts/check-no-network.ts` and `test/setup/no-network.ts` in the repository.
+- To confirm it yourself, run Doc-chunk with networking disabled, for example in a container started with `--network none`.

@@ -2,3 +2,84 @@
 title: Contributing
 description: "Set up the project, follow its code rules, and run the tests."
 ---
+
+Doc-chunk is open source under the MIT license. Bug reports, fixes, and improvements to the documentation are welcome on [GitHub](https://github.com/thisMeSandeep/docchunk).
+
+## Development setup
+
+You need [Bun](https://bun.sh) for development, and Node.js 22.12 or later to run the tests on Node.
+
+```sh
+git clone https://github.com/thisMeSandeep/docchunk.git
+cd docchunk
+bun install
+```
+
+### Scripts
+
+| Command | What it does |
+|---|---|
+| `bun run test` | Runs the tests on Bun. |
+| `bun run test:node` | Runs the tests on Node.js. |
+| `bun run typecheck` | Type-checks the source and tests. |
+| `bun run lint` | Checks formatting and lint rules with Biome. |
+| `bun run check:network` | Fails if the source uses the network. See [Privacy](../privacy/). |
+| `bun run build` | Builds the package into `dist/` (ESM, CommonJS, and type declarations). |
+| `bun run bench` | Runs the benchmarks. See [Performance](../performance/). |
+| `bun run docs:dev` | Starts the documentation site. Run `bun install` in `website/` first. |
+
+## Before you open a pull request
+
+Run the same checks as continuous integration:
+
+```sh
+bun run typecheck && bun run lint && bun run check:network && bun run test && bun run test:node
+```
+
+CI runs them on Node.js 22, Node.js 24, and Bun. A change is ready when they all pass.
+
+## Tests
+
+Tests use Vitest, so the same tests run on Node.js and on Bun. Add tests with every change.
+
+- **Unit tests** live in `test/`, in folders that match `src/`.
+- **Property tests** in `test/properties.test.ts` use fast-check to generate many random documents, including other languages and emoji, and check rules that must always hold: no chunk is larger than `size`, all the text ends up in chunks, no chunk crosses a section, and the same input always gives the same output.
+- **Snapshot tests** chunk every fixture file with every strategy, and compare the result, including ids, with the files in `test/snapshots/`. They must match on every runtime.
+- **README tests** run every TypeScript example in `README.md` against the source.
+- **Package test** builds the package and loads it with both `import` and `require`.
+
+### Updating snapshots
+
+A change that is meant to change chunk boundaries or ids makes the snapshot tests fail. Update the snapshots with:
+
+```sh
+bun run test -- -u
+```
+
+Check the changed files in `test/snapshots/` before you commit them, and explain in the commit message why the output changed. A changed id means users have to re-embed their documents, so treat it as a breaking change.
+
+## Code rules
+
+The code is written to be read by someone new to the project. The full rules are in `CLAUDE.md` in the repository. In short:
+
+- **Plain functions.** The only class is `DocchunkError`. No factories, base classes, or generic utility layers. The strategy registry is the one internal pattern.
+- **Small units.** Functions under about 40 lines, files under about 250 lines.
+- **Obvious code.** Plain `for` loops and early returns, named intermediate values, and full-word names. Boolean names start with `is`, `has`, or `should`.
+- **Strict types.** No `any`, no non-null assertions (`!`), and no `as` casts unless unavoidable, with a comment saying why.
+- **Short comments.** One line at the top of every file, and one line of JSDoc above every function, saying what it does.
+- **File names** in kebab-case, named after what they contain. One strategy per file.
+- **No network code** in `src/`, and no new dependencies without a recorded reason.
+
+## Changesets
+
+Changes that affect users need a changeset, which describes the change for the changelog and sets the version bump:
+
+```sh
+bun run changeset
+```
+
+Choose the bump: `patch` for fixes, `minor` for new features, and `major` for breaking changes, including any change to chunk ids or boundaries.
+
+## Documentation
+
+The documentation site is in `website/`, built with Astro and Starlight. Pages are MDX files in `website/src/content/docs/docs/`. Every example output shown on the site should come from a real run.

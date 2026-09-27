@@ -2,3 +2,81 @@
 title: Limitations
 description: "What Doc-chunk does not do, and what to use instead."
 ---
+
+Doc-chunk does one job: it turns documents into chunks, on your machine. This page lists what it doesn't do, so you can decide early whether it fits your project, and what to do instead.
+
+## Input
+
+### No OCR
+
+Doc-chunk reads the text layer of a PDF. It doesn't recognize text in images. If any page of a PDF is scanned or contains only images, the whole PDF gives no chunks and a [`NO_TEXT_LAYER`](../reference/warnings/#no_text_layer) warning.
+
+**Instead:** run scanned documents through an OCR tool first, then pass the text to Doc-chunk as `content`.
+
+### Images are left out
+
+Images in Word files, slides, and PDFs aren't described or read. An embedded image is replaced by its alt text, if it has any.
+
+**Instead:** if images carry important content, describe them with a vision model, and add the descriptions to the text before chunking.
+
+### No HTML input
+
+Web pages aren't a supported format.
+
+**Instead:** convert the HTML to Markdown with an HTML-to-Markdown library, then pass it as `{ content, format: "markdown" }`.
+
+### No page or slide numbers
+
+Chunks don't record the page or slide they came from. The converted Markdown has no page markers.
+
+**Instead:** if you need page numbers, split the document into pages yourself, chunk each page's text separately, and add the page number with the `metadata` option.
+
+## Sizes
+
+### Sizes are in characters, not tokens
+
+There is no tokenizer, and no way to measure chunks with a custom function. A chunk that fits within `size` characters can still go over a token limit, especially for code or text that doesn't use the Latin alphabet.
+
+**Instead:** leave a margin. For English prose, about 3 characters per token keeps chunks within the limit: a `size` of 1,500 for a model that accepts 512 tokens. If a limit must never be exceeded, count the tokens of each chunk after chunking.
+
+### Sentence boundaries use English rules
+
+Sentences are found with `Intl.Segmenter`, set to English for every document, so the chunks are the same on every machine. It can end a sentence after an abbreviation such as "Dr." or "e.g.", and may split text in other languages less accurately.
+
+**Instead:** strategies that pack sentences up to a size, such as `structure` or `sentence` with `size`, hide most of these splits.
+
+## Runtimes and platforms
+
+### Node.js and Bun only
+
+Doc-chunk needs Node.js 22.12 or later, or Bun 1.x. It doesn't run in browsers, in Deno, or in edge runtimes such as Cloudflare Workers.
+
+**Instead:** chunk documents on a server or in a build step, and send the chunks where you need them.
+
+### Conversion needs a supported platform
+
+PDFs and Office files are converted by a native binary, available for macOS, Linux (glibc and musl), and Windows x64. On other platforms, such as Windows on ARM, Doc-chunk can chunk Markdown and plain text, but converting other formats fails with `CONVERSION_FAILED`.
+
+## Scope
+
+### No embeddings or vector databases
+
+Doc-chunk doesn't create embeddings, call language models, or connect to vector databases. It gives you chunks, and you store them with the tools you already use.
+
+### No semantic chunking
+
+Chunks follow the document's structure and size limits. Doc-chunk doesn't use embeddings to find where topics change.
+
+### No streaming
+
+The whole document is converted and parsed in memory before any chunk is returned. Parsing uses about 200 to 240 times the size of the text: roughly 250 MB for 1 MB of Markdown. See [Performance](../performance/).
+
+**Instead:** for very large files, lower `concurrency` in `chunkDocuments`, or split the file before chunking.
+
+### No custom strategies
+
+The 11 strategies are built in. You can't register your own yet.
+
+## Cancelling
+
+A [`signal`](../guides/chunk-document/#signal) is checked between the steps of chunking, so a step that has started, such as converting a large PDF, runs to the end first. In `chunkDocuments`, a timeout can't stop a batch made only of `content` strings, because the batch never gives the JavaScript thread a break for the timer to fire. See [Cancel a batch](../guides/chunk-documents/#cancel-a-batch).

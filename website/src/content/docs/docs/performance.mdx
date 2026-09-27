@@ -2,3 +2,45 @@
 title: Performance
 description: "Measured speed and memory use, and how to run the benchmarks."
 ---
+
+This page gives measured chunking times and memory use, explains what they depend on, and shows how to run the benchmarks yourself.
+
+## Speed
+
+Times to chunk 1 MB of Markdown already in memory. Converting a PDF or Office file to Markdown comes on top of this.
+
+| Input | Strategy | Node.js 24 | Bun |
+|---|---|---|---|
+| 1 MB of prose | `structure` (default) | 0.5 s | 0.7 s |
+| 1 MB of prose | each of the other 10 strategies | 0.5 to 0.7 s | 0.5 to 0.6 s |
+| 1 MB of one table, like a converted spreadsheet | `structure` (default) | 1.9 s | 1.8 s |
+
+The prose is a real article repeated to 1 MB. The table has five columns and about 18,000 rows.
+
+Times vary with the machine, so treat these as a guide to the relative cost, and run the benchmarks on your own hardware for absolute numbers.
+
+## Memory
+
+While chunking 1 MB of prose with the default strategy, the process's peak memory grew by 210 MB on Bun and 250 MB on Node.js: 200 to 240 times the size of the text. Memory use grows with the size of the document.
+
+When you chunk several documents at once with [`chunkDocuments`](../guides/chunk-documents/#large-files), each document in progress needs its own memory. For large files, lower `concurrency`.
+
+## Where the time goes
+
+Almost all of the time and memory goes to parsing the Markdown into a syntax tree, which happens once per document, for every strategy. That's why all strategies take about the same time, and why the time for parsing alone is about the same as for the whole `structure` strategy.
+
+Tables are slower than prose, because a megabyte of table has far more cells, and so far more parts to parse, than a megabyte of paragraphs.
+
+For typical documents, from a few pages to a few hundred, chunking takes milliseconds to a fraction of a second. Conversion time depends on the file, and is usually the larger part for PDFs and Office files.
+
+## Run the benchmarks
+
+The benchmarks are in `bench/run.ts` in the repository. From a clone of the repository:
+
+```sh
+bun install
+bun run bench        # on Bun
+bun run bench:node   # on Node.js
+```
+
+They print the peak memory growth for the default strategy, then the time per run and per megabyte for each task.
