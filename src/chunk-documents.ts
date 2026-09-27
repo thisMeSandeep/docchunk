@@ -1,13 +1,11 @@
 // chunkDocuments: chunks several documents, a few at a time. One failed document does not stop the others.
 import { checkAborted } from "./check-aborted";
 import { chunkWithResolvedOptions } from "./chunk-document";
+import { defaultConcurrency } from "./config";
 import { DocchunkError } from "./errors";
 import { checkPositiveInteger } from "./options/option-checks";
 import { type ResolvedOptions, resolveOptions } from "./options/resolve-options";
 import type { BatchItem, ChunkOptions, DocumentSource } from "./types";
-
-/** Documents chunked at the same time when the caller does not set `concurrency`. */
-const defaultConcurrency = 4;
 
 /** Options for chunkDocuments: the options for every document, plus how many to chunk at once. */
 export type BatchOptions = ChunkOptions & {

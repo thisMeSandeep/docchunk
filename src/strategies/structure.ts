@@ -1,4 +1,5 @@
 // The structure strategy (the default): packs whole blocks into chunks up to `size`, never across a section.
+import { strategyDefaults } from "../config";
 import { getSentenceUnits } from "../ir/sentence-units";
 import {
   checkAtMost,
@@ -14,7 +15,7 @@ import type { StrategyDefinition } from "./strategy-types";
 
 export const structureStrategy: StrategyDefinition<"structure"> = {
   name: "structure",
-  defaults: { size: 1500, minSize: 200, overlapChars: 0, headingLevel: 3 },
+  defaults: strategyDefaults.structure,
   validate: (options) => {
     checkPositiveInteger("size", options.size);
     checkPositiveInteger("minSize", options.minSize);

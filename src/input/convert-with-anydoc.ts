@@ -1,14 +1,12 @@
 // Converts office documents and PDFs to Markdown with anydoc, which is loaded only when first needed.
 // A type-only import is erased at build time, so it does not load anydoc.
 import type { Format } from "@firecrawl/anydoc";
+import { minimumPdfTextChars } from "../config";
 import { DocchunkError } from "../errors";
 import type { ChunkWarning, DocumentFormat } from "../types";
 import { checkedFormat } from "./detect-format";
 
 type Anydoc = typeof import("@firecrawl/anydoc");
-
-/** A PDF with fewer non-whitespace characters than this is treated as scanned (PRD 7.6). */
-const minimumPdfTextChars = 100;
 
 /** The first bytes of an OLE file: the container of old Office formats such as .xls. */
 const oleSignature = [0xd0, 0xcf, 0x11, 0xe0];

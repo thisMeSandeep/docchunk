@@ -1,8 +1,9 @@
 // Splits the document into sentence units, the pieces that sentence-based strategies work with.
+import { segmenterLocale } from "../config";
 import type { Block, DocumentIR, Range, Unit } from "./ir-types";
 
-// A fixed locale keeps sentence boundaries the same on every machine.
-const sentenceSegmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+// The locale comes from the config, so boundaries are the same on every machine.
+const sentenceSegmenter = new Intl.Segmenter(segmenterLocale, { granularity: "sentence" });
 
 /** Matches a list item marker and the spaces after it: "- ", "* ", "+ ", "1. ", or "1) ". */
 const listMarkerPattern = /^(?:[-*+]|\d{1,9}[.)])[ \t]+/;

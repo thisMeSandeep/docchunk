@@ -1,11 +1,12 @@
 // The sliding-window strategy: a window of `size` characters that moves forward `step` characters at a time.
+import { strategyDefaults } from "../config";
 import { checkAtMost, checkOneOf, checkPositiveInteger } from "../options/option-checks";
 import { fixedOverlapStrategy } from "./fixed-overlap";
 import type { StrategyDefinition } from "./strategy-types";
 
 export const slidingWindowStrategy: StrategyDefinition<"sliding-window"> = {
   name: "sliding-window",
-  defaults: { size: 1500, step: 750, boundary: "word" },
+  defaults: strategyDefaults["sliding-window"],
   validate: (options) => {
     checkPositiveInteger("size", options.size);
     checkPositiveInteger("step", options.step);

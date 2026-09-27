@@ -21,11 +21,15 @@ export function splitCode(markdown: string, code: Block, size: number): RawChunk
   if (lineBudget < 1) {
     return splitWithoutRepeatingFences(markdown, code, lines, size);
   }
+  const firstLineStart = lines[0]?.start;
+  const lastLineEnd = lines.at(-1)?.end;
   const pieces: RawChunk[] = [];
   for (const group of groupParts(lines, lineBudget)) {
-    // A fence is "in place" when the piece's own range can take it from the block, not as a prefix or suffix.
-    const isOpeningInPlace = isAtBlockStart(code, fences.opening, group);
-    const isClosingInPlace = isAtBlockEnd(code, fences.closing, group);
+    // A fence is "in place" when the first or last group can take it from the block's own range,
+    // instead of repeating it as a prefix or suffix.
+    const isOpeningInPlace =
+      group.start === firstLineStart && isFenceInsideBlock(code, fences.opening);
+    const isClosingInPlace = group.end === lastLineEnd && isFenceInsideBlock(code, fences.closing);
     if (group.isOversized) {
       // A line too large for `size` cannot carry the fences, so a fence next to it becomes its own piece.
       if (isOpeningInPlace && fences.opening !== undefined) {
@@ -42,20 +46,12 @@ export function splitCode(markdown: string, code: Block, size: number): RawChunk
   return pieces;
 }
 
-/** Returns true when the group starts the block: right after an opening fence inside the block, or at the block start. */
-function isAtBlockStart(code: Block, opening: Range | undefined, group: Range): boolean {
-  if (opening === undefined) {
-    return group.start === code.start;
+/** Returns true when there is no fence, or the fence lies inside the block's range (it was not cut away). */
+function isFenceInsideBlock(code: Block, fence: Range | undefined): boolean {
+  if (fence === undefined) {
+    return true;
   }
-  return opening.start === code.start && group.start === opening.end + 1;
-}
-
-/** Returns true when the group ends the block: right before a closing fence inside the block, or at the block end. */
-function isAtBlockEnd(code: Block, closing: Range | undefined, group: Range): boolean {
-  if (closing === undefined) {
-    return group.end === code.end;
-  }
-  return closing.end === code.end && group.end + 1 === closing.start;
+  return fence.start >= code.start && fence.end <= code.end;
 }
 
 /** Returns a piece of lines wrapped in the fences. A fence in place is taken from the block itself. */

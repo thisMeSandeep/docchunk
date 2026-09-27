@@ -1,5 +1,6 @@
 // chunkDocument: turns one document into chunks.
 import { checkAborted } from "./check-aborted";
+import { defaultHeadingLevel } from "./config";
 import { loadDocument } from "./input/load-document";
 import type { DocumentIR } from "./ir/ir-types";
 import { normalizeMarkdown } from "./ir/normalize-markdown";
@@ -21,9 +22,6 @@ import type {
   DocumentSource,
   StrategyName,
 } from "./types";
-
-/** Heading level used to number sections when the strategy has no headingLevel option. */
-const defaultHeadingLevel = 3;
 
 /** Converts one document to Markdown (if needed) and splits it into chunks. */
 export async function chunkDocument(

@@ -1,9 +1,10 @@
 // Cuts a range into pieces of at most `size` characters without splitting a grapheme (one character as a reader sees it).
+import { segmenterLocale } from "../config";
 import type { Range } from "../ir/ir-types";
 import { measure } from "../output/measure";
 
-// A fixed locale keeps grapheme boundaries the same on every machine.
-const graphemeSegmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
+// The locale comes from the config, so boundaries are the same on every machine.
+const graphemeSegmenter = new Intl.Segmenter(segmenterLocale, { granularity: "grapheme" });
 
 /** Returns pieces covering the range, each at most `size`. A single grapheme larger than `size` gets its own piece. */
 export function hardCut(markdown: string, range: Range, size: number): Range[] {

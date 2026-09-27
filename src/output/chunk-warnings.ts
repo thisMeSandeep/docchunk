@@ -1,11 +1,9 @@
 // Warnings about single chunks: OVERSIZED_BLOCK for hard cuts, LARGE_CHUNK for large chunks with no size limit.
+import { largeChunkChars } from "../config";
 import { noSizeLimit } from "../options/option-checks";
 import type { ResolvedOptions } from "../options/resolve-options";
 import type { RawChunk } from "../strategies/strategy-types";
 import type { Chunk, ChunkWarning } from "../types";
-
-/** Chunks larger than this get a LARGE_CHUNK warning when the strategy has no size limit (PRD 6.4). */
-const largeChunkChars = 8000;
 
 /** Returns the warnings for one chunk: OVERSIZED_BLOCK for a hard cut, LARGE_CHUNK for a large chunk with no size limit. */
 export function chunkWarnings(

@@ -1,4 +1,5 @@
 // The recursive strategy: splits on separators, then sentences, then spaces, then a hard cut, until pieces fit.
+import { segmenterLocale, strategyDefaults } from "../config";
 import type { Range } from "../ir/ir-types";
 import {
   checkLessThan,
@@ -10,8 +11,8 @@ import { measure } from "../output/measure";
 import { cutAtSize } from "../splitting/cut-at-size";
 import type { RawChunk, StrategyDefinition } from "./strategy-types";
 
-// A fixed locale keeps sentence boundaries the same on every machine.
-const sentenceSegmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+// The locale comes from the config, so boundaries are the same on every machine.
+const sentenceSegmenter = new Intl.Segmenter(segmenterLocale, { granularity: "sentence" });
 
 /** One way of splitting a range: at a separator string, or at sentence boundaries. */
 type SplitLevel = { kind: "separator"; separator: string } | { kind: "sentence" };
@@ -26,11 +27,7 @@ interface SplitContext {
 
 export const recursiveStrategy: StrategyDefinition<"recursive"> = {
   name: "recursive",
-  defaults: {
-    size: 1500,
-    overlapChars: 0,
-    separators: ["\n# ", "\n## ", "\n### ", "\n#### ", "\n\n", "\n"],
-  },
+  defaults: strategyDefaults.recursive,
   validate: (options) => {
     checkPositiveInteger("size", options.size);
     checkNonNegativeInteger("overlapChars", options.overlapChars);

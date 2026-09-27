@@ -1,4 +1,5 @@
 // The sentence strategy: one chunk per sentence unit. With `size`, packs consecutive units in the same section.
+import { strategyDefaults } from "../config";
 import type { DocumentIR, Unit } from "../ir/ir-types";
 import { getSentenceUnits } from "../ir/sentence-units";
 import {
@@ -17,7 +18,7 @@ import type { SectionChunk, StrategyDefinition } from "./strategy-types";
 
 export const sentenceStrategy: StrategyDefinition<"sentence"> = {
   name: "sentence",
-  defaults: { size: noSizeLimit, minSize: 1, overlapChars: 0 },
+  defaults: strategyDefaults.sentence,
   validate: (options) => {
     checkSizeOrNoLimit("size", options.size);
     checkPositiveInteger("minSize", options.minSize);

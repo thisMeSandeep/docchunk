@@ -1,11 +1,12 @@
 // The fixed strategy: cuts the Markdown every `size` characters, ignoring structure.
+import { strategyDefaults } from "../config";
 import { checkOneOf, checkPositiveInteger } from "../options/option-checks";
 import { cutAtSize } from "../splitting/cut-at-size";
 import type { RawChunk, StrategyDefinition } from "./strategy-types";
 
 export const fixedStrategy: StrategyDefinition<"fixed"> = {
   name: "fixed",
-  defaults: { size: 1500, boundary: "word" },
+  defaults: strategyDefaults.fixed,
   validate: (options) => {
     checkPositiveInteger("size", options.size);
     checkOneOf("boundary", options.boundary, ["word", "char"]);

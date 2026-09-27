@@ -1,4 +1,5 @@
 // The sentence-window strategy: one chunk per sentence unit, with the units around it in the same section as context.
+import { strategyDefaults } from "../config";
 import type { DocumentIR, Unit } from "../ir/ir-types";
 import { getSentenceUnits } from "../ir/sentence-units";
 import { checkNonNegativeInteger } from "../options/option-checks";
@@ -6,7 +7,7 @@ import type { RawChunk, StrategyDefinition } from "./strategy-types";
 
 export const sentenceWindowStrategy: StrategyDefinition<"sentence-window"> = {
   name: "sentence-window",
-  defaults: { windowSize: 3 },
+  defaults: strategyDefaults["sentence-window"],
   validate: (options) => {
     checkNonNegativeInteger("windowSize", options.windowSize);
   },

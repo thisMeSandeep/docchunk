@@ -1,10 +1,8 @@
 // Checks the caller's options before defaults are applied: the strategy name, unknown options, and common options.
+import { defaultStrategy } from "../config";
 import { DocchunkError } from "../errors";
 import { strategyRegistry } from "../strategies/registry";
 import type { StrategyName } from "../types";
-
-/** The strategy used when the caller does not name one (PRD 6.1). */
-const defaultStrategyName: StrategyName = "structure";
 
 /** Names of the options every strategy accepts. */
 const commonOptionNames = ["metadata", "documentId", "headingPrefix", "signal"];
@@ -32,7 +30,7 @@ export function readOptionValues(options: unknown): Map<string, unknown> {
 /** Returns the strategy name, or the default strategy when none is given. Throws if it is not a registered strategy. */
 export function readStrategyName(value: unknown): StrategyName {
   if (value === undefined) {
-    return defaultStrategyName;
+    return defaultStrategy;
   }
   if (!isStrategyName(value)) {
     const allowedList = Object.keys(strategyRegistry)

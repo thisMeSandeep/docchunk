@@ -114,6 +114,22 @@ describe("hierarchical by size", () => {
     expectLinksAgree(result);
   });
 
+  it("keeps an in-place code fence covered when a blank line after it is cut away (found by fast-check)", async () => {
+    // The children are cut from the parent's range, which drops the blank line after the fence.
+    const content = "```\n\n# Heading one\n   ";
+    const result = await chunkDocument(
+      { content, format: "markdown" },
+      { strategy: "parent-child", parentSize: 287, childSize: 5 },
+    );
+    for (const level of [0, 1]) {
+      const covered = atLevel(result, level).map((chunk) =>
+        result.document.markdown.slice(chunk.start, chunk.end),
+      );
+      expect(covered.join("")).toContain("```");
+    }
+    expectLinksAgree(result);
+  });
+
   it("keeps every level within its size with headingPrefix on", async () => {
     const result = await chunkFixture(
       "large-table.md",

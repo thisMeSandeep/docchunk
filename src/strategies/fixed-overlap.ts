@@ -1,4 +1,5 @@
 // The fixed-overlap strategy: like fixed, but consecutive chunks share `overlapChars` characters.
+import { strategyDefaults } from "../config";
 import {
   checkLessThan,
   checkNonNegativeInteger,
@@ -10,7 +11,7 @@ import type { RawChunk, StrategyDefinition } from "./strategy-types";
 
 export const fixedOverlapStrategy: StrategyDefinition<"fixed-overlap"> = {
   name: "fixed-overlap",
-  defaults: { size: 1500, overlapChars: 200, boundary: "word" },
+  defaults: strategyDefaults["fixed-overlap"],
   validate: (options) => {
     checkPositiveInteger("size", options.size);
     checkNonNegativeInteger("overlapChars", options.overlapChars);

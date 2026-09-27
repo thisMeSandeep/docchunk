@@ -1,11 +1,9 @@
 // Cuts a range of text into pieces of at most `size` characters, ignoring Markdown structure.
+import { wordBoundarySearchShare } from "../config";
 import type { Range } from "../ir/ir-types";
 
 /** Where a cut may fall: at a word boundary when possible, or at exactly `size`. */
 export type CutBoundary = "word" | "char";
-
-/** Share of the piece, at its end, searched for whitespace when cutting at a word boundary. */
-const wordSearchShare = 0.1;
 
 /** Returns pieces covering the range, each at most `size` characters. Consecutive pieces share `overlapChars`. */
 export function cutAtSize(
@@ -73,9 +71,9 @@ function findCut(
   return cut;
 }
 
-/** Returns the cut just after the last whitespace in the final 10% of the piece, or undefined if there is none. */
+/** Returns the cut just after the last whitespace near the end of the piece (`wordBoundarySearchShare` in config), or undefined if there is none. */
 function lastWhitespaceCut(text: string, maxEnd: number, size: number): number | undefined {
-  const searchLength = Math.max(1, Math.ceil(size * wordSearchShare));
+  const searchLength = Math.max(1, Math.ceil(size * wordBoundarySearchShare));
   const searchStart = maxEnd - searchLength;
   for (let index = maxEnd - 1; index >= searchStart; index--) {
     if (isWhitespace(text, index)) {

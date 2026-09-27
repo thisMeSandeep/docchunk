@@ -1,5 +1,6 @@
 // The hierarchical strategy: nested chunks at several sizes, or following the heading tree (PRD 6.2).
 import { checkAborted } from "../check-aborted";
+import { hierarchicalLevelMinSize, strategyDefaults } from "../config";
 import type { Block, DocumentIR, Range } from "../ir/ir-types";
 import {
   checkDecreasingSizes,
@@ -13,12 +14,9 @@ import { buildSectionTree } from "../splitting/section-tree";
 import type { RawChunk, StrategyDefinition } from "./strategy-types";
 import { structureStrategy } from "./structure";
 
-/** minSize used for each level's structure run, unless the level's size is smaller. */
-const levelMinSize = 200;
-
 export const hierarchicalStrategy: StrategyDefinition<"hierarchical"> = {
   name: "hierarchical",
-  defaults: { by: "size", levels: [6000, 1500, 400], headingLevel: 3, leafSize: 1500 },
+  defaults: strategyDefaults.hierarchical,
   validate: (options) => {
     checkOneOf("by", options.by, ["size", "heading"]);
     checkDecreasingSizes("levels", options.levels);
@@ -110,7 +108,7 @@ function structureAtSize(
 ): RawChunk[] {
   const options = {
     size,
-    minSize: Math.min(levelMinSize, size),
+    minSize: Math.min(hierarchicalLevelMinSize, size),
     overlapChars: 0,
     headingLevel,
   };
