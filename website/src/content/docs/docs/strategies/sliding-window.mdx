@@ -2,3 +2,121 @@
 title: Sliding window
 description: "A window of size characters that moves forward step characters at a time."
 ---
+
+`sliding-window` moves a window of `size` characters through the text, `step` characters at a time. Each position of the window is a chunk.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "notes.txt" },
+  { strategy: "sliding-window", size: 1000, step: 500 },
+);
+```
+
+## When to use it
+
+Use `sliding-window` for text without structure when you want every part of the text to appear in more than one chunk, so that a passage is complete in at least one of them wherever it falls. With `step` at half of `size`, the default, most characters are in two chunks.
+
+For documents with structure, prefer [`structure`](../structure/). For fewer, less overlapping chunks, use [`fixed-overlap`](../fixed-overlap/) with a small overlap.
+
+## How it works
+
+`sliding-window` is [`fixed-overlap`](../fixed-overlap/) with an overlap of `size - step`:
+
+1. The first chunk is the first `size` characters, moved back to a word boundary with `boundary: "word"`.
+2. Each following chunk starts `size - step` characters before the end of the previous one, which is about `step` characters after the previous start.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "sliding-window", size: 200, step: 100 },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you
+---
+their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment
+---
+ou want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item |
+---
+ent method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | `1500` | Characters in each window. A positive integer. |
+| `step` | `number` | `750` | Characters the window moves forward each time. A positive integer, at most `size`. |
+| `boundary` | `"word"` or `"char"` | `"word"` | `"word"` moves a cut back to a space near the end of the chunk. `"char"` cuts at exactly `size`. |
+
+## Good to know
+
+- **The step isn't exact with word boundaries.** When a window's end moves back to a space, the next window starts earlier by the same amount.
+- **Chunks can start in the middle of a word,** as in `fixed-overlap`.
+- **With `step` equal to `size`,** windows don't overlap, and the result is the same as `fixed`.
+
+## Related strategies
+
+- [`fixed-overlap`](../fixed-overlap/): the same strategy, set by the overlap instead of the step.
+- [`fixed`](../fixed/): windows with no overlap.

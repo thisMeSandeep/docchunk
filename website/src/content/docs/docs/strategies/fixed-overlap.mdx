@@ -2,3 +2,109 @@
 title: Fixed overlap
 description: "Like fixed, but consecutive chunks share a set number of characters."
 ---
+
+`fixed-overlap` cuts the text into pieces of `size` characters, like [`fixed`](../fixed/), but each chunk starts `overlapChars` characters before the previous one ended. Text near each cut appears in two chunks.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "notes.txt" },
+  { strategy: "fixed-overlap", size: 1000, overlapChars: 150 },
+);
+```
+
+## When to use it
+
+Use `fixed-overlap` for text without structure when a sentence cut in half by `fixed` would be lost. With overlap, the text on both sides of every cut is complete in at least one chunk, as long as it's shorter than `overlapChars`.
+
+For documents with structure, [`structure`](../structure/) with `overlapChars` gives overlap of whole sentences instead.
+
+## How it works
+
+1. The first chunk is cut as in `fixed`: at `size` characters, moved back to a word boundary with `boundary: "word"`.
+2. Each following chunk starts `overlapChars` characters before the end of the previous chunk, and is cut the same way.
+3. `size` includes the overlap: every chunk is at most `size` characters long.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "fixed-overlap", size: 200, overlapChars: 50 },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you
+---
+ign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item.
+---
+thod within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+Each chunk after the first repeats the last 50 characters of the chunk before it.
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | `1500` | Maximum characters per chunk, including the overlap. A positive integer. |
+| `overlapChars` | `number` | `200` | Characters each chunk repeats from the end of the previous one. An integer from 0, less than `size`. |
+| `boundary` | `"word"` or `"char"` | `"word"` | `"word"` moves a cut back to a space near the end of the chunk. `"char"` cuts at exactly `size`. |
+
+## Good to know
+
+- **Chunks can start in the middle of a word.** `boundary` moves where each chunk ends, but each chunk starts exactly `overlapChars` before the previous end, as in the example above.
+- **More overlap means more chunks.** Each chunk adds `size - overlapChars` new characters, so an overlap of half the size roughly doubles the number of chunks.
+- **With `overlapChars: 0`,** `fixed-overlap` gives the same chunks as `fixed`.
+
+## Related strategies
+
+- [`fixed`](../fixed/): the same cuts, without overlap.
+- [`sliding-window`](../sliding-window/): the same strategy, set by the step between chunks instead of the overlap.

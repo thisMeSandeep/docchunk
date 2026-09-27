@@ -2,3 +2,98 @@
 title: Strategies
 description: "Eleven ways to split a document into chunks, and how to choose between them."
 ---
+
+A strategy decides where each chunk starts and ends. Doc-chunk has 11. They all use the same function, accept the same sources, and return the same result, so you can switch strategy by changing one option:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "handbook.pdf" },
+  { strategy: "sentence-window" },
+);
+```
+
+Without a `strategy` option, Doc-chunk uses [`structure`](./structure/).
+
+## Which strategy to use
+
+Start with `structure`. It works well for most documents and most retrieval setups. Change it when you have a specific reason:
+
+| If you want | Use |
+|---|---|
+| Good general-purpose chunks | [`structure`](./structure/) |
+| One chunk per section, such as one per article in a knowledge base | [`heading`](./heading/) |
+| One chunk per paragraph, list, or table, such as one per FAQ answer | [`paragraph`](./paragraph/) |
+| Small, precise chunks for search over prose | [`sentence`](./sentence/) |
+| Search on single sentences, with the sentences around each match for the model | [`sentence-window`](./sentence-window/) |
+| Small chunks for search, each linked to a larger chunk for the model | [`parent-child`](./parent-child/) |
+| Chunks at three or more sizes, or one chunk for every section and subsection | [`hierarchical`](./hierarchical/) |
+| The same behavior as the recursive character splitters in other libraries | [`recursive`](./recursive/) |
+| A simple baseline to compare the other strategies against | [`fixed`](./fixed/) |
+| Fixed-size chunks that share some text at each cut | [`fixed-overlap`](./fixed-overlap/) |
+| Overlapping windows that cover every part of the text more than once | [`sliding-window`](./sliding-window/) |
+
+[Compare strategies](./compare/) runs all 11 on the same document, so you can see the differences side by side.
+
+## All strategies
+
+| Strategy | Splits by | Follows structure | Default size | Output |
+|---|---|---|---|---|
+| `structure` | Whole blocks, packed up to `size` | Yes | 1,500 | Flat list |
+| `heading` | Sections | Yes | No limit | Flat list |
+| `paragraph` | Blocks | Yes | No limit | Flat list |
+| `sentence` | Sentences | Yes | No limit | Flat list |
+| `sentence-window` | Sentences | Yes | No limit | Flat list, with `contextText` |
+| `parent-child` | Whole blocks, at two sizes | Yes | 4,000 and 800 | Two levels |
+| `hierarchical` | Whole blocks at several sizes, or sections | Yes | 6,000, 1,500, and 400 | Several levels |
+| `recursive` | Separators, then sentences, then spaces | Partly | 1,500 | Flat list |
+| `fixed` | Character count | No | 1,500 | Flat list |
+| `fixed-overlap` | Character count, with overlap | No | 1,500 | Flat list |
+| `sliding-window` | Character count, moving by `step` | No | 1,500 | Flat list |
+
+A strategy that follows structure never puts two sections in one chunk, keeps tables, lists, and code blocks whole when they fit, and splits a block that is too large along its rows, items, lines, or sentences. `recursive` splits at headings and blank lines first, but it can join small sections into one chunk and doesn't repeat table headers. The last three ignore structure and cut the text by length.
+
+All sizes are in characters. See [Sizes are in characters](../how-it-works/#sizes-are-in-characters).
+
+## Options
+
+Each strategy has its own options, listed on its page. Pass them next to `strategy`:
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "handbook.pdf" },
+  { strategy: "parent-child", parentSize: 3000, childSize: 600 },
+);
+```
+
+In TypeScript, the options type depends on `strategy`, so your editor suggests only the options of the strategy you chose, and flags the others. At runtime, an option the strategy doesn't accept throws an `INVALID_OPTIONS` error.
+
+The options `metadata`, `documentId`, `headingPrefix`, and `signal` work with every strategy. See [Options every strategy accepts](../guides/chunk-document/#options-every-strategy-accepts).
+
+## The example document
+
+Every strategy page runs the strategy on the same short file, `returns-policy.md`, so you can compare the results:
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+The file is 468 characters long, so the examples use small sizes to show how each strategy splits it. In real use, sizes of 500 to 2,000 characters are more common.

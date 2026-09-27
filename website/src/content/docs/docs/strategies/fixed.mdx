@@ -2,3 +2,108 @@
 title: Fixed
 description: "Cuts the text every size characters, ignoring the document's structure."
 ---
+
+`fixed` cuts the document's Markdown into pieces of `size` characters, from start to end. It ignores headings, paragraphs, tables, and every other part of the structure.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "notes.txt" },
+  { strategy: "fixed", size: 1000 },
+);
+```
+
+## When to use it
+
+Use `fixed` as a baseline: chunk your documents with `fixed` and with another strategy, and compare the retrieval quality. It's also fine for text with no structure at all, where every part is equally important, such as logs.
+
+Don't use it for documents with headings, lists, or tables. Its chunks cut through sentences, list items, and table rows, and mix the end of one section with the start of the next.
+
+## How it works
+
+1. The first chunk is the first `size` characters of `document.markdown`, the next chunk the following `size` characters, and so on.
+2. With `boundary: "word"`, the default, a cut that falls inside a word moves back to just after the last space or line break within the last 10% of the chunk. If there's none, the cut stays at `size`.
+3. With `boundary: "char"`, every cut is at exactly `size` characters.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "fixed", size: 200 },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you
+---
+want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund
+---
+|
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+The first cut falls in the middle of a list item, and the second in the middle of the table's header row.
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | `1500` | Maximum characters per chunk. A positive integer. |
+| `boundary` | `"word"` or `"char"` | `"word"` | `"word"` moves a cut back to a space near the end of the chunk. `"char"` cuts at exactly `size`. |
+
+## Good to know
+
+- **Chunks can be shorter than `size`.** Word boundaries move cuts back, and spaces and line breaks at the start and end of each chunk are removed.
+- **Emoji are never cut in half.** A cut never falls inside a character that JavaScript stores as two code units, such as an emoji.
+- **`headingPath` still works.** Each chunk lists the headings above its start, even though the cuts ignore them.
+
+## Related strategies
+
+- [`fixed-overlap`](../fixed-overlap/): the same cuts, with some text repeated between neighboring chunks.
+- [`sliding-window`](../sliding-window/): windows that move by a set step.
+- [`structure`](../structure/): chunks of a set size that follow the structure.

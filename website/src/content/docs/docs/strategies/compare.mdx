@@ -2,3 +2,171 @@
 title: Compare strategies
 description: "All 11 strategies run on the same document, side by side."
 ---
+
+This page runs every strategy on the same short document, so you can see where each one puts its chunk boundaries. The size-based strategies use sizes of 100 to 400 characters, because the document is small.
+
+## The document
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+## Results
+
+| Strategy | Options | Chunks | Smallest | Largest |
+|---|---|---|---|---|
+| [`structure`](../structure/) | `{ size: 200, minSize: 50 }` | 4 | 82 | 128 |
+| [`heading`](../heading/) | Defaults | 3 | 125 | 212 |
+| [`paragraph`](../paragraph/) | Defaults | 4 | 82 | 128 |
+| [`sentence`](../sentence/) | Defaults | 8 | 31 | 83 |
+| [`sentence-window`](../sentence-window/) | Defaults | 8 | 31 | 83 |
+| [`parent-child`](../parent-child/) | `{ parentSize: 300, childSize: 100 }` | 10 | 32 | 212 |
+| [`hierarchical`](../hierarchical/) | `{ levels: [400, 150, 100] }` | 14 | 32 | 212 |
+| [`recursive`](../recursive/) | `{ size: 200 }` | 4 | 82 | 128 |
+| [`fixed`](../fixed/) | `{ size: 200 }` | 3 | 66 | 200 |
+| [`fixed-overlap`](../fixed-overlap/) | `{ size: 200, overlapChars: 50 }` | 3 | 167 | 200 |
+| [`sliding-window`](../sliding-window/) | `{ size: 200, step: 100 }` | 4 | 173 | 200 |
+
+## Chunk boundaries
+
+Each line is one chunk: its size in characters, then its first and last lines. Chunks inside a larger chunk are indented.
+
+```txt
+## structure: 4 chunks, 82 to 128 chars
+125 | # Returns policy … You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+126 | ## Start a return … 3. Print the prepaid shipping label.
+128 | ## Refunds … We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+82 | | Item | Refund | … | Opened item | 80% |
+## heading: 3 chunks, 125 to 212 chars
+125 | # Returns policy … You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+126 | ## Start a return … 3. Print the prepaid shipping label.
+212 | ## Refunds … | Opened item | 80% |
+## paragraph: 4 chunks, 82 to 128 chars
+125 | # Returns policy … You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+126 | ## Start a return … 3. Print the prepaid shipping label.
+128 | ## Refunds … We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+82 | | Item | Refund | … | Opened item | 80% |
+## sentence: 8 chunks, 31 to 83 chars
+53 | You can return most items within 30 days of delivery.
+53 | Items must be unused and in their original packaging.
+31 | 1. Sign in and open **Orders**.
+38 | 2. Choose the item you want to return.
+36 | 3. Print the prepaid shipping label.
+83 | We refund the original payment method within 5 business days of receiving the item.
+32 | Shipping costs are not refunded.
+82 | | Item | Refund | … | Opened item | 80% |
+## sentence-window: 8 chunks, 31 to 83 chars
+53 | You can return most items within 30 days of delivery.
+53 | Items must be unused and in their original packaging.
+31 | 1. Sign in and open **Orders**.
+38 | 2. Choose the item you want to return.
+36 | 3. Print the prepaid shipping label.
+83 | We refund the original payment method within 5 business days of receiving the item.
+32 | Shipping costs are not refunded.
+82 | | Item | Refund | … | Opened item | 80% |
+## parent-child: 10 chunks, 32 to 212 chars
+125 | # Returns policy … You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+  71 | # Returns policy … You can return most items within 30 days of delivery.
+  53 | Items must be unused and in their original packaging.
+126 | ## Start a return … 3. Print the prepaid shipping label.
+  89 | ## Start a return … 2. Choose the item you want to return.
+  36 | 3. Print the prepaid shipping label.
+212 | ## Refunds … | Opened item | 80% |
+  95 | ## Refunds … We refund the original payment method within 5 business days of receiving the item.
+  32 | Shipping costs are not refunded.
+  82 | | Item | Refund | … | Opened item | 80% |
+## hierarchical: 14 chunks, 32 to 212 chars
+125 | # Returns policy … You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+  125 | # Returns policy … You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+    71 | # Returns policy … You can return most items within 30 days of delivery.
+    53 | Items must be unused and in their original packaging.
+126 | ## Start a return … 3. Print the prepaid shipping label.
+  126 | ## Start a return … 3. Print the prepaid shipping label.
+    89 | ## Start a return … 2. Choose the item you want to return.
+    36 | 3. Print the prepaid shipping label.
+212 | ## Refunds … | Opened item | 80% |
+  128 | ## Refunds … We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+    95 | ## Refunds … We refund the original payment method within 5 business days of receiving the item.
+    32 | Shipping costs are not refunded.
+  82 | | Item | Refund | … | Opened item | 80% |
+    82 | | Item | Refund | … | Opened item | 80% |
+## recursive: 4 chunks, 82 to 128 chars
+125 | # Returns policy … You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+126 | ## Start a return … 3. Print the prepaid shipping label.
+128 | ## Refunds … We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+82 | | Item | Refund | … | Opened item | 80% |
+## fixed: 3 chunks, 66 to 200 chars
+200 | # Returns policy … 2. Choose the item you
+199 | want to return. … | Item | Refund
+66 | | … | Opened item | 80% |
+## fixed-overlap: 3 chunks, 167 to 200 chars
+200 | # Returns policy … 2. Choose the item you
+200 | ign in and open **Orders**. … We refund the original payment method within 5 business days of receiving the item.
+167 | thod within 5 business days of receiving the item. Shipping costs are not refunded. … | Opened item | 80% |
+## sliding-window: 4 chunks, 173 to 200 chars
+200 | # Returns policy … 2. Choose the item you
+197 | their original packaging. … We refund the original payment
+195 | ou want to return. … | Item |
+173 | ent method within 5 business days of receiving the item. Shipping costs are not refunded. … | Opened item | 80% |
+```
+
+## What to look at
+
+- **`structure`, `heading`, `paragraph`, and `recursive`** give almost the same chunks here, because each section is small. They differ on longer documents: `heading` never splits a section without `size`, `paragraph` never packs blocks together without `size`, and `recursive` can join small sections.
+- **`sentence` and `sentence-window`** have the same `text`. The difference is `contextText`, which this page doesn't show. Neither includes the headings in the text.
+- **`parent-child` and `hierarchical`** cover the same text once per level, so their chunks add up to more text than the document has. Usually only one level is embedded.
+- **`fixed`, `fixed-overlap`, and `sliding-window`** cut through the list and the table. `fixed-overlap` and `sliding-window` also start chunks in the middle of words.
+
+## The script
+
+The output above comes from this script:
+
+```ts
+import { type ChunkOptions, chunkDocument } from "docchunk";
+
+const runs: ChunkOptions[] = [
+  { strategy: "structure", size: 200, minSize: 50 },
+  { strategy: "heading" },
+  { strategy: "paragraph" },
+  { strategy: "sentence" },
+  { strategy: "sentence-window" },
+  { strategy: "parent-child", parentSize: 300, childSize: 100 },
+  { strategy: "hierarchical", levels: [400, 150, 100] },
+  { strategy: "recursive", size: 200 },
+  { strategy: "fixed", size: 200 },
+  { strategy: "fixed-overlap", size: 200, overlapChars: 50 },
+  { strategy: "sliding-window", size: 200, step: 100 },
+];
+
+for (const options of runs) {
+  const { chunks, stats } = await chunkDocument(
+    { path: "returns-policy.md" },
+    options,
+  );
+  const sizes = `${stats.minChars} to ${stats.maxChars} chars`;
+  console.log(`## ${options.strategy}: ${stats.count} chunks, ${sizes}`);
+  for (const chunk of chunks) {
+    const indent = "  ".repeat(chunk.level ?? 0);
+    const lines = chunk.text.split("\n");
+    const preview = lines.length === 1 ? lines[0] : `${lines[0]} … ${lines.at(-1)}`;
+    console.log(`${indent}${chunk.charCount} | ${preview}`);
+  }
+}
+```

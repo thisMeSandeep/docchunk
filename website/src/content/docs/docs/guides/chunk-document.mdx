@@ -323,8 +323,14 @@ We refund the original payment method within 5 business days.`;
 const version2 = version1.replace("5 business days", "3 business days");
 
 const options = { documentId: "returns-policy" };
-const before = await chunkDocument({ content: version1, format: "markdown" }, options);
-const after = await chunkDocument({ content: version2, format: "markdown" }, options);
+const before = await chunkDocument(
+  { content: version1, format: "markdown" },
+  options,
+);
+const after = await chunkDocument(
+  { content: version2, format: "markdown" },
+  options,
+);
 
 const storedHashes = new Set(before.chunks.map((chunk) => chunk.contentHash));
 const changed = after.chunks.filter((chunk) => !storedHashes.has(chunk.contentHash));

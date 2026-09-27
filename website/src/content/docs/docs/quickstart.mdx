@@ -160,7 +160,10 @@ The default strategy, `structure`, works well for most documents. To use another
 ```ts
 import { chunkDocument } from "docchunk";
 
-const { chunks } = await chunkDocument({ path: "manual.docx" }, { strategy: "heading" });
+const { chunks } = await chunkDocument(
+  { path: "manual.docx" },
+  { strategy: "heading" },
+);
 ```
 
 Some common choices:
@@ -187,7 +190,10 @@ For English prose, a limit of about three characters per token keeps chunks with
 If you set `size` below 200, set `minSize` too: its default is 200, and it can't be larger than `size`.
 
 ```ts
-const { chunks } = await chunkDocument({ path: "faq.md" }, { size: 150, minSize: 50 });
+const { chunks } = await chunkDocument(
+  { path: "faq.md" },
+  { size: 150, minSize: 50 },
+);
 ```
 
 ## TypeScript: `chunks[0]` may be undefined

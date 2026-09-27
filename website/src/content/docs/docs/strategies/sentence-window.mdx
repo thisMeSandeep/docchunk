@@ -2,3 +2,108 @@
 title: Sentence window
 description: "One chunk per sentence, with the sentences around it in the same section as context."
 ---
+
+`sentence-window` gives one chunk per sentence, like [`sentence`](../sentence/). Each chunk also has a `contextText` field with the sentences around it: `windowSize` sentences before and after, within the same section.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "handbook.pdf" },
+  { strategy: "sentence-window" },
+);
+```
+
+## When to use it
+
+Use `sentence-window` when you want precise search and enough context for the model to answer. Embed each chunk's `text`, so a search matches single sentences. When a chunk matches, send its `contextText` to the model instead of its `text`.
+
+It works best with prose. For documents made mostly of tables or code, where one "sentence" is already a whole block, [`structure`](../structure/) is simpler.
+
+## How it works
+
+1. The document is split into sentences, as in [`sentence`](../sentence/). A whole table or code block counts as one sentence, and headings are left out.
+2. Each sentence becomes a chunk, and its `text` is that sentence.
+3. `contextText` is the text from `windowSize` sentences before the chunk's sentence to `windowSize` sentences after it. The window stops at the edges of the section, so the context never includes another section.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+With `windowSize: 1`, each chunk's context is the sentence before it, the sentence itself, and the sentence after it. Here are the last three chunks:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "sentence-window", windowSize: 1 },
+);
+
+for (const chunk of chunks.slice(5)) {
+  console.log("text:", chunk.text);
+  console.log("context:", chunk.contextText);
+  console.log("---");
+}
+```
+
+```txt
+text: We refund the original payment method within 5 business days of receiving the item.
+context: We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+---
+text: Shipping costs are not refunded.
+context: We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+text: | Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+context: Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+The first of these chunks has nothing before it in the *Refunds* section, so its context starts with the sentence itself.
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `windowSize` | `number` | `3` | Sentences on each side of the chunk's sentence that go into `contextText`. An integer from 0. With `0`, `contextText` is the same as `text`. |
+
+## Good to know
+
+- **`contextText` has no size limit.** It grows with `windowSize`, and a window that includes a large table includes the whole table. Choose `windowSize` with your model's context in mind.
+- **Only `text` counts for size.** `charCount` and `contentHash` describe `text`, not `contextText`.
+- **Use `headingPath` for the headings.** Headings are not part of `text` or `contextText`.
+
+## Related strategies
+
+- [`sentence`](../sentence/): the same chunks, without `contextText`.
+- [`parent-child`](../parent-child/): the same idea at a larger scale: small chunks for search, each linked to a larger chunk for the model.

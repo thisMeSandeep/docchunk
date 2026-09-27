@@ -2,3 +2,151 @@
 title: Structure
 description: "Packs whole blocks into chunks up to the size limit, never across a section. The default strategy."
 ---
+
+`structure` packs whole paragraphs, lists, tables, and code blocks into chunks of up to `size` characters, and starts a new chunk at every section. It's the default strategy.
+
+```ts
+const { chunks } = await chunkDocument({ path: "handbook.pdf" });
+```
+
+## When to use it
+
+Use `structure` unless you have a reason to choose another strategy. It gives chunks that are about one topic, close to the size you ask for, and that don't cut sentences, tables, or code in half. It works for manuals, reports, policies, notes, and most other documents.
+
+Consider another strategy when:
+
+- You want exactly one chunk per section, whatever its size: use [`heading`](../heading/).
+- You want small chunks for search and large chunks for the model: use [`parent-child`](../parent-child/).
+- The text has no structure at all, such as a raw transcript: `structure` still works, but [`sentence`](../sentence/) with a `size` gives the same result more directly.
+
+## How it works
+
+1. Each heading is joined to the block after it, so a heading never ends a chunk.
+2. Blocks are added to a chunk in order until the next one doesn't fit in `size`. Then a new chunk starts.
+3. A new chunk always starts at a section heading: a heading at `headingLevel` or higher. Two sections never share a chunk.
+4. A block larger than `size` is split along its structure: tables by rows, lists by items, code by lines, and prose by sentences. See [Blocks larger than the size limit](../../how-it-works/#blocks-larger-than-the-size-limit).
+5. A chunk smaller than `minSize` is merged into the chunk before it, or else the chunk after it, if both are in the same section and the result fits in `size`.
+6. With `overlapChars`, each chunk also starts with whole sentences from the end of the chunk before it, in the same section.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+With the default options, each section becomes one chunk:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument({ path: "returns-policy.md" });
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+---
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+---
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+With a smaller `size`, the sections are split. The paragraphs are split by sentences, the list by items, and the table stays whole because it fits:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { size: 100, minSize: 50 },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+
+You can return most items within 30 days of delivery.
+---
+Items must be unused and in their original packaging.
+---
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+---
+3. Print the prepaid shipping label.
+---
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item.
+---
+Shipping costs are not refunded.
+---
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | `1500` | Maximum characters per chunk. A positive integer. |
+| `minSize` | `number` | `200` | Chunks smaller than this are merged into a neighbor in the same section, when the result fits in `size`. A positive integer, at most `size`. |
+| `overlapChars` | `number` | `0` | Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. An integer from 0, less than `size`. |
+| `headingLevel` | `number` | `3` | Headings at this level or higher start a new section. An integer from 1 to 6. |
+
+## Good to know
+
+- **Small sections stay small.** Sections are never merged, even when two would fit in one chunk. A document with many short sections gives many small chunks. To get fewer, larger chunks, lower `headingLevel`, for example to `2` or `1`, so that fewer headings start a section.
+- **Set `minSize` with a small `size`.** `minSize` can't be larger than `size`, and its default is 200. For a `size` below 200, set `minSize` too.
+- **Overlap can be shorter than `overlapChars`.** Overlap uses whole sentences, stays within the section, and never makes a chunk larger than `size`. If the last sentence of the previous chunk is longer than `overlapChars`, the chunk has no overlap.
+- **A heading can end up alone.** A heading followed directly by another section heading, or by a block that fills a whole chunk, becomes a chunk of its own.
+
+## Related strategies
+
+- [`heading`](../heading/): one chunk per section, with no size limit by default.
+- [`paragraph`](../paragraph/): one chunk per block.
+- [`parent-child`](../parent-child/): `structure` at two sizes, with links between them.

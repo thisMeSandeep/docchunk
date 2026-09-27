@@ -2,3 +2,137 @@
 title: Sentence
 description: "One chunk per sentence, or consecutive sentences in the same section packed up to a size limit."
 ---
+
+`sentence` gives one chunk per sentence. With `size`, it packs consecutive sentences of the same section into chunks of up to `size` characters.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "transcript.txt" },
+  { strategy: "sentence" },
+);
+```
+
+## When to use it
+
+Use `sentence` without `size` for very precise search, where each result should be one statement. Use it with `size` for text without much structure, such as transcripts, emails, or articles written as long runs of paragraphs, when you want chunks that always end at the end of a sentence.
+
+One-sentence chunks often lack context for the model. If you search on sentences but want to send more text to the model, use [`sentence-window`](../sentence-window/).
+
+## How it works
+
+1. The document is split into sentences with the JavaScript `Intl.Segmenter` API. Each list item gives at least one sentence, and a whole table or code block counts as one sentence.
+2. Headings are not sentences, so they aren't in any chunk's text. Each chunk's `headingPath` still lists them.
+3. Without `size`, each sentence is a chunk. With `size`, consecutive sentences in the same section are packed together up to `size`.
+4. A sentence larger than `size` is split at spaces. A table or code block larger than `size` is split by rows or lines.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+Each sentence, list item, and the table become chunks. The headings are left out:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "sentence" },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+You can return most items within 30 days of delivery.
+---
+Items must be unused and in their original packaging.
+---
+1. Sign in and open **Orders**.
+---
+2. Choose the item you want to return.
+---
+3. Print the prepaid shipping label.
+---
+We refund the original payment method within 5 business days of receiving the item.
+---
+Shipping costs are not refunded.
+---
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+With `size: 150`, the sentences of each section are packed together:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "sentence", size: 150 },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+---
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+---
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+---
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | No limit | Maximum characters per chunk. With a size, consecutive sentences are packed together. A positive integer. |
+| `minSize` | `number` | `1` | Chunks smaller than this are merged into a neighbor in the same section, when the result fits in `size`. The default merges nothing. A positive integer, at most `size`. |
+| `overlapChars` | `number` | `0` | Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. An integer from 0, less than `size`. |
+
+## Good to know
+
+- **Abbreviations can end a sentence.** `Intl.Segmenter` sometimes ends a sentence after an abbreviation such as "Dr." or "e.g.". Setting `size` or `minSize` hides most of these splits, because short pieces are packed or merged with their neighbors.
+- **Headings aren't in the text.** Use `headingPath`, or the `headingPrefix` option, to keep the heading context.
+- **Sentences never cross sections.** Packing and overlap stay within one section.
+
+## Related strategies
+
+- [`sentence-window`](../sentence-window/): one sentence per chunk, with the sentences around it as context.
+- [`paragraph`](../paragraph/): one chunk per block.

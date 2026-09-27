@@ -2,3 +2,119 @@
 title: Parent-child
 description: "Small chunks for search, each linked to a larger parent chunk that gives context."
 ---
+
+`parent-child` gives chunks at two sizes: large parent chunks, and small child chunks inside each parent. Each child links to its parent, and each parent lists its children.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "policy.pdf" },
+  { strategy: "parent-child" },
+);
+```
+
+## When to use it
+
+Small chunks give precise search results, but often don't contain enough for the model to answer. Large chunks give the model context, but their embeddings are less precise. `parent-child` gives you both: embed the children, and when a child matches a question, send its parent to the model.
+
+If you need more than two sizes, use [`hierarchical`](../hierarchical/). If you want context at the level of sentences rather than blocks, use [`sentence-window`](../sentence-window/).
+
+## How it works
+
+1. The parents are made with [`structure`](../structure/) at `parentSize`. They never cross a section.
+2. Each parent is split again with `structure` at `childSize`. The children always lie inside their parent.
+3. Parents have `level: 0` and a `childIds` list. Children have `level: 1` and a `parentId`.
+4. All chunks are returned in one list, in document order, with each parent before its children.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "parent-child", parentSize: 300, childSize: 100 },
+);
+
+for (const chunk of chunks) {
+  const indent = "  ".repeat(chunk.level ?? 0);
+  const firstLine = chunk.text.split("\n")[0];
+  console.log(`${indent}level ${chunk.level}, ${chunk.charCount} chars: ${firstLine}`);
+}
+```
+
+```txt
+level 0, 125 chars: # Returns policy
+  level 1, 71 chars: # Returns policy
+  level 1, 53 chars: Items must be unused and in their original packaging.
+level 0, 126 chars: ## Start a return
+  level 1, 89 chars: ## Start a return
+  level 1, 36 chars: 3. Print the prepaid shipping label.
+level 0, 212 chars: ## Refunds
+  level 1, 95 chars: ## Refunds
+  level 1, 32 chars: Shipping costs are not refunded.
+  level 1, 82 chars: | Item | Refund |
+```
+
+Each section is one parent. The *Refunds* parent has three children: the heading with the first sentence, the second sentence, and the table.
+
+## Use the parents and children
+
+Embed only the children, and keep a way to find each chunk by its `id`:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "policy.pdf" },
+  { strategy: "parent-child" },
+);
+
+const children = chunks.filter((chunk) => chunk.level === 1);
+const chunksById = new Map(chunks.map((chunk) => [chunk.id, chunk]));
+
+// Embed and store `children`. When a search returns a child,
+// look up its parent and send the parent's text to the model:
+// const parent = chunksById.get(child.parentId ?? "");
+```
+
+In a vector database, store each child's `parentId` in its metadata, and store the parents' text somewhere you can look up by id, such as a key-value store or another table.
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `parentSize` | `number` | `4000` | Maximum characters per parent chunk. A positive integer, larger than `childSize`. |
+| `childSize` | `number` | `800` | Maximum characters per child chunk. A positive integer, smaller than `parentSize`. |
+
+## Good to know
+
+- **A parent can have a single child with the same text.** When a parent is no larger than `childSize`, its only child is a copy of it. Both have different `id`s, because their levels differ.
+- **Parents follow sections.** A parent never spans two sections, so a document with short sections has parents much smaller than `parentSize`.
+- **Children use a `minSize` of 200,** or `childSize` if that is smaller, so very short children are merged with their neighbors.
+- **`buildChunkTree` turns the list into a tree.** See [`buildChunkTree`](../../reference/build-chunk-tree/).
+
+## Related strategies
+
+- [`hierarchical`](../hierarchical/): the same idea with any number of levels, or following the headings.
+- [`sentence-window`](../sentence-window/): small chunks with surrounding context, at the level of sentences.

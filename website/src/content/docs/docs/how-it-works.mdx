@@ -213,7 +213,10 @@ All levels are returned in one list, sorted by position in the document and then
 ```ts
 import { chunkDocument } from "docchunk";
 
-const { chunks } = await chunkDocument({ path: "policy.pdf" }, { strategy: "parent-child" });
+const { chunks } = await chunkDocument(
+  { path: "policy.pdf" },
+  { strategy: "parent-child" },
+);
 
 const children = chunks.filter((chunk) => chunk.level === 1);
 const chunksById = new Map(chunks.map((chunk) => [chunk.id, chunk]));

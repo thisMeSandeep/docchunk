@@ -2,3 +2,141 @@
 title: Hierarchical
 description: "Nested chunks at several sizes, or chunks that follow the heading tree."
 ---
+
+`hierarchical` gives nested chunks: large chunks, the chunks inside them, the chunks inside those, and so on. It builds the levels in one of two ways: by size, or by heading.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "handbook.pdf" },
+  { strategy: "hierarchical", levels: [6000, 1500, 400] },
+);
+```
+
+## When to use it
+
+Use `hierarchical` by size when you want more than the two levels of [`parent-child`](../parent-child/), for example to search small chunks and then widen the context step by step.
+
+Use `hierarchical` by heading when you want a chunk for every section and every subsection, so you can retrieve a whole chapter, one of its sections, or one subsection. This suits long documents with a clear outline, such as manuals and specifications.
+
+## How it works
+
+### By size
+
+With `by: "size"`, the default, `levels` lists the maximum size of each level, largest first.
+
+1. Level 0 is made with [`structure`](../structure/) at the first size.
+2. Each chunk of level 0 is split with `structure` at the second size, giving level 1. Each chunk of level 1 is split at the third size, and so on.
+3. Every chunk below level 0 has a `parentId`, and every chunk with children has `childIds`.
+
+`parent-child` is the same as `hierarchical` by size with two levels.
+
+### By heading
+
+With `by: "heading"`, the levels follow the document's headings.
+
+1. Every heading at `headingLevel` or higher starts a section. Each section becomes a chunk that includes its subsections.
+2. A section's level is how deeply it is nested: level 0 for the outermost sections, 1 for the sections inside them, and so on. Text before the first heading is a chunk at level 0.
+3. A section with no subsections that is larger than `leafSize` gets children: it is split with `structure` at `leafSize`, one level deeper.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+By heading, the `#` section contains the whole document, the `##` sections are inside it, and the *Refunds* section is larger than `leafSize`, so it's split again:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "hierarchical", by: "heading", leafSize: 150 },
+);
+
+for (const chunk of chunks) {
+  const indent = "  ".repeat(chunk.level ?? 0);
+  const firstLine = chunk.text.split("\n")[0];
+  console.log(`${indent}level ${chunk.level}, ${chunk.charCount} chars: ${firstLine}`);
+}
+```
+
+```txt
+level 0, 467 chars: # Returns policy
+  level 1, 126 chars: ## Start a return
+  level 1, 212 chars: ## Refunds
+    level 2, 128 chars: ## Refunds
+    level 2, 82 chars: | Item | Refund |
+```
+
+By size, with three levels:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "hierarchical", levels: [400, 150, 100] },
+);
+
+for (const chunk of chunks) {
+  const indent = "  ".repeat(chunk.level ?? 0);
+  const firstLine = chunk.text.split("\n")[0];
+  console.log(`${indent}level ${chunk.level}, ${chunk.charCount} chars: ${firstLine}`);
+}
+```
+
+```txt
+level 0, 125 chars: # Returns policy
+  level 1, 125 chars: # Returns policy
+    level 2, 71 chars: # Returns policy
+    level 2, 53 chars: Items must be unused and in their original packaging.
+level 0, 126 chars: ## Start a return
+  level 1, 126 chars: ## Start a return
+    level 2, 89 chars: ## Start a return
+    level 2, 36 chars: 3. Print the prepaid shipping label.
+level 0, 212 chars: ## Refunds
+  level 1, 128 chars: ## Refunds
+    level 2, 95 chars: ## Refunds
+    level 2, 32 chars: Shipping costs are not refunded.
+  level 1, 82 chars: | Item | Refund |
+    level 2, 82 chars: | Item | Refund |
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `by` | `"size"` or `"heading"` | `"size"` | How the levels are built. |
+| `levels` | `number[]` | `[6000, 1500, 400]` | Maximum characters per chunk at each level, largest first. Used with `by: "size"`. A non-empty array of positive integers, each smaller than the one before. |
+| `headingLevel` | `number` | `3` | Headings at this level or higher start a new section. An integer from 1 to 6. |
+| `leafSize` | `number` | `1500` | Maximum characters per chunk when a section without subsections is split. Used with `by: "heading"`. A positive integer. |
+
+## Good to know
+
+- **A chunk can have a single child with the same text.** When a chunk already fits the next level's size, its only child is a copy of it, one level deeper.
+- **By heading, sections have no size limit.** Only sections without subsections are split, at `leafSize`. A large section with subsections stays whole at its own level, and a chunk of more than 8,000 characters adds a `LARGE_CHUNK` warning.
+- **Chunks are sorted by position, then level.** Each chunk comes before the chunks inside it.
+- **`buildChunkTree` turns the list into a tree.** See [`buildChunkTree`](../../reference/build-chunk-tree/).
+
+## Related strategies
+
+- [`parent-child`](../parent-child/): two levels by size, with simpler options.
+- [`heading`](../heading/): one flat chunk per section.

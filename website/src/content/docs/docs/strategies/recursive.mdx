@@ -2,3 +2,113 @@
 title: Recursive
 description: "Splits on separators, then sentences, then spaces, until every piece fits the size limit."
 ---
+
+`recursive` splits the text at a list of separators, from headings to blank lines to line breaks, then at sentences and spaces, until every piece fits in `size`. Then it joins neighboring pieces back together, up to `size`.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "notes.md" },
+  { strategy: "recursive" },
+);
+```
+
+## When to use it
+
+Use `recursive` when you are moving from another library's recursive character splitter, such as LangChain's `RecursiveCharacterTextSplitter`, and want similar chunks.
+
+For new projects, [`structure`](../structure/) usually gives better chunks: it never joins two sections, and it repeats table headers and code fences when it splits them.
+
+## How it works
+
+1. If the text fits in `size`, it's one chunk.
+2. Otherwise, the text is split at the first separator in `separators` that occurs in it. Each separator stays at the start of the piece after the split.
+3. Neighboring pieces are joined back together, as long as the result fits in `size`.
+4. A piece that is still larger than `size` is split again with the next separator. After the separators come sentence boundaries, then spaces, and finally a cut at exactly `size` characters.
+
+The default separators, in order, are a line starting with `# `, `## `, `### `, or `#### `, then a blank line, then a line break.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "recursive", size: 100 },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+---
+You can return most items within 30 days of delivery.
+---
+Items must be unused and in their original packaging.
+---
+## Start a return
+---
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+---
+3. Print the prepaid shipping label.
+---
+## Refunds
+---
+We refund the original payment method within 5 business days of receiving the item.
+---
+Shipping costs are not refunded.
+---
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+The document was split at headings, then at blank lines, then at sentences. Each heading ended up on its own, because joining it to the paragraph after it would go over `size`.
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | `1500` | Maximum characters per chunk. A positive integer. |
+| `overlapChars` | `number` | `0` | Characters of whole pieces each chunk repeats from the end of the previous one. An integer from 0, less than `size`. |
+| `separators` | `string[]` | `["\n# ", "\n## ", "\n### ", "\n#### ", "\n\n", "\n"]` | Separators tried in order, before sentences, spaces, and a cut at `size`. An array of non-empty strings. |
+
+## Good to know
+
+- **Sections can share a chunk.** Pieces are joined whenever they fit, so small sections are joined together, unlike in `structure`.
+- **Tables and code blocks are split by lines.** A large table is split at line breaks without repeating its header, and a large code block without repeating its fences.
+- **Headings can end up alone,** as in the example, when the text after them is too large to join.
+- **Custom separators.** To split plain text at a different marker, such as a line of dashes, pass your own list: `separators: ["\n---\n", "\n\n", "\n"]`.
+
+## Related strategies
+
+- [`structure`](../structure/): splits by the parsed structure instead of separator strings.
+- [`sentence`](../sentence/) with `size`: packs whole sentences.

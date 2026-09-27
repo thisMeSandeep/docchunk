@@ -2,3 +2,120 @@
 title: Heading
 description: "One chunk per section. With a size limit, a larger section is split into packed blocks."
 ---
+
+`heading` gives one chunk per section. A section starts at a heading at `headingLevel` or higher, and includes everything up to the next such heading.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "manual.docx" },
+  { strategy: "heading" },
+);
+```
+
+## When to use it
+
+Use `heading` when each section of your documents is a complete answer on its own, and you want to retrieve it whole. Examples are knowledge base articles, API reference pages, and manuals where each section covers one task.
+
+Don't use it for documents with long sections, or with few headings, unless you set `size`. Without `size`, a long section becomes one long chunk, which is a poor match for specific questions and may exceed your embedding model's limit.
+
+## How it works
+
+1. The document is divided into sections at every heading at `headingLevel` or higher. Deeper headings stay inside their section.
+2. Each section becomes one chunk. Text before the first heading becomes a chunk of its own.
+3. With `size`, a section larger than `size` is split into chunks of whole blocks, like [`structure`](../structure/) does. Small sections are not merged.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+Each `#` and `##` section becomes a chunk:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "heading" },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+---
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+---
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+With `headingLevel: 1`, only `#` headings start a section, so the whole file is one chunk of 467 characters:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "heading", headingLevel: 1 },
+);
+
+console.log(chunks.length, chunks[0]?.charCount);
+```
+
+```txt
+1 467
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | No limit | Maximum characters per chunk. Sections larger than this are split. A positive integer. |
+| `headingLevel` | `number` | `3` | Headings at this level or higher start a new section. An integer from 1 to 6. |
+
+## Good to know
+
+- **Large sections give a warning.** Without `size`, a chunk of more than 8,000 characters adds a `LARGE_CHUNK` warning to the result. Set `size` to split large sections.
+- **Headings with no text of their own become small chunks.** A title followed directly by a subheading, such as `# Guide` right before `## Setup`, becomes a chunk that contains only the title.
+- **With `size`, `heading` and `structure` are close.** The difference is that `heading` doesn't merge small chunks, and has no overlap.
+
+## Related strategies
+
+- [`structure`](../structure/): packs sections into chunks of a set size.
+- [`hierarchical`](../hierarchical/) with `by: "heading"`: a chunk for every section and subsection, nested.

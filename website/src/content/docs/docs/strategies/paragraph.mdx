@@ -2,3 +2,105 @@
 title: Paragraph
 description: "One chunk per block, with each heading kept with the block after it."
 ---
+
+`paragraph` gives one chunk per block: a paragraph, a list, a table, a code block, or a block quote. Each heading is joined to the block after it.
+
+```ts
+const { chunks } = await chunkDocument(
+  { path: "faq.md" },
+  { strategy: "paragraph" },
+);
+```
+
+## When to use it
+
+Use `paragraph` when each paragraph is a self-contained answer, such as FAQ entries, glossaries, or release notes where each paragraph describes one change.
+
+Don't use it for long-form prose, where a paragraph often depends on the ones around it. Chunks of one paragraph each can then lack the context needed to match a question. [`structure`](../structure/) packs related paragraphs together instead.
+
+## How it works
+
+1. Each block becomes one chunk. A whole list or a whole table counts as one block.
+2. A heading is joined to the block after it, so it isn't a chunk of its own.
+3. With `size`, consecutive blocks in the same section are packed together up to `size`, and a block larger than `size` is split along its structure.
+4. With `minSize`, a chunk smaller than `minSize` is merged into its neighbor in the same section.
+
+## Example
+
+```md title="returns-policy.md"
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+```
+
+Each heading is joined to its paragraph or list, and the table is a chunk of its own:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { path: "returns-policy.md" },
+  { strategy: "paragraph" },
+);
+
+for (const chunk of chunks) {
+  console.log(chunk.text);
+  console.log("---");
+}
+```
+
+```txt
+# Returns policy
+
+You can return most items within 30 days of delivery. Items must be unused and in their original packaging.
+---
+## Start a return
+
+1. Sign in and open **Orders**.
+2. Choose the item you want to return.
+3. Print the prepaid shipping label.
+---
+## Refunds
+
+We refund the original payment method within 5 business days of receiving the item. Shipping costs are not refunded.
+---
+| Item | Refund |
+| --- | --- |
+| Unused item | Full price |
+| Opened item | 80% |
+---
+```
+
+## Options
+
+| Option | Type | Default | Description |
+|---|---|---|---|
+| `size` | `number` | No limit | Maximum characters per chunk. With a size, consecutive blocks are packed together. A positive integer. |
+| `minSize` | `number` | `1` | Chunks smaller than this are merged into a neighbor in the same section, when the result fits in `size`. The default merges nothing. A positive integer, at most `size`. |
+| `overlapChars` | `number` | `0` | Characters of whole sentences each chunk repeats from the end of the previous chunk in its section. An integer from 0, less than `size`. |
+
+## Good to know
+
+- **A long list or table is one chunk.** Without `size`, nothing is split. A chunk of more than 8,000 characters adds a `LARGE_CHUNK` warning. Set `size` to split large blocks.
+- **`minSize` works without `size`.** With no size limit, every chunk smaller than `minSize` is merged into a neighbor in the same section. Use it to join very short paragraphs, such as one-line answers, to the paragraph next to them.
+- **With `size`, `paragraph` behaves like `structure`,** except that `minSize` defaults to 1 instead of 200.
+
+## Related strategies
+
+- [`structure`](../structure/): packs blocks together up to a size.
+- [`sentence`](../sentence/): one chunk per sentence.
