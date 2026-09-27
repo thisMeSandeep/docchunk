@@ -2,3 +2,184 @@
 title: Chunk many documents
 description: "Chunk a list of documents with shared options, a concurrency limit, and per-document errors."
 ---
+
+`chunkDocuments` chunks a list of documents with the same options. It runs a few documents at a time, and a document that fails doesn't stop the others.
+
+```ts
+import { chunkDocuments } from "docchunk";
+
+const results = await chunkDocuments(sources, options);
+```
+
+The sources are the same objects [`chunkDocument`](../chunk-document/#sources) accepts, and the options are the same too, plus `concurrency`.
+
+## Chunk a list of documents
+
+```ts
+import { chunkDocuments } from "docchunk";
+
+const results = await chunkDocuments(
+  [
+    { content: "# Leave\n\nYou get 25 days of paid leave.", format: "markdown" },
+    { path: "missing.docx" },
+    { content: "Office hours are 9 to 5.", format: "text" },
+  ],
+  { size: 1000 },
+);
+
+for (const item of results) {
+  if (item.ok) {
+    console.log("ok", item.result.chunks.length);
+  } else {
+    console.log(`source ${item.sourceIndex} failed: ${item.error.code}`);
+  }
+}
+```
+
+```txt
+ok 1
+source 1 failed: FILE_NOT_FOUND
+ok 1
+```
+
+## Read the results
+
+`chunkDocuments` returns one item per source, in the same order as the sources, whatever order the documents finish in. Each item is one of two shapes:
+
+| Shape | Meaning |
+|---|---|
+| `{ ok: true, result }` | The document was chunked. `result` is the same object [`chunkDocument`](../chunk-document/#the-result) returns. |
+| `{ ok: false, error, sourceIndex }` | The document failed. `error` is a `DocchunkError`, and `sourceIndex` is the position of the source in the list you passed. |
+
+Check `item.ok` before you read `result` or `error`. In TypeScript, the check also narrows the type, so `item.result` is only available after it.
+
+A failed document doesn't stop the batch. Every error has a `code`: if something unexpected goes wrong inside Doc-chunk, the error is wrapped in a `DocchunkError` with the code `CONVERSION_FAILED`, and the original error is in `error.cause`.
+
+To know which file each result came from, keep your list of sources and use the item's position. For path sources, `result.document.sourcePath` also holds the path.
+
+## Options
+
+The options apply to every document in the list. They're checked once, before any document is read, so a wrong option throws immediately instead of failing every document:
+
+```ts
+await chunkDocuments(sources, { size: -1 });
+// Throws DocchunkError INVALID_OPTIONS:
+// Option "size" must be a positive integer, got -1.
+```
+
+`chunkDocuments` also throws, instead of returning items, when `sources` isn't an array or when the batch is [cancelled](#cancel-a-batch). An empty array returns an empty array.
+
+Two of the shared options need care in a batch:
+
+- **`metadata`** is copied onto the chunks of every document. For values that differ per document, such as the file name, add them when you store the chunks.
+- **`documentId`** would give every document the same id, so chunks at the same position in different documents would get the same chunk id. Don't pass it to `chunkDocuments`. If you need your own id for each document, call `chunkDocument` for each one, as shown in [Documents that need different options](#documents-that-need-different-options).
+
+## Concurrency
+
+`concurrency` sets how many documents are chunked at the same time. The default is 4, and the value must be a positive whole number:
+
+```ts
+const results = await chunkDocuments(sources, { concurrency: 8 });
+```
+
+Reading files and converting PDFs and Office files happen off the main JavaScript thread, so several of them can run in parallel. Parsing and splitting the Markdown happen on the main thread, one document at a time. As a result:
+
+- A higher `concurrency` can speed up batches of PDFs and Office files. On Node.js, conversions share libuv's thread pool, which has 4 threads unless you set the `UV_THREADPOOL_SIZE` environment variable.
+- For Markdown and text files, which need no conversion, `concurrency` makes little difference.
+- Each document in progress holds its own memory, so a higher `concurrency` uses more memory. See [Large files](#large-files).
+
+## Cancel a batch
+
+Pass an `AbortSignal` as `signal` to stop a batch. When the signal is aborted, `chunkDocuments` stops starting new documents and throws a `DocchunkError` with the code `ABORTED`. The results of documents that already finished are not returned.
+
+```ts
+import { chunkDocuments, DocchunkError } from "docchunk";
+
+try {
+  const results = await chunkDocuments(sources, { signal: AbortSignal.timeout(60_000) });
+} catch (error) {
+  if (error instanceof DocchunkError && error.code === "ABORTED") {
+    console.log("The batch took longer than a minute");
+  }
+}
+```
+
+The signal is checked before each document, and between the steps of each document. A step that has already started, such as converting a PDF, finishes first.
+
+:::note
+Timers, including `AbortSignal.timeout`, only fire while the JavaScript thread is free. A batch of file paths gives the thread a break every time it reads a file, so a timeout stops it. A batch made only of `content` strings keeps the thread busy until the end, so a timeout can't stop it partway through.
+:::
+
+## Chunk every file in a folder
+
+This example finds the supported files in a folder and its subfolders, and chunks them in one batch:
+
+```ts
+import { readdir } from "node:fs/promises";
+import { extname, join } from "node:path";
+import { chunkDocuments } from "docchunk";
+
+const folder = "documents";
+const extensions = new Set([".pdf", ".docx", ".pptx", ".xlsx", ".md", ".txt"]);
+
+const entries = await readdir(folder, { recursive: true, withFileTypes: true });
+const paths: string[] = [];
+for (const entry of entries) {
+  if (entry.isFile() && extensions.has(extname(entry.name).toLowerCase())) {
+    paths.push(join(entry.parentPath, entry.name));
+  }
+}
+
+const results = await chunkDocuments(paths.map((path) => ({ path })));
+
+for (const [index, item] of results.entries()) {
+  if (item.ok) {
+    console.log(paths[index], item.result.chunks.length);
+  } else {
+    console.error(paths[index], item.error.message);
+  }
+}
+```
+
+Add the extensions of any other [formats](../chunk-document/#formats) you need.
+
+## Documents that need different options
+
+`chunkDocuments` uses one set of options for the whole list. When documents need different strategies, sizes, or a `documentId` each, call `chunkDocument` for each one. To keep the same one-failure-doesn't-stop-the-others behavior, catch errors per document:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const paths = ["guides/setup.md", "guides/billing.md"];
+
+for (const path of paths) {
+  try {
+    const result = await chunkDocument(
+      { path },
+      { documentId: path, metadata: { source: path } },
+    );
+    console.log(path, result.chunks.length);
+  } catch (error) {
+    console.error(path, error);
+  }
+}
+```
+
+This runs one document at a time. For a large list, you can run several of these calls at once with a concurrency library such as `p-limit`.
+
+## Large files
+
+Parsing is the most memory-intensive step. While a document is being parsed, it uses about 250 times the size of its Markdown: roughly 250 MB for 1 MB of text. With the default `concurrency` of 4, four large documents can be in progress at the same time.
+
+If your batch includes large files, or your process has a memory limit, lower `concurrency`:
+
+```ts
+const results = await chunkDocuments(sources, { concurrency: 1 });
+```
+
+[Performance](../../performance/) has measured times and memory use.
+
+## Next steps
+
+- [Chunk a document](../chunk-document/): sources, formats, the result, warnings, and errors.
+- [Strategies](../../strategies/): choose how documents are split.

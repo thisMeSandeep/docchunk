@@ -2,3 +2,436 @@
 title: Chunk a document
 description: "Chunk one document from a file path, bytes, or a string, and read the result."
 ---
+
+`chunkDocument` turns one document into chunks. This guide covers where the document can come from, which formats are supported, what the result contains, and how to handle warnings and errors.
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const result = await chunkDocument(source, options);
+```
+
+The first argument is the [source](#sources). The second is optional: the [strategy](#choosing-a-strategy) and its options, plus the [options every strategy accepts](#options-every-strategy-accepts). The function returns a promise of the [result](#the-result).
+
+## Sources
+
+A source is one of three objects:
+
+| Source | Use it for |
+|---|---|
+| `{ path }` | A file on disk. |
+| `{ bytes, filename?, format? }` | A file you already have in memory, such as an upload or a file from object storage. |
+| `{ content, format }` | Markdown or plain text in a string. |
+
+### A file path
+
+```ts
+const result = await chunkDocument({ path: "docs/handbook.pdf" });
+```
+
+A relative path is resolved against the current working directory. If the file doesn't exist, or the path is a folder, `chunkDocument` throws a `DocchunkError` with the code `FILE_NOT_FOUND`.
+
+`result.document.sourcePath` is set to the path you passed.
+
+### Bytes
+
+Pass the file's bytes as a `Uint8Array`. A Node.js `Buffer` is a `Uint8Array`, so the result of `readFile` works as it is:
+
+```ts
+import { readFile } from "node:fs/promises";
+import { chunkDocument } from "docchunk";
+
+const bytes = await readFile("notes.md");
+const result = await chunkDocument({ bytes, filename: "notes.md" });
+
+console.log(result.document.sourceFormat);
+console.log(result.chunks[0]?.text);
+```
+
+```txt
+markdown
+# Notes
+
+Meeting moved to Friday.
+```
+
+PDF and Office files are recognized from their content, so `filename` and `format` are optional for them. Markdown, plain text, and CSV have no signature in their content: pass a `filename` with the right extension, or a `format`. Without either, `chunkDocument` throws an `UNSUPPORTED_FORMAT` error.
+
+```ts
+const result = await chunkDocument({ bytes, format: "csv" });
+```
+
+### A string
+
+When the text is already in memory, pass it as `content`, with `format` set to `"markdown"` or `"text"`:
+
+```ts
+const result = await chunkDocument({ content: markdown, format: "markdown" });
+```
+
+The format changes how the text is read. Markdown is parsed into headings, lists, tables, and other blocks. Plain text is split into paragraphs at blank lines, and nothing else is treated as syntax:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const content = "# Not a heading\n\n* not a list item";
+
+const asMarkdown = await chunkDocument({ content, format: "markdown" });
+const asText = await chunkDocument({ content, format: "text" });
+
+console.log(asMarkdown.chunks.map((chunk) => chunk.blockTypes));
+console.log(asText.chunks.map((chunk) => chunk.blockTypes));
+```
+
+```txt
+[ [ 'heading', 'list' ] ]
+[ [ 'paragraph' ] ]
+```
+
+Use `"text"` for text that isn't Markdown, such as logs or transcripts, so that a line starting with `#` doesn't become a heading.
+
+## Formats
+
+| Format | Extensions | Notes |
+|---|---|---|
+| PDF | `.pdf` | Text-based PDFs only. Images are ignored. |
+| Word | `.docx`, `.doc` | |
+| PowerPoint | `.pptx`, `.ppt` | |
+| Excel | `.xlsx`, `.xls` | Each sheet becomes a Markdown table. |
+| OpenDocument | `.odt`, `.ods`, `.odp` | |
+| RTF | `.rtf` | |
+| EPUB | `.epub` | |
+| CSV | `.csv` | Needs a `.csv` file name or `format: "csv"`. |
+| Markdown | `.md`, `.markdown` | Not converted. |
+| Plain text | `.txt` | Not converted. Split into paragraphs at blank lines. |
+
+### How the format is detected
+
+Doc-chunk uses the first of these that gives an answer:
+
+1. The `format` in the source, if you passed one.
+2. A `.md`, `.markdown`, `.txt`, or `.csv` file name.
+3. The file's content. PDF, Office, OpenDocument, EPUB, and RTF files each start with a recognizable signature.
+4. Any other file extension.
+
+If none of them works, `chunkDocument` throws an `UNSUPPORTED_FORMAT` error that asks you to pass `format`.
+
+### Conversion
+
+Every format except Markdown and plain text is converted to Markdown by [anydoc](https://github.com/firecrawl/anydoc) before chunking. anydoc runs on your machine, with native binaries for macOS, Linux, and Windows x64. It's only loaded when a document needs converting, so projects that chunk only Markdown and text never load it.
+
+The converted Markdown is returned as `document.markdown`, and chunk positions refer to it. For example, a CSV file becomes a Markdown table:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const bytes = new TextEncoder().encode("a,b\n1,2\n");
+const result = await chunkDocument({ bytes, format: "csv" });
+console.log(result.document.markdown);
+```
+
+```md
+| a | b |
+| --- | --- |
+| 1 | 2 |
+```
+
+### Scanned PDFs
+
+Doc-chunk doesn't do OCR. If any page of a PDF is scanned or contains only images, the whole PDF gives no chunks, and the result has a `NO_TEXT_LAYER` warning that lists the pages. The same happens when a PDF has fewer than 100 characters of text in total. If you need to index scanned documents, run them through an OCR tool first and pass the text to Doc-chunk as `content`.
+
+## Choosing a strategy
+
+Without options, `chunkDocument` uses the `structure` strategy, which works well for most documents. To choose another, pass `strategy` and that strategy's options:
+
+```ts
+const result = await chunkDocument(
+  { path: "manual.docx" },
+  { strategy: "heading", headingLevel: 2 },
+);
+```
+
+Each strategy accepts its own options. In TypeScript, once you set `strategy`, the editor suggests only that strategy's options and flags any others. At runtime, an option the strategy doesn't accept throws an `INVALID_OPTIONS` error.
+
+[Strategies](../../strategies/) describes all 11 and helps you choose.
+
+## The result
+
+`chunkDocument` returns an object with four fields:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const markdown = `# Returns policy
+
+You can return most items within 30 days of delivery.
+
+## Refunds
+
+We refund the original payment method within 5 business days.`;
+
+const { document, stats, warnings } = await chunkDocument({ content: markdown, format: "markdown" });
+
+console.log(document.id, document.sourceFormat, document.charCount);
+console.log(stats.count, stats.minChars, stats.maxChars, stats.avgChars);
+console.log(warnings);
+```
+
+```txt
+0a124c7110480079c570 markdown 146
+2 71 73 72
+[]
+```
+
+### `chunks`
+
+The chunks, in document order. Each chunk has these fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | `string` | Stable id. See [Ids and re-indexing](#ids-and-re-indexing). |
+| `text` | `string` | The chunk's text, in Markdown. |
+| `index` | `number` | Position in the `chunks` array, starting at 0. |
+| `start` | `number` | Start position in `document.markdown`, in characters. |
+| `end` | `number` | End position in `document.markdown`, in characters. Not included in the chunk. |
+| `charCount` | `number` | Length of `text` in characters. |
+| `headingPath` | `string[]` | The headings above the start of the chunk, outermost first. |
+| `blockTypes` | `string[]` | The kinds of blocks the chunk contains, such as `"heading"`, `"paragraph"`, `"list"`, `"table"`, or `"code"`. |
+| `contentHash` | `string` | A hash of `text`. |
+| `metadata` | `object` | A copy of the `metadata` option. `{}` when you don't pass one. |
+| `contextText` | `string` | The sentences around the chunk. Set by `sentence-window` only. |
+| `level` | `number` | Nesting level, `0` for the largest chunks. Set by `parent-child` and `hierarchical` only. |
+| `parentId` | `string` | The `id` of the chunk that contains this one. Set by `parent-child` and `hierarchical` only. |
+| `childIds` | `string[]` | The `id`s of the chunks inside this one. Set by `parent-child` and `hierarchical` only. |
+
+For most chunks, `text` is exactly `document.markdown.slice(start, end)`. It differs when you use `headingPrefix`, and for pieces of a table or code block that was too large for one chunk, which repeat the table header or code fence. See [How it works](../../how-it-works/#positions-refer-to-documentmarkdown).
+
+### `document`
+
+| Field | Type | Description |
+|---|---|---|
+| `id` | `string` | The `documentId` option, or a hash of `markdown`. |
+| `markdown` | `string` | The document as Markdown, after conversion and normalization. Chunk positions refer to this string. |
+| `sourceFormat` | `string` | The format of the original document, such as `"pdf"` or `"docx"`. |
+| `sourcePath` | `string` | The file path, when the source was a path. |
+| `charCount` | `number` | Length of `markdown` in characters. |
+
+### `stats`
+
+| Field | Type | Description |
+|---|---|---|
+| `count` | `number` | Number of chunks. |
+| `minChars` | `number` | Characters in the smallest chunk. |
+| `maxChars` | `number` | Characters in the largest chunk. |
+| `avgChars` | `number` | Average characters per chunk, rounded. |
+| `durationMs` | `number` | Time taken, in milliseconds, including conversion. |
+
+When there are no chunks, all the size fields are `0`.
+
+### `warnings`
+
+Problems that didn't stop chunking. See [Warnings](#warnings).
+
+## Options every strategy accepts
+
+These options work with every strategy.
+
+### `metadata`
+
+An object copied onto every chunk. Use it for anything you want to store alongside the embedding, such as the source file or an access group:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const { chunks } = await chunkDocument(
+  { content: "# Leave\n\nYou get 25 days of paid leave each year.", format: "markdown" },
+  { metadata: { source: "hr-handbook", team: "people" } },
+);
+
+console.log(chunks[0]?.metadata);
+```
+
+```txt
+{ source: 'hr-handbook', team: 'people' }
+```
+
+Changing `metadata` doesn't change chunk ids.
+
+### `documentId`
+
+A string used as the document's id, instead of a hash of its content. It becomes `document.id` and is part of every chunk id. Use a value that identifies the document in your system and doesn't change when the document is edited, such as its path or database key:
+
+```ts
+const result = await chunkDocument(
+  { path: "policies/returns.md" },
+  { documentId: "policies/returns.md" },
+);
+```
+
+See [Ids and re-indexing](#ids-and-re-indexing) for when you need it.
+
+### `headingPrefix`
+
+When `true`, each chunk's text starts with its heading path, such as `Returns policy > Refunds`, followed by a blank line. The default is `false`. The prefix counts toward the size limit. [How it works](../../how-it-works/#adding-the-heading-path-to-the-text) shows an example.
+
+### `signal`
+
+An `AbortSignal` that stops chunking. When the signal is aborted, `chunkDocument` throws a `DocchunkError` with the code `ABORTED`. To give up on a slow document after 30 seconds:
+
+```ts
+import { chunkDocument, DocchunkError } from "docchunk";
+
+try {
+  const result = await chunkDocument(
+    { path: "large-report.pdf" },
+    { signal: AbortSignal.timeout(30_000) },
+  );
+} catch (error) {
+  if (error instanceof DocchunkError && error.code === "ABORTED") {
+    console.log("Chunking took too long");
+  }
+}
+```
+
+Doc-chunk checks the signal between steps: before reading the source, after conversion, and after splitting. A step that has already started, such as converting a PDF, finishes before the abort takes effect.
+
+## Ids and re-indexing
+
+Every chunk has an `id` and a `contentHash`:
+
+- `id` is built from the document's id, the options that affect chunking, and the chunk's position. The same document with the same options always gives the same ids.
+- `contentHash` depends only on the chunk's `text`.
+
+Use `contentHash` to find out which chunks changed since you last indexed a document, and embed only those:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const version1 = `# Returns policy
+
+You can return most items within 30 days of delivery.
+
+## Start a return
+
+Sign in, open **Orders**, and choose the item you want to return.
+
+## Refunds
+
+We refund the original payment method within 5 business days.`;
+
+// The same document after an edit to the Refunds section.
+const version2 = version1.replace("5 business days", "3 business days");
+
+const options = { documentId: "returns-policy" };
+const before = await chunkDocument({ content: version1, format: "markdown" }, options);
+const after = await chunkDocument({ content: version2, format: "markdown" }, options);
+
+const storedHashes = new Set(before.chunks.map((chunk) => chunk.contentHash));
+const changed = after.chunks.filter((chunk) => !storedHashes.has(chunk.contentHash));
+
+console.log(`${changed.length} of ${after.chunks.length} chunks changed`);
+for (const chunk of changed) {
+  console.log(chunk.headingPath);
+}
+```
+
+```txt
+1 of 3 chunks changed
+[ 'Returns policy', 'Refunds' ]
+```
+
+In a real pipeline, `storedHashes` comes from your vector database. A typical update looks like this:
+
+1. Chunk the new version of the document.
+2. Embed the chunks whose `contentHash` isn't stored yet. Reuse the stored embeddings for the others.
+3. Replace the document's old rows with the new chunks.
+
+### When to pass `documentId`
+
+Without `documentId`, the document's id is a hash of its content. That has two effects:
+
+- Any edit to the document changes the id of every chunk. `contentHash` still tells you which chunks really changed.
+- Two files with the same content get the same chunk ids. If you store both, their rows collide.
+
+Pass a `documentId` that is unique to each document, such as its path, when you store chunks from many documents in one place or want ids that survive edits. With a fixed `documentId`, a chunk keeps its id as long as its position in the document doesn't change.
+
+## Warnings
+
+Warnings describe problems that didn't stop chunking. Each one has a `code`, a `message`, and, when it's about one chunk, a `chunkIndex`.
+
+| Code | When | What to do |
+|---|---|---|
+| `EMPTY_DOCUMENT` | The document has no text. There are no chunks. | Check the source. It may be empty, or contain only images. |
+| `NO_TEXT_LAYER` | The PDF has no text layer, usually because it's scanned. There are no chunks. | Run OCR first, then chunk the text. |
+| `OVERSIZED_BLOCK` | A table row, list item, code line, or word was longer than `size`, and was cut at the size limit. | Usually nothing. Raise `size` if the cut pieces are too small to be useful. |
+| `LARGE_CHUNK` | A strategy with no size limit produced a chunk of more than 8,000 characters. | Set `size` to split large sections or paragraphs. |
+
+Warnings are returned, not logged. Check them after each call:
+
+```ts
+import { chunkDocument } from "docchunk";
+
+const url = "https://example.com/" + "a".repeat(120);
+const { warnings } = await chunkDocument(
+  { content: `See ${url} for details.`, format: "markdown" },
+  { size: 100, minSize: 50 },
+);
+
+for (const warning of warnings) {
+  console.log(warning.code, warning.chunkIndex, warning.message);
+}
+```
+
+```txt
+OVERSIZED_BLOCK 1 Chunk 1 is a hard cut of a row, item, line, or word longer than size.
+OVERSIZED_BLOCK 2 Chunk 2 is a hard cut of a row, item, line, or word longer than size.
+```
+
+The URL is one 140-character word, longer than the 100-character `size`, so it was cut into two chunks.
+
+## Errors
+
+When `chunkDocument` can't produce a result, it throws a `DocchunkError`. The error's `code` tells you what went wrong, and `message` gives the details:
+
+| Code | Thrown when |
+|---|---|
+| `INVALID_OPTIONS` | An option has the wrong type or value, an option isn't accepted by the chosen strategy, or the source isn't one of the three shapes. |
+| `UNSUPPORTED_FORMAT` | The format isn't supported, or can't be detected. |
+| `FILE_NOT_FOUND` | The file at `path` doesn't exist, is a folder, or can't be read. |
+| `CONVERSION_FAILED` | anydoc couldn't convert the file, for example because it's damaged, or because anydoc isn't available on this platform. |
+| `ABORTED` | The `signal` was aborted. |
+
+Options are checked before the document is read, so an `INVALID_OPTIONS` error comes back immediately.
+
+```ts
+import { chunkDocument, DocchunkError } from "docchunk";
+
+try {
+  await chunkDocument({ path: "missing.pdf" });
+} catch (error) {
+  if (error instanceof DocchunkError) {
+    console.log(error.code);
+    console.log(error.message);
+  }
+}
+```
+
+```txt
+FILE_NOT_FOUND
+File not found: missing.pdf
+```
+
+Messages name the option or file at fault. Some examples:
+
+```txt
+Unknown option "windowSize" for strategy "structure".
+Option "overlapChars" must be less than "size" (500), got 600.
+The document's format could not be detected from its content or file name. Pass `format` to name it.
+```
+
+When an error has an underlying cause, such as the file system error for `FILE_NOT_FOUND` or anydoc's error for `CONVERSION_FAILED`, it's available as `error.cause`.
+
+## Next steps
+
+- [Chunk many documents](../chunk-documents/): chunk a list of files with one call.
+- [Strategies](../../strategies/): choose how documents are split.
