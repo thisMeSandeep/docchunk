@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 164" width="152" height="164">
+  <defs>
+    <linearGradient id="dc-text-face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2C2C2F"/>
+      <stop offset="1" stop-color="#141416"/>
+    </linearGradient>
+    <linearGradient id="dc-text-side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E10"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="dc-text-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <radialGradient id="dc-text-sheen" cx="0.28" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dc-text-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7.280000000000001"/>
+    </filter>
+    <filter id="dc-text-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect x="30.240000000000002" y="46.4" width="91.52" height="93.60000000000001" rx="20" fill="#000000" opacity="0.65" filter="url(#dc-text-shadow)"/>
+  <rect x="24" y="36" width="104" height="104" rx="20" fill="url(#dc-text-side)" stroke="#FFFFFF" stroke-opacity="0.09"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-text-face)"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-text-sheen)"/>
+  <rect x="24.5" y="24.5" width="103" height="103" rx="19.5" fill="none" stroke="url(#dc-text-edge)"/>
+  <g transform="translate(52 52)">
+    <path d="M13 5h15l10 10v26a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z" fill="none" stroke="#E4E4E7" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M28 5v10h10" fill="none" stroke="#E4E4E7" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M16 24h16M16 30h16M16 36h10" stroke="#E4E4E7" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+</svg>

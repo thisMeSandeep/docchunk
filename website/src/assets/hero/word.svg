@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 164" width="152" height="164">
+  <defs>
+    <linearGradient id="dc-word-face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2C2C2F"/>
+      <stop offset="1" stop-color="#141416"/>
+    </linearGradient>
+    <linearGradient id="dc-word-side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E10"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="dc-word-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <radialGradient id="dc-word-sheen" cx="0.28" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dc-word-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7.280000000000001"/>
+    </filter>
+    <filter id="dc-word-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect x="30.240000000000002" y="46.4" width="91.52" height="93.60000000000001" rx="20" fill="#000000" opacity="0.65" filter="url(#dc-word-shadow)"/>
+  <rect x="24" y="36" width="104" height="104" rx="20" fill="url(#dc-word-side)" stroke="#FFFFFF" stroke-opacity="0.09"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-word-face)"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-word-sheen)"/>
+  <rect x="24.5" y="24.5" width="103" height="103" rx="19.5" fill="none" stroke="url(#dc-word-edge)"/>
+  <g transform="translate(52 52)">
+    <rect x="9" y="9" width="30" height="30" rx="6" fill="#D6D6DB"/>
+    <path d="M21.42 31.28L18.01 31.28L14.10 16.72L17.35 16.72L19.04 23.88Q19.25 24.78 19.42 25.80Q19.59 26.82 19.76 27.85Q19.80 28.07 19.83 28.29Q19.86 28.07 19.90 27.85Q20.08 26.82 20.26 25.80Q20.45 24.78 20.67 23.88L22.45 16.72L25.55 16.72L27.32 23.88Q27.54 24.78 27.73 25.80Q27.91 26.82 28.10 27.85Q28.13 28.06 28.17 28.26Q28.19 28.06 28.23 27.85Q28.39 26.82 28.57 25.80Q28.75 24.78 28.95 23.88L30.64 16.72L33.90 16.72L29.98 31.28L26.58 31.28L24.65 23.83Q24.34 22.59 24.12 21.15Q24.05 20.73 23.99 20.31Q23.93 20.70 23.88 21.09Q23.68 22.52 23.34 23.83" fill="#18181A"/>
+  </g>
+</svg>

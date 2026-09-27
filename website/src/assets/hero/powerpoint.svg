@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 164" width="152" height="164">
+  <defs>
+    <linearGradient id="dc-powerpoint-face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2C2C2F"/>
+      <stop offset="1" stop-color="#141416"/>
+    </linearGradient>
+    <linearGradient id="dc-powerpoint-side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E10"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="dc-powerpoint-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <radialGradient id="dc-powerpoint-sheen" cx="0.28" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dc-powerpoint-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7.280000000000001"/>
+    </filter>
+    <filter id="dc-powerpoint-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect x="30.240000000000002" y="46.4" width="91.52" height="93.60000000000001" rx="20" fill="#000000" opacity="0.65" filter="url(#dc-powerpoint-shadow)"/>
+  <rect x="24" y="36" width="104" height="104" rx="20" fill="url(#dc-powerpoint-side)" stroke="#FFFFFF" stroke-opacity="0.09"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-powerpoint-face)"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-powerpoint-sheen)"/>
+  <rect x="24.5" y="24.5" width="103" height="103" rx="19.5" fill="none" stroke="url(#dc-powerpoint-edge)"/>
+  <g transform="translate(52 52)">
+    <rect x="9.25" y="9.25" width="29.5" height="29.5" rx="6" fill="none" stroke="#F0662B" stroke-width="2.5"/>
+    <path d="M21.96 30.91L19.48 30.91L19.48 17.09L24.65 17.09Q26.23 17.09 27.32 17.68Q28.41 18.28 28.96 19.31Q29.52 20.34 29.52 21.66Q29.52 22.99 28.96 24.02Q28.40 25.05 27.30 25.64Q26.21 26.24 24.61 26.24L21.96 26.24L21.96 30.91M21.96 19.17L21.96 24.19L24.29 24.19Q25.22 24.19 25.82 23.87Q26.42 23.55 26.70 22.97Q26.99 22.40 26.99 21.66Q26.99 20.93 26.70 20.36Q26.42 19.80 25.82 19.48Q25.21 19.17 24.27 19.17" fill="#F0662B"/>
+  </g>
+</svg>

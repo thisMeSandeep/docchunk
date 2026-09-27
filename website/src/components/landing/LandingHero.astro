@@ -1,0 +1,94 @@
+---
+// The hero: badge, headline, subtitle, and buttons on the left; the animated picture on the right.
+import HeroVisual from "./HeroVisual.astro";
+import { getStartedHref, githubHref } from "./links";
+---
+
+<div class="landing-container hero">
+	<div class="hero-copy">
+		<p class="hero-badge">A TypeScript library</p>
+		<h1 id="hero-title" class="hero-title">Document chunking<br />for developers</h1>
+		<p class="hero-subtitle">
+			Turn PDFs, Office files, Markdown, and text into chunks ready for embedding. Fully local,
+			with 11 strategies to choose from.
+		</p>
+		<div class="hero-actions">
+			<a href={getStartedHref} class="landing-button">Get started</a>
+			<a href={githubHref} class="landing-button landing-button-ghost">View on GitHub</a>
+		</div>
+	</div>
+	<div class="hero-picture">
+		<HeroVisual />
+	</div>
+</div>
+
+<style>
+	.hero {
+		display: grid;
+		grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+		align-items: center;
+		gap: clamp(24px, 4vw, 64px);
+		padding-top: clamp(32px, 6vh, 64px);
+		padding-bottom: clamp(40px, 7vh, 80px);
+	}
+
+	.hero-badge {
+		display: inline-flex;
+		align-items: center;
+		margin: 0 0 28px;
+		padding: 7px 16px;
+		border-radius: 999px;
+		border: 1px solid var(--landing-border-strong);
+		background: var(--landing-surface);
+		color: var(--landing-text);
+		font-size: 0.9375rem;
+		letter-spacing: -0.005em;
+	}
+
+	/* The serif headline with a silver gradient, as in the reference. */
+	.hero-title {
+		margin: 0 0 24px;
+		font-family: var(--font-serif);
+		font-optical-sizing: auto;
+		font-weight: 500;
+		font-size: clamp(2.75rem, 4.4vw, 4rem);
+		line-height: 1.02;
+		letter-spacing: -0.025em;
+		background: linear-gradient(180deg, #ffffff 30%, #a1a1aa 100%);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	.hero-subtitle {
+		max-width: 34rem;
+		margin: 0 0 40px;
+		font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--landing-muted);
+	}
+
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.hero-picture {
+		min-width: 0;
+	}
+
+	@media (max-width: 960px) {
+		.hero {
+			grid-template-columns: 1fr;
+			gap: 48px;
+		}
+
+		.hero-picture {
+			max-width: 560px;
+			width: 100%;
+			margin: 0 auto;
+		}
+	}
+</style>

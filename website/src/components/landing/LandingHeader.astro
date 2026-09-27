@@ -1,0 +1,65 @@
+---
+// The landing page's top bar: the wordmark, a GitHub link, and the Get started button. No nav links.
+import logo from "../../assets/logo-dark.svg";
+import { getStartedHref, githubHref, publicFile } from "./links";
+---
+
+<header class="landing-header">
+	<div class="landing-container landing-header-inner">
+		<a href={publicFile("")} class="landing-logo" aria-label="Doc-chunk home">
+			<img src={logo.src} alt="Doc-chunk" width="112" height="17" />
+		</a>
+		<div class="landing-header-actions">
+			<a href={githubHref} class="landing-icon-link" aria-label="Doc-chunk on GitHub">
+				<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+					<path
+						fill="currentColor"
+						d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"
+					></path>
+				</svg>
+			</a>
+			<a href={getStartedHref} class="landing-button landing-button-small">Get started</a>
+		</div>
+	</div>
+</header>
+
+<style>
+	.landing-header {
+		position: relative;
+		z-index: 2;
+	}
+
+	.landing-header-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 76px;
+	}
+
+	.landing-logo {
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.landing-logo img {
+		display: block;
+		height: 20px;
+		width: auto;
+	}
+
+	.landing-header-actions {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.landing-icon-link {
+		display: inline-flex;
+		color: var(--landing-muted);
+		transition: color 0.2s ease;
+	}
+
+	.landing-icon-link:hover {
+		color: var(--landing-text);
+	}
+</style>

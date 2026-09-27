@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 164" width="152" height="164">
+  <defs>
+    <linearGradient id="dc-pdf-face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2C2C2F"/>
+      <stop offset="1" stop-color="#141416"/>
+    </linearGradient>
+    <linearGradient id="dc-pdf-side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E10"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="dc-pdf-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <radialGradient id="dc-pdf-sheen" cx="0.28" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dc-pdf-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7.280000000000001"/>
+    </filter>
+    <filter id="dc-pdf-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect x="30.240000000000002" y="46.4" width="91.52" height="93.60000000000001" rx="20" fill="#000000" opacity="0.65" filter="url(#dc-pdf-shadow)"/>
+  <rect x="24" y="36" width="104" height="104" rx="20" fill="url(#dc-pdf-side)" stroke="#FFFFFF" stroke-opacity="0.09"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-pdf-face)"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-pdf-sheen)"/>
+  <rect x="24.5" y="24.5" width="103" height="103" rx="19.5" fill="none" stroke="url(#dc-pdf-edge)"/>
+  <g transform="translate(52 52)">
+    <path d="M13 5h15l10 10v26a3 3 0 0 1-3 3H13a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3z" fill="none" stroke="#F0433A" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M28 5v10h10" fill="none" stroke="#F0433A" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M15.65 34.32L14.08 34.32L14.08 26.68L17.06 26.68Q17.94 26.68 18.55 27.01Q19.16 27.34 19.48 27.92Q19.80 28.51 19.80 29.26Q19.80 30.02 19.47 30.59Q19.14 31.17 18.53 31.50Q17.91 31.82 17.03 31.82L15.65 31.82L15.65 34.32M15.65 27.97L15.65 30.56L16.78 30.56Q17.26 30.56 17.57 30.39Q17.88 30.23 18.03 29.94Q18.18 29.64 18.18 29.26Q18.18 28.87 18.03 28.59Q17.88 28.30 17.57 28.13Q17.25 27.97 16.77 27.97L15.65 27.97M23.78 34.32L21.10 34.32L21.10 26.68L23.81 26.68Q24.96 26.68 25.79 27.14Q26.61 27.60 27.06 28.45Q27.51 29.31 27.51 30.49Q27.51 31.69 27.06 32.55Q26.61 33.40 25.78 33.86Q24.95 34.32 23.78 34.32M22.66 28.03L22.66 32.97L23.71 32.97Q24.45 32.97 24.95 32.71Q25.45 32.45 25.70 31.90Q25.95 31.35 25.95 30.49Q25.95 29.64 25.69 29.10Q25.44 28.55 24.95 28.29Q24.45 28.03 23.72 28.03L22.66 28.03M30.45 34.32L28.89 34.32L28.89 26.68L33.92 26.68L33.92 27.98L30.45 27.98L30.45 30.11L33.58 30.11L33.58 31.39L30.45 31.39" fill="#F0433A"/>
+  </g>
+</svg>

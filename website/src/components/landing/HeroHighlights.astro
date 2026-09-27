@@ -1,0 +1,74 @@
+---
+// The strip at the bottom of the hero: three short highlights, separated by thin lines. No icons.
+const highlights = [
+	{ title: "Easy to use", text: "Simple and intuitive APIs." },
+	{ title: "11 Chunking strategies", text: "Choose the right strategy for your use case." },
+	{ title: "Multiple formats", text: "PDF, DOCX, TXT, Markdown and more." },
+];
+---
+
+<div class="landing-container">
+	<ul class="hero-highlights">
+		{highlights.map((highlight) => (
+			<li class="hero-highlight">
+				<h2>{highlight.title}</h2>
+				<p>{highlight.text}</p>
+			</li>
+		))}
+	</ul>
+</div>
+
+<style>
+	.hero-highlights {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		margin: 0;
+		padding: 36px 0 44px;
+		list-style: none;
+		border-top: 1px solid var(--landing-border);
+	}
+
+	.hero-highlight {
+		padding: 4px 32px;
+	}
+
+	.hero-highlight:first-child {
+		padding-left: 0;
+	}
+
+	.hero-highlight + .hero-highlight {
+		border-left: 1px solid var(--landing-border);
+	}
+
+	.hero-highlight h2 {
+		margin: 0 0 8px;
+		font-size: 1.0625rem;
+		font-weight: 550;
+		letter-spacing: -0.01em;
+		color: var(--landing-text);
+	}
+
+	.hero-highlight p {
+		margin: 0;
+		font-size: 1rem;
+		line-height: 1.5;
+		color: var(--landing-muted);
+	}
+
+	@media (max-width: 760px) {
+		.hero-highlights {
+			grid-template-columns: 1fr;
+			padding-top: 8px;
+		}
+
+		.hero-highlight,
+		.hero-highlight:first-child {
+			padding: 20px 0;
+		}
+
+		.hero-highlight + .hero-highlight {
+			border-left: none;
+			border-top: 1px solid var(--landing-border);
+		}
+	}
+</style>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 164" width="152" height="164">
+  <defs>
+    <linearGradient id="dc-excel-face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2C2C2F"/>
+      <stop offset="1" stop-color="#141416"/>
+    </linearGradient>
+    <linearGradient id="dc-excel-side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E10"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="dc-excel-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <radialGradient id="dc-excel-sheen" cx="0.28" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dc-excel-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7.280000000000001"/>
+    </filter>
+    <filter id="dc-excel-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect x="30.240000000000002" y="46.4" width="91.52" height="93.60000000000001" rx="20" fill="#000000" opacity="0.65" filter="url(#dc-excel-shadow)"/>
+  <rect x="24" y="36" width="104" height="104" rx="20" fill="url(#dc-excel-side)" stroke="#FFFFFF" stroke-opacity="0.09"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-excel-face)"/>
+  <rect x="24" y="24" width="104" height="104" rx="20" fill="url(#dc-excel-sheen)"/>
+  <rect x="24.5" y="24.5" width="103" height="103" rx="19.5" fill="none" stroke="url(#dc-excel-edge)"/>
+  <g transform="translate(52 52)">
+    <rect x="9.25" y="9.25" width="29.5" height="29.5" rx="6" fill="none" stroke="#2FA36B" stroke-width="2.5"/>
+    <path d="M20.50 30.91L17.65 30.91L22.62 23.84L18.05 17.09L20.92 17.09L22.60 19.61Q23.03 20.26 23.30 20.76Q23.58 21.26 23.81 21.73Q23.92 21.94 24.03 22.16Q24.14 21.94 24.24 21.74Q24.47 21.27 24.76 20.77Q25.04 20.26 25.48 19.61L27.18 17.09L29.98 17.09L25.45 23.77L30.35 30.91L27.43 30.91L25.34 27.81Q24.96 27.23 24.71 26.82Q24.46 26.41 24.26 26.03Q24.14 25.81 24 25.55Q23.87 25.80 23.75 26.01Q23.55 26.39 23.29 26.81Q23.04 27.23 22.64 27.81" fill="#2FA36B"/>
+  </g>
+</svg>

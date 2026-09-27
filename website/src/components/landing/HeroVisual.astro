@@ -1,0 +1,232 @@
+---
+// The hero's animated picture: document formats flow into the Doc-chunk engine and come out as chunks.
+import chunkCard from "../../assets/hero/chunk.svg";
+import code from "../../assets/hero/code.svg";
+import engine from "../../assets/hero/engine.svg";
+import excel from "../../assets/hero/excel.svg";
+import pdf from "../../assets/hero/pdf.svg";
+import powerpoint from "../../assets/hero/powerpoint.svg";
+import text from "../../assets/hero/text.svg";
+import word from "../../assets/hero/word.svg";
+
+// The icon files are drawn with 24 units of padding around each face (see the hero icon generator).
+const iconPadding = 24;
+const tileFaceSize = 104;
+const engineFaceSize = 160;
+const cardFace = { x: 20, centerY: 64 };
+
+const viewWidth = 640;
+const viewHeight = 560;
+
+// Format tiles: one column on the left.
+const tileWidth = 88;
+const tileScale = tileWidth / pdf.width;
+const tileStep = 84;
+const formats = [
+	{ image: pdf, label: "PDF" },
+	{ image: word, label: "Word" },
+	{ image: excel, label: "Excel" },
+	{ image: powerpoint, label: "PowerPoint" },
+	{ image: text, label: "Text" },
+	{ image: code, label: "Code" },
+];
+const tiles = formats.map((format, index) => {
+	const x = 24;
+	const y = 24 + index * tileStep;
+	const faceCenterY = y + (iconPadding + tileFaceSize / 2) * tileScale;
+	const faceRight = x + (iconPadding + tileFaceSize) * tileScale;
+	return { ...format, x, y, faceCenterY, faceRight };
+});
+const firstTile = tiles[0];
+const lastTile = tiles[tiles.length - 1];
+const centerY = ((firstTile?.faceCenterY ?? 0) + (lastTile?.faceCenterY ?? 0)) / 2;
+
+// The engine: centered vertically, in the middle.
+const engineWidth = 168;
+const engineScale = engineWidth / engine.width;
+const engineX = 262;
+const engineY = centerY - (iconPadding + engineFaceSize / 2) * engineScale;
+const engineLeft = engineX + iconPadding * engineScale;
+const engineRight = engineX + (iconPadding + engineFaceSize) * engineScale;
+
+// Chunk cards: three, fanned out on the right.
+const cardWidth = 186;
+const cardScale = cardWidth / chunkCard.width;
+const cardX = 446;
+const cardSpacing = 104;
+const cards = [-1, 0, 1].map((offset) => {
+	const cardCenterY = centerY + offset * cardSpacing;
+	return {
+		y: cardCenterY - cardFace.centerY * cardScale,
+		centerY: cardCenterY,
+		left: cardX + cardFace.x * cardScale,
+	};
+});
+
+/** Returns a smooth curve from one point to another, leaving and arriving horizontally. */
+function curve(fromX: number, fromY: number, toX: number, toY: number): string {
+	const bend = (toX - fromX) * 0.55;
+	return `M${fromX} ${fromY} C${fromX + bend} ${fromY} ${toX - bend} ${toY} ${toX} ${toY}`;
+}
+
+const inputPaths = tiles.map((tile) => curve(tile.faceRight + 6, tile.faceCenterY, engineLeft - 8, centerY));
+const outputPaths = cards.map((card) => curve(engineRight + 8, centerY, card.left - 8, card.centerY));
+---
+
+<div class="hero-visual">
+	<svg
+		viewBox={`0 0 ${viewWidth} ${viewHeight}`}
+		role="img"
+		aria-label="PDF, Word, Excel, PowerPoint, text, and code files flow into Doc-chunk and come out as chunks."
+	>
+		<defs>
+			<filter id="hero-engine-glow" x="-50%" y="-50%" width="200%" height="200%">
+				<feGaussianBlur stdDeviation="22"></feGaussianBlur>
+			</filter>
+		</defs>
+
+		{inputPaths.map((path, index) => (
+			<path class="hero-flow" d={path} style={`animation-delay: ${index * -0.25}s`} />
+		))}
+		{outputPaths.map((path, index) => (
+			<path class="hero-flow hero-flow-out" d={path} style={`animation-delay: ${index * -0.3}s`} />
+		))}
+
+		<ellipse
+			class="hero-engine-glow"
+			cx={engineX + engineWidth / 2}
+			cy={centerY}
+			rx={engineWidth * 0.42}
+			ry={engineWidth * 0.42}
+			filter="url(#hero-engine-glow)"
+		></ellipse>
+
+		{tiles.map((tile, index) => (
+			<g class="hero-tile" style={`animation-delay: ${index * -1.1}s`}>
+				<image
+					href={tile.image.src}
+					x={tile.x}
+					y={tile.y}
+					width={tileWidth}
+					height={tile.image.height * tileScale}
+				>
+					<title>{tile.label}</title>
+				</image>
+			</g>
+		))}
+
+		<image
+			href={engine.src}
+			x={engineX}
+			y={engineY}
+			width={engineWidth}
+			height={engine.height * engineScale}
+		></image>
+
+		{cards.map((card, index) => (
+			<g class="hero-card" style={`animation-delay: ${index * 0.6}s`}>
+				<image
+					href={chunkCard.src}
+					x={cardX}
+					y={card.y}
+					width={cardWidth}
+					height={chunkCard.height * cardScale}
+				></image>
+			</g>
+		))}
+	</svg>
+</div>
+
+<style>
+	.hero-visual {
+		width: 100%;
+		perspective: 1600px;
+	}
+
+	.hero-visual svg {
+		display: block;
+		width: 100%;
+		height: auto;
+		overflow: visible;
+		transform: rotateY(-14deg) rotateX(5deg);
+		transform-origin: 40% 50%;
+	}
+
+	.hero-flow {
+		fill: none;
+		stroke: rgba(255, 255, 255, 0.28);
+		stroke-width: 1.4;
+		stroke-linecap: round;
+		stroke-dasharray: 3 7;
+		animation: hero-flow 1.4s linear infinite;
+	}
+
+	.hero-flow-out {
+		stroke: rgba(255, 255, 255, 0.4);
+	}
+
+	.hero-engine-glow {
+		fill: rgba(255, 255, 255, 0.14);
+		animation: hero-glow 4s ease-in-out infinite;
+	}
+
+	.hero-tile {
+		transform-box: fill-box;
+		animation: hero-float 6.6s ease-in-out infinite;
+	}
+
+	.hero-card {
+		transform-box: fill-box;
+		animation: hero-card 3.6s ease-in-out infinite;
+	}
+
+	/* Dashes move along each path, from the formats into the engine and out to the chunks. */
+	@keyframes hero-flow {
+		to {
+			stroke-dashoffset: -20;
+		}
+	}
+
+	@keyframes hero-glow {
+		0%,
+		100% {
+			opacity: 0.55;
+		}
+		50% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes hero-float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-4px);
+		}
+	}
+
+	/* Each chunk card lights up in turn, as if just produced. */
+	@keyframes hero-card {
+		0%,
+		100% {
+			opacity: 0.6;
+			transform: translateX(-4px);
+		}
+		35%,
+		60% {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-flow,
+		.hero-engine-glow,
+		.hero-tile,
+		.hero-card {
+			animation: none;
+		}
+	}
+</style>

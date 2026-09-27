@@ -1,0 +1,63 @@
+---
+// The landing page: one hero section with the header, the hero, and the highlights strip.
+import "../styles/landing.css";
+import HeroHighlights from "../components/landing/HeroHighlights.astro";
+import LandingHeader from "../components/landing/LandingHeader.astro";
+import LandingHero from "../components/landing/LandingHero.astro";
+import { publicFile } from "../components/landing/links";
+
+const title = "Doc-chunk: document chunking for TypeScript";
+const description =
+	"Turn PDFs, Word, PowerPoint, Excel, Markdown, and text into chunks ready for embedding and RAG. Fully local, with 11 chunking strategies.";
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+		<link rel="icon" href={publicFile("favicon.svg")} type="image/svg+xml" />
+		<link rel="sitemap" href={publicFile("sitemap-index.xml")} />
+		<meta name="theme-color" content="#000000" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta name="twitter:card" content="summary_large_image" />
+	</head>
+	<body>
+		<main class="landing" style={`--landing-backdrop: url("${publicFile("background.webp")}")`}>
+			<LandingHeader />
+			<section class="landing-hero" aria-labelledby="hero-title">
+				<LandingHero />
+				<HeroHighlights />
+			</section>
+		</main>
+	</body>
+</html>
+
+<style>
+	/* The backdrop image sits behind the whole first screen and fades into black at the bottom. */
+	.landing {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		min-height: 100svh;
+		background:
+			linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, #000000 100%),
+			var(--landing-backdrop) center / cover no-repeat,
+			#000000;
+		overflow: hidden;
+	}
+
+	.landing-hero {
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+</style>

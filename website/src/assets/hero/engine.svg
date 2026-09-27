@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208 224" width="208" height="224">
+  <defs>
+    <linearGradient id="dc-engine-face" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2C2C2F"/>
+      <stop offset="1" stop-color="#141416"/>
+    </linearGradient>
+    <linearGradient id="dc-engine-side" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0E0E10"/>
+      <stop offset="1" stop-color="#050506"/>
+    </linearGradient>
+    <linearGradient id="dc-engine-edge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <radialGradient id="dc-engine-sheen" cx="0.28" cy="0.18" r="0.75">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="dc-engine-shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="11.200000000000001"/>
+    </filter>
+    <filter id="dc-engine-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect x="33.6" y="56" width="140.8" height="144" rx="30" fill="#000000" opacity="0.65" filter="url(#dc-engine-shadow)"/>
+  <rect x="24" y="40" width="160" height="160" rx="30" fill="url(#dc-engine-side)" stroke="#FFFFFF" stroke-opacity="0.09"/>
+  <rect x="23" y="23" width="162" height="162" rx="31" fill="none" stroke-width="2" style="stroke: var(--dc-accent, #FFFFFF)" filter="url(#dc-engine-glow)" opacity="0.7"/>
+  <rect x="24" y="24" width="160" height="160" rx="30" fill="url(#dc-engine-face)"/>
+  <rect x="24" y="24" width="160" height="160" rx="30" fill="url(#dc-engine-sheen)"/>
+  <rect x="24.5" y="24.5" width="159" height="159" rx="29.5" fill="none" stroke="url(#dc-engine-edge)"/>
+  <g transform="translate(80 80)">
+  <g transform="translate(24 24) scale(2.3) translate(-24 -24)">
+    <mask id="dc-engine-cut"><rect x="0" y="0" width="48" height="48" fill="#fff"/><rect x="0" y="22.6" width="48" height="2.8" fill="#000"/></mask>
+    <path mask="url(#dc-engine-cut)" d="M22.20 36.37L13.83 36.37L13.83 11.63L22.36 11.63Q26.05 11.63 28.69 13.11Q31.33 14.59 32.75 17.36Q34.17 20.13 34.17 23.97Q34.17 27.83 32.75 30.62Q31.33 33.40 28.65 34.88Q25.97 36.37 22.20 36.37M18.26 15.47L18.26 32.53L21.98 32.53Q24.57 32.53 26.31 31.58Q28.04 30.62 28.92 28.72Q29.80 26.82 29.80 23.97Q29.80 21.14 28.92 19.25Q28.04 17.36 26.34 16.41Q24.64 15.47 22.10 15.47" fill="#FFFFFF"/>
+  </g>
+  </g>
+</svg>

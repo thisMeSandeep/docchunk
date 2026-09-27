@@ -46,7 +46,9 @@
     "check:network": "bun run scripts/check-no-network.ts",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "bun run build && changeset publish"
+    "release": "bun run build && changeset publish",
+    "docs:dev": "bun run --cwd website dev",
+    "docs:build": "bun run --cwd website build"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",
