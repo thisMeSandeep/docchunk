@@ -2,3 +2,60 @@
 title: Agent skill
 description: "A skill file that teaches AI coding agents how to use Doc-chunk."
 ---
+
+import { Code, Tabs, TabItem } from "@astrojs/starlight/components";
+import skill from "../../../../skill/SKILL.md?raw";
+
+The Doc-chunk skill is a single `SKILL.md` file that tells an AI coding agent how to use the library: how to install it, which strategy to choose, working examples, the error codes, and the mistakes to avoid. With the skill installed, the agent writes correct Doc-chunk code without searching the web or guessing the API.
+
+The file follows the Agent Skills format: Markdown with a short header that tells the agent when to use it. Agents that support skills load it only when a task involves chunking documents.
+
+## Install the skill
+
+The skill is one file. Copy it from [the end of this page](#the-skill-file), or download it into your project with the commands below.
+
+<Tabs>
+<TabItem label="Claude Code (project)">
+Install the skill for everyone working on this project. Commit the file so the whole team gets it.
+
+```sh wrap
+mkdir -p .claude/skills/docchunk
+curl -fsSL https://thismesandeep.github.io/docchunk/skill/SKILL.md -o .claude/skills/docchunk/SKILL.md
+```
+</TabItem>
+<TabItem label="Claude Code (personal)">
+Install the skill for all your projects.
+
+```sh wrap
+mkdir -p ~/.claude/skills/docchunk
+curl -fsSL https://thismesandeep.github.io/docchunk/skill/SKILL.md -o ~/.claude/skills/docchunk/SKILL.md
+```
+</TabItem>
+<TabItem label="Other agents">
+For another agent that supports Agent Skills, create a `docchunk` folder in the folder where that agent looks for skills, and save the file in it as `SKILL.md`. Check your agent's documentation for the location.
+
+For an agent that doesn't support skills, copy the file's content, without the header between the `---` lines, into the agent's instructions file, such as `AGENTS.md`, `CLAUDE.md`, or a Cursor rules file.
+</TabItem>
+</Tabs>
+
+Restart the agent, or start a new session, so it finds the new skill. To check that it works, ask the agent something like "Chunk the PDFs in ./docs with docchunk and save the chunks as JSON".
+
+## What the skill contains
+
+- Installation and runtime requirements.
+- The three kinds of source, and the fields of the result.
+- A table of all 11 strategies, with the goal each one suits and its options.
+- Examples for common tasks: setting the size, chunking a string, parent-child retrieval, batches, and re-indexing.
+- The error and warning codes.
+- The mistakes agents make most often, such as treating sizes as tokens or passing `documentId` to a batch.
+- A link to [`llms-full.txt`](../llms-txt/), for anything the skill doesn't cover.
+
+## Keep it up to date
+
+The skill describes the current version of Doc-chunk. After you upgrade the library, download the skill again with the same command.
+
+## The skill file
+
+Hover over the code block and select the copy button in its top right corner, or [download `SKILL.md`](../../../skill/SKILL.md).
+
+<Code code={skill} lang="md" title="SKILL.md" wrap />

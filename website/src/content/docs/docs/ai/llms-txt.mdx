@@ -2,3 +2,37 @@
 title: llms.txt
 description: "The documentation as plain Markdown files, ready to give to an LLM."
 ---
+
+The Doc-chunk documentation is also published as plain Markdown files, following the [llms.txt](https://llmstxt.org) convention. Give one of them to an LLM or an AI coding agent, and it has the whole documentation in a form it reads easily, without navigation, scripts, or styling.
+
+## The files
+
+| File | Contents |
+|---|---|
+| [`/llms.txt`](https://thismesandeep.github.io/docchunk/llms.txt) | A short index: what Doc-chunk is, key facts, and links to the other files. |
+| [`/llms-full.txt`](https://thismesandeep.github.io/docchunk/llms-full.txt) | The complete documentation in one file, in the same order as the site. |
+| [`/llms-small.txt`](https://thismesandeep.github.io/docchunk/llms-small.txt) | A shorter version of the complete documentation, without notes and with less whitespace. |
+
+`llms.txt` also links to three smaller files, each with one part of the documentation:
+
+| File | Contents |
+|---|---|
+| [Getting started and guides](https://thismesandeep.github.io/docchunk/_llms-txt/getting-started-and-guides.txt) | Introduction, Quickstart, How it works, and the two guides. |
+| [Strategies](https://thismesandeep.github.io/docchunk/_llms-txt/strategies.txt) | The 11 strategies, their options, and examples. |
+| [Reference](https://thismesandeep.github.io/docchunk/_llms-txt/reference.txt) | Functions, options, types, warnings, error codes, and formats. |
+
+All the files are generated from the documentation every time the site is built, so they always match it.
+
+## Which file to use
+
+- **`llms-full.txt`** for coding agents and for questions about any part of Doc-chunk. It fits easily in the context of current models.
+- **One of the smaller files** when you only need one part, such as the reference, or want to leave more room in the context.
+- **`llms.txt`** for tools that follow links themselves, starting from an index.
+
+## How to use them
+
+- **In a chat:** paste the link to `llms-full.txt` into your message, if the tool can read web pages. Otherwise, download the file and attach it.
+- **In a coding agent:** tell the agent to read `https://thismesandeep.github.io/docchunk/llms-full.txt` before it writes Doc-chunk code. The [setup prompt](../setup-prompt/) does this for you.
+- **In an editor that indexes documentation,** such as Cursor, add the site's address as a documentation source.
+
+For agents you use regularly, the [agent skill](../agent-skill/) is usually a better fit: the agent loads it automatically when a task involves chunking, and it's much shorter than the full documentation.

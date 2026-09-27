@@ -1,6 +1,75 @@
 // @ts-check
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
+import starlightLlmsTxt from "starlight-llms-txt";
+
+// The groups and order follow docs/DOCUMENTATION-PLAN.md section 2.
+const sidebar = [
+	{
+		label: "Getting started",
+		items: ["docs/introduction", "docs/quickstart", "docs/how-it-works"],
+	},
+	{
+		label: "Guides",
+		items: ["docs/guides/chunk-document", "docs/guides/chunk-documents"],
+	},
+	{
+		label: "Strategies",
+		items: [
+			{ label: "Overview", slug: "docs/strategies" },
+			"docs/strategies/structure",
+			"docs/strategies/heading",
+			"docs/strategies/paragraph",
+			"docs/strategies/sentence",
+			"docs/strategies/sentence-window",
+			"docs/strategies/parent-child",
+			"docs/strategies/hierarchical",
+			"docs/strategies/recursive",
+			"docs/strategies/fixed",
+			"docs/strategies/fixed-overlap",
+			"docs/strategies/sliding-window",
+			"docs/strategies/compare",
+		],
+	},
+	{
+		label: "Reference",
+		items: [
+			"docs/reference/chunk-document",
+			"docs/reference/chunk-documents",
+			"docs/reference/build-chunk-tree",
+			"docs/reference/docchunk-error",
+			"docs/reference/options",
+			"docs/reference/types",
+			"docs/reference/warnings",
+			"docs/reference/error-codes",
+			"docs/reference/formats",
+		],
+	},
+	{
+		label: "AI & agents",
+		items: ["docs/ai/agent-skill", "docs/ai/setup-prompt", "docs/ai/llms-txt"],
+	},
+	{
+		label: "Resources",
+		items: ["docs/limitations", "docs/privacy", "docs/performance"],
+	},
+	"docs/contributing",
+];
+
+/** Returns every page slug in the sidebar, in sidebar order. */
+function sidebarSlugs(items) {
+	const slugs = [];
+	for (const item of items) {
+		if (typeof item === "string") {
+			slugs.push(item);
+		} else if ("slug" in item) {
+			slugs.push(item.slug);
+		} else {
+			slugs.push(...sidebarSlugs(item.items));
+		}
+	}
+	return slugs;
+}
 
 // https://astro.build/config
 export default defineConfig({
@@ -48,57 +117,42 @@ export default defineConfig({
 				ThemeProvider: "./src/components/docs/DarkThemeProvider.astro",
 				ThemeSelect: "./src/components/docs/NoThemeSelect.astro",
 			},
-			// The groups and order follow docs/DOCUMENTATION-PLAN.md section 2.
-			sidebar: [
-				{
-					label: "Getting started",
-					items: ["docs/introduction", "docs/quickstart", "docs/how-it-works"],
-				},
-				{
-					label: "Guides",
-					items: ["docs/guides/chunk-document", "docs/guides/chunk-documents"],
-				},
-				{
-					label: "Strategies",
-					items: [
-						{ label: "Overview", slug: "docs/strategies" },
-						"docs/strategies/structure",
-						"docs/strategies/heading",
-						"docs/strategies/paragraph",
-						"docs/strategies/sentence",
-						"docs/strategies/sentence-window",
-						"docs/strategies/parent-child",
-						"docs/strategies/hierarchical",
-						"docs/strategies/recursive",
-						"docs/strategies/fixed",
-						"docs/strategies/fixed-overlap",
-						"docs/strategies/sliding-window",
-						"docs/strategies/compare",
+			sidebar,
+			plugins: [
+				starlightLlmsTxt({
+					projectName: "Doc-chunk",
+					details: [
+						"- The npm package is `docchunk`. It runs on Node.js 22.12 or later, and on Bun.",
+						"- All sizes are in characters, not tokens.",
+						"- Everything runs locally. There is no OCR, so scanned PDFs give no chunks.",
+					].join("\n"),
+					// Pages appear in llms-full.txt in the same order as in the sidebar.
+					promote: sidebarSlugs(sidebar),
+					customSets: [
+						{
+							label: "Getting started and guides",
+							paths: ["docs/introduction", "docs/quickstart", "docs/how-it-works", "docs/guides/**"],
+							description: "what Doc-chunk is, installation, and how to use chunkDocument and chunkDocuments",
+						},
+						{
+							label: "Strategies",
+							paths: ["docs/strategies", "docs/strategies/**"],
+							description: "the 11 chunking strategies, their options, and examples",
+						},
+						{
+							label: "Reference",
+							paths: ["docs/reference/**"],
+							description: "functions, options, types, warnings, error codes, and formats",
+						},
 					],
-				},
-				{
-					label: "Reference",
-					items: [
-						"docs/reference/chunk-document",
-						"docs/reference/chunk-documents",
-						"docs/reference/build-chunk-tree",
-						"docs/reference/docchunk-error",
-						"docs/reference/options",
-						"docs/reference/types",
-						"docs/reference/warnings",
-						"docs/reference/error-codes",
-						"docs/reference/formats",
+					optionalLinks: [
+						{
+							label: "Agent skill",
+							url: "https://thismesandeep.github.io/docchunk/skill/SKILL.md",
+							description: "a SKILL.md file with install steps, a strategy table, examples, and pitfalls",
+						},
 					],
-				},
-				{
-					label: "AI & agents",
-					items: ["docs/ai/agent-skill", "docs/ai/setup-prompt", "docs/ai/llms-txt"],
-				},
-				{
-					label: "Resources",
-					items: ["docs/limitations", "docs/privacy", "docs/performance"],
-				},
-				"docs/contributing",
+				}),
 			],
 		}),
 	],
