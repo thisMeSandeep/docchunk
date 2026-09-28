@@ -1,0 +1,48 @@
+# Builds the documentation site in website/ and deploys it to GitHub Pages.
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+    paths: ["website/**", ".github/workflows/deploy-docs.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a newer push replaces a queued one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/configure-pages@v6
+
+      - name: Install
+        run: bun install --frozen-lockfile
+        working-directory: website
+
+      - name: Build
+        run: bun run build
+        working-directory: website
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: website/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
