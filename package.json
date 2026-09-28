@@ -1,19 +1,36 @@
 {
   "name": "docchunk",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Local document chunking for RAG: PDF, Office, Markdown and text to chunks.",
   "license": "MIT",
+  "author": "Sandeep Singh",
+  "homepage": "https://thismesandeep.github.io/docchunk/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thisMeSandeep/docchunk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thisMeSandeep/docchunk/issues"
+  },
   "keywords": [
     "rag",
     "chunking",
+    "chunker",
     "text-splitter",
+    "document",
     "markdown",
     "pdf",
     "docx",
+    "pptx",
+    "xlsx",
+    "epub",
     "embeddings",
-    "retrieval"
+    "retrieval",
+    "llm",
+    "typescript"
   ],
   "type": "module",
+  "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -27,7 +44,8 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "dist"
@@ -47,6 +65,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "release": "bun run build && changeset publish",
+    "prepublishOnly": "bun run typecheck && bun run lint && bun run check:network && bun run test && bun run build",
     "docs:dev": "bun run --cwd website dev",
     "docs:build": "bun run --cwd website build"
   },
@@ -66,5 +85,8 @@
     "mdast-util-from-markdown": "2.0.3",
     "mdast-util-gfm": "3.1.0",
     "micromark-extension-gfm": "3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

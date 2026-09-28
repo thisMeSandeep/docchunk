@@ -88,7 +88,12 @@ function splitUnit(markdown: string, unit: BlockUnit, size: number): SectionChun
   if (firstPiece === undefined || firstPiece.prefix !== undefined) {
     return splitBlocks(markdown, unit.blocks, size);
   }
-  const chunks: SectionChunk[] = [{ ...firstPiece, start: unit.start, sectionId: unit.sectionId }];
+  const firstChunk: SectionChunk = { ...firstPiece, start: unit.start, sectionId: unit.sectionId };
+  // A piece can be larger than asked, when it is a single character that cannot be cut, such as an emoji.
+  if (measureRawChunk(firstChunk) > size) {
+    return splitBlocks(markdown, unit.blocks, size);
+  }
+  const chunks: SectionChunk[] = [firstChunk];
   for (const piece of pieces.slice(1)) {
     chunks.push({ ...piece, sectionId: unit.sectionId });
   }

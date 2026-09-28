@@ -9,6 +9,8 @@ Turn documents into chunks ready for embedding and retrieval (RAG), entirely on 
 
 Office documents and PDFs are converted to Markdown by [`@firecrawl/anydoc`](https://github.com/firecrawl/anydoc), which runs locally. Markdown and text files skip conversion.
 
+**Documentation:** https://thismesandeep.github.io/docchunk/ (also as [`llms-full.txt`](https://thismesandeep.github.io/docchunk/llms-full.txt) for AI agents).
+
 ## Install
 
 ```bash
@@ -78,7 +80,7 @@ A source is one of `{ path }`, `{ bytes, filename?, format? }`, or `{ content, f
 
 | Format | Extensions | Notes |
 |---|---|---|
-| PDF | `.pdf` | Text-based PDFs. Images are skipped. Scanned pages are not supported (no OCR). |
+| PDF | `.pdf` | Text-based PDFs. Images are skipped. No OCR: a PDF with any scanned page gives no chunks. |
 | Word | `.docx`, `.doc` | |
 | PowerPoint | `.pptx`, `.ppt` | |
 | Excel | `.xlsx`, `.xls` | Each sheet becomes a Markdown table. |
@@ -96,7 +98,7 @@ All sizes are in characters.
 
 | Strategy | What it does | When to use it | Defaults |
 |---|---|---|---|
-| `structure` (default) | Packs whole blocks (paragraphs, lists, tables, code) up to `size`, never across a section. Keeps tables, code, and lists whole when they fit. | Most documents. The best general choice. | `size: 1500`, `minSize: 200`, `overlapChars: 0`, `headingLevel: 3` |
+| `structure` (default) | Packs whole blocks (paragraphs, lists, tables, code) up to `size`, never across a section. Keeps tables, code, and lists whole when they fit. | Most documents. The best general choice. | `size: 1500`, `minSize: 200` (or `size` if smaller), `overlapChars: 0`, `headingLevel: 3` |
 | `heading` | One chunk per section, split at headings up to `headingLevel`. | Manuals and docs with a clear heading structure. | no size limit, `headingLevel: 3` |
 | `paragraph` | One chunk per block, with a heading kept with the block after it. | Short, self-contained paragraphs such as FAQs. | no size limit, `minSize: 1`, `overlapChars: 0` |
 | `sentence` | One chunk per sentence. Tables and code blocks count as one sentence each. | Fine-grained search over prose. | no size limit, `minSize: 1`, `overlapChars: 0` |
@@ -195,7 +197,7 @@ Peak memory is about 250 times the size of the Markdown: roughly 250 MB for 1 MB
 
 ## Limitations
 
-- **No OCR.** Scanned PDFs, and PDFs whose pages have no text layer, give a `NO_TEXT_LAYER` warning and no chunks. docchunk never uses anydoc's hosted OCR option.
+- **No OCR.** Images on pages with text are ignored, but if any page of a PDF has no text layer (scanned, or only an image), the whole PDF gives a `NO_TEXT_LAYER` warning and no chunks. docchunk never uses anydoc's hosted OCR option.
 - **Sizes are in characters.** There is no tokenizer, token counting, or custom length function yet.
 - **No HTML input**, no streaming API, no embeddings or semantic chunking, and no vector database integrations. Store the chunks with the tools you already use.
 - **Node.js and Bun only.** Browsers and Deno are not supported yet.

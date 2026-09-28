@@ -91,6 +91,15 @@ describe("structure strategy headings before a large block", () => {
     }
   });
 
+  it("keeps a heading apart when the first piece is a character that cannot be cut", async () => {
+    // Found by fast-check: the heading leaves room for 1 character, but 𐀀 is 2 UTF-16 code units.
+    const result = await chunkDocument(
+      { content: "# Heading one\n𐀀", format: "markdown" },
+      { strategy: "heading", size: 15, headingLevel: 1 },
+    );
+    expect(result.chunks.map((chunk) => chunk.text)).toEqual(["# Heading one", "𐀀"]);
+  });
+
   it("still splits a heading longer than size on its own", async () => {
     const content = `# ${"Long heading ".repeat(4)}\n\n${"Body text. ".repeat(10)}`;
     const texts = await chunkTexts(content, { size: 40, minSize: 10 });
