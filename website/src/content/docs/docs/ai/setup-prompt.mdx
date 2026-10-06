@@ -3,7 +3,9 @@ title: Setup prompt
 description: "A prompt that has an AI agent install Doc-chunk and add a working example to your project."
 ---
 
-import { Tabs, TabItem } from "@astrojs/starlight/components";
+import { Code, Tabs, TabItem } from "@astrojs/starlight/components";
+import existingPipelinePrompt from "../../../../prompts/setup-existing-pipeline.txt?raw";
+import fromScratchPrompt from "../../../../prompts/setup-from-scratch.txt?raw";
 
 Copy one of these prompts into your AI coding agent, such as Claude Code, Cursor, or Codex. The agent reads the Doc-chunk documentation, installs the library, writes the code, runs it on a real document, and shows you the result.
 
@@ -14,40 +16,10 @@ Choose the prompt that matches your project:
 
 <Tabs>
 <TabItem label="Add to an existing pipeline">
-```txt wrap
-Add the docchunk library to this project's RAG pipeline, to split documents into chunks before they are embedded.
-
-Read the documentation first: https://thismesandeep.github.io/docchunk/llms-full.txt
-
-1. Find where this project loads documents and splits them before embedding. Tell me what you found, and your plan, before changing any code.
-2. Check the runtime. docchunk needs Node.js 22.12 or later, or Bun 1.x. If the project uses something else, stop and tell me.
-3. Install docchunk with the package manager this project already uses. Look at the lockfile to find it.
-4. Replace the current splitting code with chunkDocument, or chunkDocuments for many files. Keep the existing embedding and storage code.
-5. Choose the strategy. Use "structure", the default, unless the pipeline searches small chunks and sends larger context to the model; then use "parent-child". Set the size from the embedding model's token limit, at about 3 characters per token.
-6. Store chunk.id as the record id, and chunk.headingPath and chunk.contentHash as metadata. Pass a stable documentId for each file, such as its path, and call chunkDocument once per file when you do.
-7. Log result.warnings, and handle DocchunkError by its code.
-8. Run the pipeline on one real document from this project. Show me the number of chunks, the first two chunks, and any warnings.
-
-Change the embedding and storage code only where the new chunks require it.
-```
+<Code code={existingPipelinePrompt.trimEnd()} lang="txt" wrap />
 </TabItem>
 <TabItem label="Start from scratch">
-```txt wrap
-Set up the docchunk library in this project, to turn documents into chunks for RAG.
-
-Read the documentation first: https://thismesandeep.github.io/docchunk/llms-full.txt
-
-My documents and goal: <describe your documents, and what you'll use the chunks for>
-
-1. Check the runtime. docchunk needs Node.js 22.12 or later, or Bun 1.x. If the project uses something else, stop and tell me.
-2. Install docchunk with the package manager this project already uses. Look at the lockfile to find it. If there is none, use npm.
-3. Choose the strategy for my goal from the "Which strategy to use" table in the documentation. Explain the choice in one sentence.
-4. Write a script, in TypeScript or JavaScript to match the project, that finds every supported file in a folder (default: ./documents), chunks them with chunkDocuments, and writes the chunks to chunks.json. Save each chunk's id, text, headingPath, contentHash, and the path of its source file.
-5. Print the warnings, and the files that failed with their error codes.
-6. Run the script. If the folder is empty, create one short Markdown file in it first. Show me the number of chunks per file, and the first chunk.
-
-Keep the script short and easy to read.
-```
+<Code code={fromScratchPrompt.trimEnd()} lang="txt" wrap />
 </TabItem>
 </Tabs>
 

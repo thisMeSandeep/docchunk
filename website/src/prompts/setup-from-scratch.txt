@@ -1,0 +1,14 @@
+Set up the docchunk library in this project, to turn documents into chunks for RAG.
+
+Read the documentation first: https://thismesandeep.github.io/docchunk/llms-full.txt
+
+My documents and goal: <describe your documents, and what you'll use the chunks for>
+
+1. Check the runtime. docchunk needs Node.js 22.12 or later, or Bun 1.x. If the project uses something else, stop and tell me.
+2. Install docchunk with the package manager this project already uses. Look at the lockfile to find it. If there is none, use npm.
+3. Choose the strategy for my goal from the "Which strategy to use" table in the documentation. Explain the choice in one sentence.
+4. Write a script, in TypeScript or JavaScript to match the project, that finds every supported file in a folder (default: ./documents), chunks them with chunkDocuments, and writes the chunks to chunks.json. Save each chunk's id, text, headingPath, contentHash, and the path of its source file.
+5. Print the warnings, and the files that failed with their error codes.
+6. Run the script. If the folder is empty, create one short Markdown file in it first. Show me the number of chunks per file, and the first chunk.
+
+Keep the script short and easy to read.

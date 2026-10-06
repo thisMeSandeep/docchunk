@@ -1,0 +1,121 @@
+---
+// Two copy buttons under the hero's main buttons: the install command, and the setup prompt for AI agents.
+import setupPrompt from "../../prompts/setup-existing-pipeline.txt?raw";
+
+const installCommand = "npm install docchunk";
+---
+
+<div class="hero-copy-buttons">
+	<button type="button" class="hero-copy-command" data-copy-text={installCommand}>
+		<span class="hero-copy-prompt-sign" aria-hidden="true">$</span>
+		<code>{installCommand}</code>
+		<span class="hero-copy-status" data-copy-status>Copy</span>
+	</button>
+	<button type="button" class="hero-copy-agent" data-copy-text={setupPrompt.trimEnd()}>
+		<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+			<path
+				d="M8 1.5l1.6 3.6 3.9.4-2.9 2.6.8 3.8L8 10l-3.4 1.9.8-3.8L2.5 5.5l3.9-.4z"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.3"
+				stroke-linejoin="round"></path>
+		</svg>
+		<span data-copy-status>Copy agent prompt</span>
+	</button>
+	<p class="hero-copy-announcement" aria-live="polite" data-copy-announcement></p>
+</div>
+
+<script>
+	/** How long a button shows "Copied", in milliseconds. */
+	const copiedDuration = 1600;
+
+	/** Copies a button's text, then shows "Copied" on the button for a moment. */
+	async function copyFromButton(button: HTMLButtonElement): Promise<void> {
+		const text = button.dataset.copyText ?? "";
+		const status = button.querySelector<HTMLElement>("[data-copy-status]");
+		const announcement = document.querySelector<HTMLElement>("[data-copy-announcement]");
+		await navigator.clipboard.writeText(text);
+		if (status === null) {
+			return;
+		}
+		const originalLabel = status.textContent;
+		status.textContent = "Copied";
+		if (announcement !== null) {
+			announcement.textContent = "Copied to the clipboard";
+		}
+		setTimeout(() => {
+			status.textContent = originalLabel;
+		}, copiedDuration);
+	}
+
+	for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy-text]")) {
+		button.addEventListener("click", () => {
+			void copyFromButton(button);
+		});
+	}
+</script>
+
+<style>
+	.hero-copy-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 12px;
+		margin-top: 20px;
+	}
+
+	.hero-copy-command,
+	.hero-copy-agent {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		height: 44px;
+		padding: 0 16px;
+		border: 1px solid var(--landing-border);
+		border-radius: 12px;
+		background: var(--landing-surface);
+		color: var(--landing-muted);
+		font: inherit;
+		font-size: 0.9375rem;
+		cursor: pointer;
+		transition:
+			border-color 0.2s ease,
+			color 0.2s ease;
+	}
+
+	.hero-copy-command:hover,
+	.hero-copy-agent:hover {
+		border-color: var(--landing-border-strong);
+		color: var(--landing-text);
+	}
+
+	.hero-copy-command code {
+		color: var(--landing-text);
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 0.875rem;
+	}
+
+	.hero-copy-prompt-sign {
+		color: var(--landing-subtle);
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	}
+
+	.hero-copy-status {
+		min-width: 3.5em;
+		padding-left: 10px;
+		border-left: 1px solid var(--landing-border);
+		font-size: 0.8125rem;
+		text-align: left;
+	}
+
+	/* Read by screen readers only. */
+	.hero-copy-announcement {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+	}
+</style>

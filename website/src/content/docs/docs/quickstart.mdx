@@ -46,17 +46,15 @@ Pass a file path to `chunkDocument`:
 ```ts title="index.ts"
 import { chunkDocument } from "docchunk";
 
-const result = await chunkDocument({ path: "handbook.pdf" });
+const { chunks } = await chunkDocument({ path: "handbook.pdf" });
 
-console.log(`${result.stats.count} chunks`);
-console.log(result.chunks[0]?.text);
+console.log(chunks);
 ```
 
-`chunkDocument` reads the file, detects its format, converts it to Markdown, and splits it with the default strategy, `structure`. The result has four fields:
+`chunkDocument` reads the file, detects its format, converts it to Markdown, and splits it with the default strategy, `structure`. Besides `chunks`, the result has three more fields:
 
 | Field | Contents |
 |---|---|
-| `chunks` | The chunks, in document order. |
 | `document` | The document's id, format, and the Markdown the chunks were cut from. |
 | `stats` | The number of chunks, their smallest, largest, and average size, and the time taken. |
 | `warnings` | Problems that didn't stop chunking, such as a scanned PDF with no text. |

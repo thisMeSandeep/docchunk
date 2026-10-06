@@ -1,21 +1,23 @@
 ---
 // The hero: badge, headline, subtitle, and buttons on the left; the animated picture on the right.
+import HeroCopyButtons from "./HeroCopyButtons.astro";
 import HeroVisual from "./HeroVisual.astro";
 import { getStartedHref, githubHref } from "../site-links";
 ---
 
 <div class="landing-container hero">
 	<div class="hero-copy">
-		<p class="hero-badge">A TypeScript library</p>
-		<h1 id="hero-title" class="hero-title">Document chunking<br />for developers</h1>
+		<p class="hero-badge">Open source · MIT</p>
+		<h1 id="hero-title" class="hero-title">Document chunking<br />for TypeScript</h1>
 		<p class="hero-subtitle">
-			Turn PDFs, Office files, Markdown, and text into chunks ready for embedding. Fully local,
-			with 11 strategies to choose from.
+			Turn PDFs, Office files, Markdown, and text into chunks ready for <strong>embedding</strong>.
+			Fully local, with <strong>11 strategies</strong> to choose from.
 		</p>
 		<div class="hero-actions">
 			<a href={getStartedHref} class="landing-button">Get started</a>
 			<a href={githubHref} class="landing-button landing-button-ghost">View on GitHub</a>
 		</div>
+		<HeroCopyButtons />
 	</div>
 	<div class="hero-picture">
 		<HeroVisual />
@@ -66,6 +68,12 @@ import { getStartedHref, githubHref } from "../site-links";
 		font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
 		line-height: 1.55;
 		color: var(--landing-muted);
+	}
+
+	/* Key phrases in the subtitle, in the brighter text color. */
+	.hero-subtitle strong {
+		color: var(--landing-text);
+		font-weight: 550;
 	}
 
 	.hero-actions {

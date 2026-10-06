@@ -1,0 +1,14 @@
+Add the docchunk library to this project's RAG pipeline, to split documents into chunks before they are embedded.
+
+Read the documentation first: https://thismesandeep.github.io/docchunk/llms-full.txt
+
+1. Find where this project loads documents and splits them before embedding. Tell me what you found, and your plan, before changing any code.
+2. Check the runtime. docchunk needs Node.js 22.12 or later, or Bun 1.x. If the project uses something else, stop and tell me.
+3. Install docchunk with the package manager this project already uses. Look at the lockfile to find it.
+4. Replace the current splitting code with chunkDocument, or chunkDocuments for many files. Keep the existing embedding and storage code.
+5. Choose the strategy. Use "structure", the default, unless the pipeline searches small chunks and sends larger context to the model; then use "parent-child". Set the size from the embedding model's token limit, at about 3 characters per token.
+6. Store chunk.id as the record id, and chunk.headingPath and chunk.contentHash as metadata. Pass a stable documentId for each file, such as its path, and call chunkDocument once per file when you do.
+7. Log result.warnings, and handle DocchunkError by its code.
+8. Run the pipeline on one real document from this project. Show me the number of chunks, the first two chunks, and any warnings.
+
+Change the embedding and storage code only where the new chunks require it.
